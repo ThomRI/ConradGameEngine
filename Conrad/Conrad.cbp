@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Conrad" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Conrad" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="$(#sdl2.INCLUDE)" />
+					<Add directory="$(#glm.INCLUDE)" />
+					<Add directory="include" />
+					<Add directory="$(#glew.INCLUDE)" />
+				</Compiler>
+				<Linker>
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
+					<Add library="$(#sdl2.LIB)/libSDL2main.a" />
+					<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
+					<Add library="$(#glew.LIB)/Release/Win32/glew32.lib" />
+					<Add directory="$(#sdl2.LIB)" />
+					<Add directory="$(#glew.LIB)/Release/Win32" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Conrad" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="$(#sdl2.INCLUDE)" />
+					<Add directory="$(#glm.INCLUDE)" />
+					<Add directory="include" />
+					<Add directory="$(#glew.INCLUDE)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
+					<Add library="$(#sdl2.LIB)/libSDL2main.a" />
+					<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
+					<Add library="$(#glew.LIB)/Release/Win32/glew32.lib" />
+					<Add directory="$(#sdl2.LIB)" />
+					<Add directory="$(#glew.LIB)/Release/Win32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="$(#sdl2.INCLUDE)" />
+			<Add directory="$(#glm.INCLUDE)" />
+			<Add directory="$(#glew.INCLUDE)" />
+		</Compiler>
+		<Linker>
+			<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
+			<Add library="$(#sdl2.LIB)/libSDL2main.a" />
+			<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
+			<Add library="$(#glew.LIB)/Release/Win32/glew32.lib" />
+			<Add directory="$(#sdl2.LIB)" />
+			<Add directory="$(#glew.LIB)/Release/Win32" />
+		</Linker>
+		<Unit filename="include/Application.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Application.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
