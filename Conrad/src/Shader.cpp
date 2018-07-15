@@ -5,9 +5,7 @@ using namespace std;
 Shader::Shader(string vertexPath, string fragmentPath) :
     m_vertexPath(vertexPath), m_fragmentPath(fragmentPath)
 {
-    if(load()) {
-        cout << "Successfully loaded shader." << endl;
-    }
+
 }
 
 Shader::Shader(Shader const &shader)
