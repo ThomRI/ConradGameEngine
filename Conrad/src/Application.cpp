@@ -56,29 +56,21 @@ bool Application::init()
 void Application::loop(int const fps)
 {
     ms delay(1000.0/fps);
-    std::cout << "Starting app loop with " << fps << " fps (delay : " << delay.count() << ")" << std::endl;
+    std::cout << "Starting : " << fps << " fps" << std::endl;
 
-    SDL_Event event;
     while(m_run) {
         auto start = std::chrono::steady_clock::now();
-
-        /*SDL_WaitEvent(&event);
-        if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
-            m_run = false;
-        }*/
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //glClearColor(1.0, 0.0, 0.0, 0.0);
 
             m_renderer->render();
 
         SDL_GL_SwapWindow(m_window);
 
         // consistent fps system
-        auto delta = std::chrono::duration_cast<ms>(delay - (std::chrono::steady_clock::now() - start)); // Time that remains to be waited before next frame
-        if(delta.count() > 0) {
-            std::cout << "FPS Fidelity : " << delta.count()*100 / delay.count() << "%" << std::endl;
-            std::this_thread::sleep_for(delta);
+        auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // Time that remains to be waited before next frame
+        if(delta < delay) {
+            //std::cout << "FPS Fidelity : " << (delay - delta).count()*100 / delay.count() << "%" << std::endl; // For debug only : very slow !
+            std::this_thread::sleep_for(delay - delta);
         }
     }
 }
