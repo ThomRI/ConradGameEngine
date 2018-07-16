@@ -1,7 +1,9 @@
 # depslib dependency file v1.0
-1531681178 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1531766732 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
+	"Shader.h"
+	"TestCube.h"
 
 1519925905 c:\libs\sdl2-2.0.8\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -671,12 +673,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531681108 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
+1531764112 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
 	<SDL2/SDL.h>
+	"Renderer.h"
 	<GL/glew.h>
 	<GL3/gl3.h>
 
-1531681162 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1531768964 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -687,4 +690,1158 @@
 	<Availability.h>
 	<OpenGL/glu.h>
 	<GL/glu.h>
+
+1531769191 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
+	"AbstractMesh.h"
+
+1531770030 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
+	"scope.h"
+	<iostream>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1531759645 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+
+1526978384 c:\libs\glm\glm.hpp
+	"detail/_fixes.hpp"
+	"detail/setup.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cassert>
+	"fwd.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"trigonometric.hpp"
+	"exponential.hpp"
+	"common.hpp"
+	"packing.hpp"
+	"geometric.hpp"
+	"matrix.hpp"
+	"vector_relational.hpp"
+	"integer.hpp"
+
+1464689062 c:\libs\glm\detail\_fixes.hpp
+	<cmath>
+
+1525699416 c:\libs\glm\detail\setup.hpp
+	<cassert>
+	<cstddef>
+	"../simd/platform.h"
+
+1525699416 c:\libs\glm\simd\platform.h
+	<cuda.h>
+	<intrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<popcntintrin.h>
+	<nmmintrin.h>
+	<smmintrin.h>
+	<tmmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1525699384 c:\libs\glm\fwd.hpp
+	"detail/setup.hpp"
+	"detail/type_int.hpp"
+	"detail/type_float.hpp"
+	"detail/type_vec.hpp"
+	"detail/type_mat.hpp"
+
+1525699384 c:\libs\glm\detail\type_int.hpp
+	"setup.hpp"
+	<type_traits>
+	<cstdint>
+
+1525699384 c:\libs\glm\detail\type_float.hpp
+	"setup.hpp"
+
+1525699384 c:\libs\glm\detail\type_vec.hpp
+	"qualifier.hpp"
+	"type_int.hpp"
+	"compute_vector_relational.hpp"
+
+1525699384 c:\libs\glm\detail\qualifier.hpp
+	"setup.hpp"
+
+1525699384 c:\libs\glm\detail\compute_vector_relational.hpp
+	"setup.hpp"
+	<cstring>
+	<limits>
+
+1525699384 c:\libs\glm\detail\type_mat.hpp
+	"qualifier.hpp"
+
+1525699384 c:\libs\glm\vec2.hpp
+	"detail/setup.hpp"
+	"detail/type_vec2.hpp"
+
+1525699384 c:\libs\glm\detail\type_vec2.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec2.inl"
+
+1525699384 c:\libs\glm\detail\_swizzle.hpp
+
+1525699384 c:\libs\glm\detail\_swizzle_func.hpp
+
+1525699384 c:\libs\glm\detail\type_vec2.inl
+
+1525699384 c:\libs\glm\vec3.hpp
+	"detail/setup.hpp"
+	"detail/type_vec3.hpp"
+
+1525699384 c:\libs\glm\detail\type_vec3.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec3.inl"
+
+1525699384 c:\libs\glm\detail\type_vec3.inl
+
+1525699384 c:\libs\glm\vec4.hpp
+	"detail/setup.hpp"
+	"detail/type_vec4.hpp"
+
+1525699384 c:\libs\glm\detail\type_vec4.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec4.inl"
+
+1525699384 c:\libs\glm\detail\type_vec4.inl
+	"type_vec4_simd.inl"
+
+1525699384 c:\libs\glm\detail\type_vec4_simd.inl
+
+1525699384 c:\libs\glm\mat2x2.hpp
+	"detail/setup.hpp"
+	"detail/type_mat2x2.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat2x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x2.inl"
+
+1525699384 c:\libs\glm\detail\type_mat2x2.inl
+	"../matrix.hpp"
+
+1525699384 c:\libs\glm\matrix.hpp
+	"detail/qualifier.hpp"
+	"detail/setup.hpp"
+	"detail/type_mat.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"detail/func_matrix.inl"
+
+1525699384 c:\libs\glm\mat2x3.hpp
+	"detail/setup.hpp"
+	"detail/type_mat2x3.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat2x3.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x3.inl"
+
+1525699384 c:\libs\glm\detail\type_mat2x3.inl
+
+1525699384 c:\libs\glm\mat2x4.hpp
+	"detail/setup.hpp"
+	"detail/type_mat2x4.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat2x4.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x4.inl"
+
+1525699384 c:\libs\glm\detail\type_mat2x4.inl
+
+1525699384 c:\libs\glm\mat3x2.hpp
+	"detail/setup.hpp"
+	"detail/type_mat3x2.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat3x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x2.inl"
+
+1525699384 c:\libs\glm\detail\type_mat3x2.inl
+
+1525699384 c:\libs\glm\mat3x3.hpp
+	"detail/setup.hpp"
+	"detail/type_mat3x3.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat3x3.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x3.inl"
+
+1525699384 c:\libs\glm\detail\type_mat3x3.inl
+	"../matrix.hpp"
+
+1525699384 c:\libs\glm\mat3x4.hpp
+	"detail/setup.hpp"
+	"detail/type_mat3x4.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat3x4.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x4.inl"
+
+1525699384 c:\libs\glm\detail\type_mat3x4.inl
+
+1525699384 c:\libs\glm\mat4x2.hpp
+	"detail/setup.hpp"
+	"detail/type_mat4x2.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat4x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x2.inl"
+
+1525699384 c:\libs\glm\detail\type_mat4x2.inl
+
+1525699384 c:\libs\glm\mat4x3.hpp
+	"detail/setup.hpp"
+	"detail/type_mat4x3.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat4x3.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x3.inl"
+
+1525699384 c:\libs\glm\detail\type_mat4x3.inl
+
+1525699384 c:\libs\glm\mat4x4.hpp
+	"detail/setup.hpp"
+	"detail/type_mat4x4.hpp"
+
+1525699384 c:\libs\glm\detail\type_mat4x4.hpp
+	"../fwd.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x4.inl"
+
+1525699384 c:\libs\glm\detail\type_mat4x4.inl
+	"../matrix.hpp"
+	"type_mat4x4_simd.inl"
+
+1464689064 c:\libs\glm\detail\type_mat4x4_simd.inl
+
+1525699384 c:\libs\glm\detail\func_matrix.inl
+	"../geometric.hpp"
+	<limits>
+	"func_matrix_simd.inl"
+
+1525699384 c:\libs\glm\geometric.hpp
+	"detail/type_vec3.hpp"
+	"detail/func_geometric.inl"
+
+1525699384 c:\libs\glm\detail\func_geometric.inl
+	"../exponential.hpp"
+	"../common.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_float.hpp"
+	"func_geometric_simd.inl"
+
+1525699384 c:\libs\glm\exponential.hpp
+	"detail/type_vec1.hpp"
+	"detail/type_vec2.hpp"
+	"detail/type_vec3.hpp"
+	"detail/type_vec4.hpp"
+	<cmath>
+	"detail/func_exponential.inl"
+
+1525699384 c:\libs\glm\detail\type_vec1.hpp
+
+1525699384 c:\libs\glm\detail\func_exponential.inl
+	"../vector_relational.hpp"
+	"_vectorize.hpp"
+	<limits>
+	<cmath>
+	<cassert>
+	"func_exponential_simd.inl"
+
+1525699384 c:\libs\glm\vector_relational.hpp
+	"detail/qualifier.hpp"
+	"detail/setup.hpp"
+	"detail/func_vector_relational.inl"
+
+1525699384 c:\libs\glm\detail\func_vector_relational.inl
+	"compute_vector_relational.hpp"
+	"func_vector_relational_simd.inl"
+
+1464689062 c:\libs\glm\detail\func_vector_relational_simd.inl
+
+1525699384 c:\libs\glm\detail\_vectorize.hpp
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+
+1525699384 c:\libs\glm\detail\func_exponential_simd.inl
+	"../simd/exponential.h"
+
+1464689064 c:\libs\glm\simd\exponential.h
+	"platform.h"
+
+1525699384 c:\libs\glm\common.hpp
+	"detail/setup.hpp"
+	"detail/qualifier.hpp"
+	"detail/type_int.hpp"
+	"detail/_fixes.hpp"
+	"detail/func_common.inl"
+
+1525713578 c:\libs\glm\detail\func_common.inl
+	"../vector_relational.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"_vectorize.hpp"
+	<limits>
+	"func_common_simd.inl"
+
+1525699384 c:\libs\glm\detail\func_common_simd.inl
+	"../simd/common.h"
+	<immintrin.h>
+
+1525699384 c:\libs\glm\simd\common.h
+	"platform.h"
+
+1525699384 c:\libs\glm\detail\func_geometric_simd.inl
+	"../simd/geometric.h"
+
+1525699384 c:\libs\glm\simd\geometric.h
+	"common.h"
+
+1525699384 c:\libs\glm\detail\func_matrix_simd.inl
+	"type_mat4x4.hpp"
+	"../geometric.hpp"
+	"../simd/matrix.h"
+	<cstring>
+
+1525699384 c:\libs\glm\simd\matrix.h
+	"geometric.h"
+
+1525699384 c:\libs\glm\trigonometric.hpp
+	"detail/setup.hpp"
+	"detail/qualifier.hpp"
+	"detail/func_trigonometric.inl"
+
+1525699384 c:\libs\glm\detail\func_trigonometric.inl
+	"_vectorize.hpp"
+	<cmath>
+	<limits>
+	"func_trigonometric_simd.inl"
+
+1464689062 c:\libs\glm\detail\func_trigonometric_simd.inl
+
+1525699384 c:\libs\glm\packing.hpp
+	"detail/type_vec2.hpp"
+	"detail/type_vec4.hpp"
+	"detail/func_packing.inl"
+
+1525699384 c:\libs\glm\detail\func_packing.inl
+	"../common.hpp"
+	"type_half.hpp"
+	"../fwd.hpp"
+	"func_packing_simd.inl"
+
+1525699384 c:\libs\glm\detail\type_half.hpp
+	"setup.hpp"
+	"type_half.inl"
+
+1525699384 c:\libs\glm\detail\type_half.inl
+
+1464689062 c:\libs\glm\detail\func_packing_simd.inl
+
+1525699384 c:\libs\glm\integer.hpp
+	"detail/setup.hpp"
+	"detail/qualifier.hpp"
+	"common.hpp"
+	"vector_relational.hpp"
+	"detail/func_integer.inl"
+
+1525699384 c:\libs\glm\detail\func_integer.inl
+	"../ext/vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_int.hpp"
+	"_vectorize.hpp"
+	<intrin.h>
+	<limits>
+	"func_integer_simd.inl"
+
+1526978384 c:\libs\glm\ext\vec1.hpp
+	"../fwd.hpp"
+	"../detail/type_vec.hpp"
+	"../detail/_swizzle.hpp"
+	"../detail/_swizzle_func.hpp"
+	<cstddef>
+	"../detail/type_vec1.inl"
+
+1525699384 c:\libs\glm\detail\type_vec1.inl
+
+1525699384 c:\libs\glm\detail\func_integer_simd.inl
+	"../simd/integer.h"
+
+1525699384 c:\libs\glm\simd\integer.h
+
+1525699384 c:\libs\glm\gtx\transform.hpp
+	"../glm.hpp"
+	"../gtc/matrix_transform.hpp"
+	"transform.inl"
+
+1525699384 c:\libs\glm\gtc\matrix_transform.hpp
+	"../mat4x4.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../gtc/constants.hpp"
+	"matrix_transform.inl"
+
+1525699384 c:\libs\glm\gtc\constants.hpp
+	"../detail/setup.hpp"
+	"constants.inl"
+
+1525699384 c:\libs\glm\gtc\constants.inl
+	<limits>
+
+1525699384 c:\libs\glm\gtc\matrix_transform.inl
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+
+1525699384 c:\libs\glm\gtx\transform.inl
+
+1525699384 c:\libs\glm\gtc\type_ptr.hpp
+	"../gtc/quaternion.hpp"
+	"../gtc/vec1.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../mat2x2.hpp"
+	"../mat2x3.hpp"
+	"../mat2x4.hpp"
+	"../mat3x2.hpp"
+	"../mat3x3.hpp"
+	"../mat3x4.hpp"
+	"../mat4x2.hpp"
+	"../mat4x3.hpp"
+	"../mat4x4.hpp"
+	<cstring>
+	"type_ptr.inl"
+
+1526978384 c:\libs\glm\gtc\quaternion.hpp
+	"../mat3x3.hpp"
+	"../mat4x4.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../gtc/constants.hpp"
+	"quaternion.inl"
+
+1525699384 c:\libs\glm\gtc\quaternion.inl
+	"../trigonometric.hpp"
+	"../geometric.hpp"
+	"../exponential.hpp"
+	"../detail/compute_vector_relational.hpp"
+	"epsilon.hpp"
+	<limits>
+	"quaternion_simd.inl"
+
+1525699384 c:\libs\glm\gtc\epsilon.hpp
+	"../detail/setup.hpp"
+	"../detail/qualifier.hpp"
+	"epsilon.inl"
+
+1525699384 c:\libs\glm\gtc\epsilon.inl
+	"quaternion.hpp"
+	"../vector_relational.hpp"
+	"../common.hpp"
+	"../detail/type_vec.hpp"
+
+1525699384 c:\libs\glm\gtc\quaternion_simd.inl
+
+1526978384 c:\libs\glm\gtc\vec1.hpp
+	"../ext/vec1.hpp"
+	"vec1.inl"
+
+1464689064 c:\libs\glm\gtc\vec1.inl
+
+1525699384 c:\libs\glm\gtc\type_ptr.inl
+	<cstring>
+
+1531765432 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
+	<vector>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	"Shader.h"
+	"AbstractMesh.h"
+
+1531766125 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
+	"scope.h"
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+	<fstream>
+	<iostream>
+	<string>
+
+1531760548 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testcube.h
+	"StaticMesh.h"
+	<iostream>
+
+1531755191 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
+	"AbstractMesh.h"
+
+1531766182 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
+	"Shader.h"
+
+1531760522 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
+	"StaticMesh.h"
+
+1531769298 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
+	"TestCube.h"
+
+1531768948 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+	"Renderer.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\begin_code.h
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\close_code.h
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<intrin.h>
+	<libkern/OSAtomic.h>
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_pixels.h
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1531763309 c:\libs\glew\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1531763309 c:\libs\glm\include\glm\glm.hpp
+	"core/_fixes.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cstdio>
+	"core/setup.hpp"
+	"./core/_detail.hpp"
+	"./core/_vectorize.hpp"
+	"./core/type.hpp"
+	"./core/func_trigonometric.hpp"
+	"./core/func_exponential.hpp"
+	"./core/func_common.hpp"
+	"./core/func_packing.hpp"
+	"./core/func_geometric.hpp"
+	"./core/func_matrix.hpp"
+	"./core/func_vector_relational.hpp"
+	"./core/func_integer.hpp"
+	"./core/func_noise.hpp"
+	"./core/_swizzle.hpp"
+
+1531763310 c:\libs\glm\include\glm\core\_fixes.hpp
+	<cmath>
+
+1531763309 c:\libs\glm\include\glm\core\setup.hpp
+	<intrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<smmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1531763310 c:\libs\glm\include\glm\core\_detail.hpp
+	"setup.hpp"
+	<cassert>
+	<cstdint>
+
+1531763310 c:\libs\glm\include\glm\core\_vectorize.hpp
+
+1531763309 c:\libs\glm\include\glm\core\type.hpp
+	"type_half.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_gentype.hpp"
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat2x2.hpp"
+	"type_mat2x3.hpp"
+	"type_mat2x4.hpp"
+	"type_mat3x2.hpp"
+	"type_mat3x3.hpp"
+	"type_mat3x4.hpp"
+	"type_mat4x2.hpp"
+	"type_mat4x3.hpp"
+	"type_mat4x4.hpp"
+
+1531763309 c:\libs\glm\include\glm\core\type_half.hpp
+	<cstdlib>
+	"type_half.inl"
+
+1531763309 c:\libs\glm\include\glm\core\type_half.inl
+	"_detail.hpp"
+
+1531763309 c:\libs\glm\include\glm\core\type_float.hpp
+	"type_half.hpp"
+	"setup.hpp"
+
+1531763309 c:\libs\glm\include\glm\core\type_int.hpp
+	"setup.hpp"
+	"_detail.hpp"
+
+1531763309 c:\libs\glm\include\glm\core\type_gentype.hpp
+	"type_size.hpp"
+
+1531763310 c:\libs\glm\include\glm\core\type_size.hpp
+	<cstdlib>
+
+1531763310 c:\libs\glm\include\glm\core\type_vec1.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec1.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_vec.hpp
+	"type_gentype.hpp"
+
+1531763310 c:\libs\glm\include\glm\core\_swizzle.hpp
+	"_swizzle_func.hpp"
+
+1531763310 c:\libs\glm\include\glm\core\_swizzle_func.hpp
+
+1531763310 c:\libs\glm\include\glm\core\type_vec1.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_vec2.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec2.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_vec2.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_vec3.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec3.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_vec3.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_vec4.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec4.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_vec4.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat2x2.hpp
+	"type_mat.hpp"
+	"type_mat2x2.inl"
+
+1531763309 c:\libs\glm\include\glm\core\type_mat.hpp
+	"type_gentype.hpp"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat2x2.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat2x3.hpp
+	"type_mat.hpp"
+	"type_mat2x3.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat2x3.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat2x4.hpp
+	"type_mat.hpp"
+	"type_mat2x4.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat2x4.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat3x2.hpp
+	"type_mat.hpp"
+	"type_mat3x2.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat3x2.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat3x3.hpp
+	"type_mat.hpp"
+	"type_mat3x3.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat3x3.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat3x4.hpp
+	"type_mat.hpp"
+	"type_mat3x4.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat3x4.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat4x2.hpp
+	"type_mat.hpp"
+	"type_mat4x2.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat4x2.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat4x3.hpp
+	"type_mat.hpp"
+	"type_mat4x3.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat4x3.inl
+
+1531763310 c:\libs\glm\include\glm\core\type_mat4x4.hpp
+	"type_mat.hpp"
+	"type_mat4x4.inl"
+
+1531763310 c:\libs\glm\include\glm\core\type_mat4x4.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_trigonometric.hpp
+	"func_trigonometric.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_trigonometric.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_exponential.hpp
+	"func_exponential.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_exponential.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_common.hpp
+	"_fixes.hpp"
+	"func_common.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_common.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_packing.hpp
+	"func_packing.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_packing.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_geometric.hpp
+	"func_geometric.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_geometric.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_matrix.hpp
+	"func_matrix.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_matrix.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_vector_relational.hpp
+	"_detail.hpp"
+	"func_vector_relational.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_vector_relational.inl
+
+1531763309 c:\libs\glm\include\glm\core\func_integer.hpp
+	"func_integer.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_integer.inl
+	<intrin.h>
+
+1531763309 c:\libs\glm\include\glm\core\func_noise.hpp
+	"func_noise.inl"
+
+1531763309 c:\libs\glm\include\glm\core\func_noise.inl
+
+1531763312 c:\libs\glm\include\glm\gtx\transform.hpp
+	"../glm.hpp"
+	"../gtc/matrix_transform.hpp"
+	"transform.inl"
+
+1531763310 c:\libs\glm\include\glm\gtc\matrix_transform.hpp
+	"../glm.hpp"
+	"matrix_transform.inl"
+
+1531763310 c:\libs\glm\include\glm\gtc\matrix_transform.inl
+
+1531763312 c:\libs\glm\include\glm\gtx\transform.inl
+
+1531763311 c:\libs\glm\include\glm\gtc\type_ptr.hpp
+	"../glm.hpp"
+	"../gtc/half_float.hpp"
+	"../gtc/quaternion.hpp"
+	<cstring>
+	"type_ptr.inl"
+
+1531763310 c:\libs\glm\include\glm\gtc\half_float.hpp
+	"../glm.hpp"
+	"half_float.inl"
+
+1531763310 c:\libs\glm\include\glm\gtc\half_float.inl
+
+1531763310 c:\libs\glm\include\glm\gtc\quaternion.hpp
+	"../glm.hpp"
+	"../gtc/half_float.hpp"
+	"../gtc/constants.hpp"
+	"quaternion.inl"
+
+1531763310 c:\libs\glm\include\glm\gtc\constants.hpp
+	"../glm.hpp"
+	"../gtc/half_float.hpp"
+	"constants.inl"
+
+1531763310 c:\libs\glm\include\glm\gtc\constants.inl
+
+1531763310 c:\libs\glm\include\glm\gtc\quaternion.inl
+	<limits>
+
+1531763311 c:\libs\glm\include\glm\gtc\type_ptr.inl
 

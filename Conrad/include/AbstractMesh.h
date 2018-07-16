@@ -8,10 +8,28 @@
  * \version 0.1
  */
 
+ #include "scope.h"
+ #include <iostream>
+
  /* GLM */
- #include <glm.hpp>
- #include <gtx/transform.hpp>
- #include <gtc/type_ptr.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+/* Cross-plateform includes */
+
+#ifdef WIN32
+    #include <GL/glew.h>
+
+#elif __APPLE__
+    #define GL3_PROTOTYPES 1
+    #include <OpenGL/gl3.h>
+
+#else // UNIX / Linux
+    #define GL3_PROTOTYPES 1
+    #include <GL3/gl3.h>
+
+#endif
 
 /*!
  * \class AbstractMesh AbstractMesh.h
@@ -20,7 +38,7 @@
 class AbstractMesh
 {
     public:
-        AbstractMesh(int verticesLength, int colorsLength);
+        AbstractMesh(int verticesLength, int colorsLength, GLenum meshType);
         AbstractMesh(int verticesLength, int colorsLength, float *vertices, float *colors, GLenum meshType);
         virtual ~AbstractMesh();
 
@@ -34,7 +52,7 @@ class AbstractMesh
 
     protected:
         /* World */
-        glm::mat4 m_modelview = mat4(1.0);
+        glm::mat4 m_modelview = glm::mat4(1.0);
 
     private:
         /* Mesh datas */
@@ -43,6 +61,8 @@ class AbstractMesh
                 *m_texCoords;
         int m_verticesLength, // Number of vertices
             m_colorsLength;
+        int m_verticesSize,
+            m_colorsSize;
 
         /* OpenGL */
         GLuint  m_vboID,

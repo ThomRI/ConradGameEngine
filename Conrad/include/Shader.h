@@ -1,8 +1,9 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-/* Cross-plateform includes */
+#include "scope.h"
 
+/* Cross-plateform includes */
 #ifdef WIN32
     #include <GL/glew.h>
 
@@ -16,20 +17,20 @@
 
 #endif
 
-/* Defines for VertexAttribPointer IDs */
-#define VERTEX_BUFFER   0
-#define COLOR_BUFFER    1
-#define TEX_BUFFER      2
-
+#include <fstream>
 #include <iostream>
 #include <string>
 
 class Shader
 {
     public:
+        Shader();
         Shader(std::string vertexPath, std::string fragmentPath);
-        Shader(Shader const &shader);
         virtual ~Shader();
+
+        void setVertexPath(std::string vertexPath);
+        void setFragmentPath(std::string fragmentPath);
+        void setPaths(std::string vertexPath, std::string fragmentPath);
 
         bool load();
 
@@ -38,8 +39,8 @@ class Shader
         GLuint getVertexShaderID();
         GLuint getFragmentShaderID();
 
-        /* Operator overload */
-        Shader &operator=(Shader const &shader);
+        std::string getVertexPath() const;
+        std::string getFragmentPath() const;
 
     protected:
         static bool compile(GLuint &id, GLenum type, std::string const path);

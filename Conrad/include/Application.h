@@ -1,6 +1,8 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#define GLEW_STATIC
+
 #include <SDL2/SDL.h>
 #include "Renderer.h"
 

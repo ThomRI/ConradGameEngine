@@ -9,16 +9,13 @@
 
 #include <vector>
 
-#include <glm.hpp>
-#include <gtx/transform.hpp>
-#include <gtc/type_ptr.hpp>
+/* GLM */
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.h"
-
-/* Defines a byte offset from an index offset */
-#ifndef BUFFER_OFFSET
-    #define BUFFER_OFFSET(offset) ((char*)NULL + offset)
-#endif
+#include "AbstractMesh.h"
 
 /*!
  * \class Renderer
@@ -27,8 +24,10 @@
 class Renderer
 {
     public:
-        Renderer(Shader shader);
+        Renderer();
         virtual ~Renderer();
+
+        void setShader(Shader shader);
 
         void render(); // Pushes next frame into buffer
 
@@ -41,10 +40,10 @@ class Renderer
         Shader m_shader;
 
         /* Scene */
-        std::vector<*AbstractMesh> m_meshes;
+        std::vector<AbstractMesh*> m_meshes;
 
-        glm::mat4 m_projection = mat4(1.0);
-        glm::mat4 m_global_modelview = mat4(1.0); // Set as identity by default
+        glm::mat4 m_projection = glm::mat4(1.0);
+        glm::mat4 m_global_modelview = glm::mat4(1.0); // Set as identity by default
 };
 
 #endif // RENDERER_H

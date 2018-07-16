@@ -2,16 +2,31 @@
 
 using namespace std;
 
+Shader::Shader()
+{
+    cout << "Default constructor" << endl;
+}
+
 Shader::Shader(string vertexPath, string fragmentPath) :
     m_vertexPath(vertexPath), m_fragmentPath(fragmentPath)
 {
-
+    cout << "String constructor" << endl;
 }
 
-Shader::Shader(Shader const &shader)
+void Shader::setVertexPath(string vertexPath)
 {
-    m_vertexPath = shader.m_vertexID;
-    m_fragmentPath = shader.m_fragmentPath;
+    m_vertexPath = vertexPath;
+}
+
+void Shader::setFragmentPath(string fragmentPath)
+{
+    m_fragmentPath = fragmentPath;
+}
+
+void Shader::setPaths(string vertexPath, string fragmentPath)
+{
+    m_vertexPath = vertexPath;
+    m_fragmentPath = fragmentPath;
 }
 
 bool Shader::load()
@@ -30,12 +45,14 @@ bool Shader::load()
     }
 
 
+    cout << "Compiling " << m_vertexPath << endl;
     /* Compiling vertex and fragment shaders */
     if(!Shader::compile(m_vertexID, GL_VERTEX_SHADER, m_vertexPath)) {
-        cout << "Error compiling a VERTEX_SHADER." << endl;
+        cout << "Error compiling a VERTEX_SHADER. (" << m_vertexPath << ")" << endl;
         return false;
     }
 
+    cout << "Compiling " << m_fragmentPath << endl;
     if(!Shader::compile(m_fragmentID, GL_FRAGMENT_SHADER, m_fragmentPath)) {
         cout << "Error compiling a FRAGMENT_SHADER." << endl;
         return false;
@@ -44,7 +61,7 @@ bool Shader::load()
     /* Program Creation */
     m_programID = glCreateProgram();
     glAttachShader(m_programID, m_vertexID);
-    glAttachShader(m_progamID, m_fragmentID);
+    glAttachShader(m_programID, m_fragmentID);
 
     /* VertexAttribPointer IDs (those are universal in the engine */
     glBindAttribLocation(m_programID, VERTEX_BUFFER, "in_Vertex");
@@ -87,6 +104,7 @@ bool Shader::compile(GLuint &id, GLenum type, string const path)
     /* Loading file */
         ifstream file(path.c_str());
         if(!file) {
+            cout << "Can't open file !" << endl;
             glDeleteShader(id);
             return false;
         }
@@ -99,19 +117,20 @@ bool Shader::compile(GLuint &id, GLenum type, string const path)
         file.close();
 
     /* Compiling shader */
-        glShaderSource(id, 1, &(source.c_str()), 0);
+        const GLchar *source_cstr = source.c_str();
+        glShaderSource(id, 1, &source_cstr, 0);
         glCompileShader(id);
 
     /* Checking compilation */
     GLint status(0);
-    glGetShaderiv(id, GL_COMPILE_STATUS, &error);
+    glGetShaderiv(id, GL_COMPILE_STATUS, &status);
 
     if(status != GL_TRUE) { // An error occurred
         GLint errorSize(0);
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &errorSize);
 
         char *error = new char[errorSize + 1]; // +1 for EOF (not provided by glGetShaderInfoLog)
-        glGetShaderInfoLog(id, errorSize, &errorSier, error);
+        glGetShaderInfoLog(id, errorSize, &errorSize, error);
         error[errorSize] = '\0'; // EOF
 
         cout << error << endl;
@@ -140,14 +159,14 @@ GLuint Shader::getFragmentShaderID()
     return m_fragmentID;
 }
 
-Shader &Shader::operator=(Shader const &shader)
+string Shader::getVertexPath() const
 {
-    m_vertexPath = shader.m_vertexPath;
-    m_fragmentPath = shader.m_fragmentPath;
+    return m_vertexPath;
+}
 
-    load();
-
-    return *this;
+string Shader::getFragmentPath() const
+{
+    return m_fragmentPath;
 }
 
 Shader::~Shader()

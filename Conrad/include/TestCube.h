@@ -2,6 +2,7 @@
 #define TESTCUBE_H
 
 #include "StaticMesh.h"
+#include <iostream>
 
 class TestCube : public StaticMesh
 {
