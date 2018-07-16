@@ -10,7 +10,9 @@ int main(int argc, char **argv)
     cout << "Hello world!" << endl;
 
     Application *app = new Application("Sexer", 640, 480);
-    cout << "App init : " << app->init() << endl;
+    if(!app->init()) {
+        cout << "Error setting up SDL or context" << endl;
+    }
 
     Shader shader(string("shaders/basic/color3D.vert"), string("shaders/basic/color3D.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
@@ -18,7 +20,7 @@ int main(int argc, char **argv)
     TestCube *cube = new TestCube(1.0);
     app->getRenderer()->addMesh(cube);
 
-    app->loop(60); // 60 fps
+    app->loop(30); // 60 fps
 
     return 0;
 }

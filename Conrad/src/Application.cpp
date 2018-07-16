@@ -42,6 +42,10 @@ bool Application::init()
         }
     #endif // WIN32
 
+    /* Enabling depth test */
+    glEnable(GL_DEPTH_TEST);
+
+    std::cout << "Application initialized." << std::endl;
 
     return true;
 }
@@ -49,10 +53,19 @@ bool Application::init()
 void Application::loop(int fps)
 {
     double delay = 1000.0 / fps;
+    std::cout << "Starting app loop at " << fps << " fps (delay : " << delay << "ms)." << std::endl;
+
+    SDL_Event event;
     while(m_run) {
         double start = SDL_GetTicks();
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        SDL_WaitEvent(&event);
+        if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
+            m_run = false;
+        }
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //glClearColor(1.0, 0.0, 0.0, 0.0);
 
             m_renderer->render();
 
@@ -61,6 +74,7 @@ void Application::loop(int fps)
         // consistent fps system
         double delta = delay - (SDL_GetTicks() - start); // Time that remains to be waited before next frame
         if(delta > 0) {
+            //std::cout << delta << std::endl;
             SDL_Delay(delta);
         }
     }

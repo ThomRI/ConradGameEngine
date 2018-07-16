@@ -4,13 +4,13 @@ using namespace std;
 
 Shader::Shader()
 {
-    cout << "Default constructor" << endl;
+
 }
 
 Shader::Shader(string vertexPath, string fragmentPath) :
     m_vertexPath(vertexPath), m_fragmentPath(fragmentPath)
 {
-    cout << "String constructor" << endl;
+
 }
 
 void Shader::setVertexPath(string vertexPath)
@@ -44,17 +44,12 @@ bool Shader::load()
         glDeleteProgram(m_programID);
     }
 
-
-    cout << "Compiling " << m_vertexPath << endl;
     /* Compiling vertex and fragment shaders */
     if(!Shader::compile(m_vertexID, GL_VERTEX_SHADER, m_vertexPath)) {
-        cout << "Error compiling a VERTEX_SHADER. (" << m_vertexPath << ")" << endl;
         return false;
     }
 
-    cout << "Compiling " << m_fragmentPath << endl;
     if(!Shader::compile(m_fragmentID, GL_FRAGMENT_SHADER, m_fragmentPath)) {
-        cout << "Error compiling a FRAGMENT_SHADER." << endl;
         return false;
     }
 
@@ -104,7 +99,7 @@ bool Shader::compile(GLuint &id, GLenum type, string const path)
     /* Loading file */
         ifstream file(path.c_str());
         if(!file) {
-            cout << "Can't open file !" << endl;
+            cout << "Can't open shader file ! (" << path << ")" << endl;
             glDeleteShader(id);
             return false;
         }

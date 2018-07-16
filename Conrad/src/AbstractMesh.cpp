@@ -1,7 +1,5 @@
 #include "AbstractMesh.h"
 
-using namespace std;
-
 AbstractMesh::AbstractMesh(int verticesLength, int colorsLength, GLenum meshType) :
     m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_meshType(meshType)
 {
@@ -57,7 +55,6 @@ void AbstractMesh::load()
             glBufferData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize, 0, m_meshType);
             // TODO : Add Texture support in AbstractMesh
 
-            cout << "GPU : " << m_verticesSize << "(vert) | " << m_colorsSize + m_verticesSize << "(colors)" << endl;
             glBufferSubData(GL_ARRAY_BUFFER, 0, m_verticesSize, m_vertices);
             glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize, m_colorsSize, m_colors);
 
@@ -90,7 +87,6 @@ void AbstractMesh::load()
 
 
         m_loaded = true;
-        cout << "AbstractMesh loaded into GPU" << endl;
 }
 
 /// \return The modelview matrix of the mesh (reference)
@@ -101,7 +97,6 @@ glm::mat4 &AbstractMesh::get_modelview()
 
 void AbstractMesh::draw()
 {
-    cout << "AbstractMesh will draw" << endl;
     // /!\ Assumes the correct modelview matrix has already been sent
 
     glBindVertexArray(m_vaoID); // Using the VAO
@@ -109,8 +104,6 @@ void AbstractMesh::draw()
         glDrawArrays(GL_TRIANGLES, 0, m_verticesLength);
 
     glBindVertexArray(0);
-
-    cout << "Drew " << m_verticesLength << " vertices." << endl;
 }
 
 AbstractMesh::~AbstractMesh()

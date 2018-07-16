@@ -6,20 +6,21 @@ using namespace glm;
 Renderer::Renderer()
 {
     m_projection = perspective(70.0, 640.0/480, 1.0, 100.0);
-    cout << "Projection created" << endl;
+    m_global_modelview = lookAt(vec3(3.0, 3.0, 3.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
 }
 
 void Renderer::setShader(Shader shader)
 {
     m_shader = shader;
-    cout << "Shader loading : " << m_shader.load() << endl; // Compile and upload shader to the GPU
+    if(!m_shader.load()) {
+        cout << "Error loading the shader (app will most likely crash, please make sure your GLSL is valid)." << endl;
+    }
 }
 
 void Renderer::render()
 {
-    cout << "Rendering" << endl;
     glUseProgram(m_shader.getProgramID());
-    cout << "\tLoaded shader" << endl;
+
     /* Shader enabled */
 
         // VBOs and AttribPointers are token care of in AbstractMesh (by the VAO). Here we just send the matrices and call AbstractMesh::draw()
@@ -28,8 +29,6 @@ void Renderer::render()
             // Sending matrices to the Shader
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projection));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr(m_global_modelview));
-
-            cout << "\t Sent uniforms" << endl;
 
             (*mesh)->draw();
         }
