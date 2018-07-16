@@ -4,6 +4,8 @@
 #define GLEW_STATIC
 
 #include <SDL2/SDL.h>
+#include <chrono>
+#include <thread>
 #include "Renderer.h"
 
 /* GLEW Initialization */
@@ -14,6 +16,9 @@
     #include <GL3/gl3.h>
 #endif // WIN32
 
+/* Timing */
+using ms = std::chrono::duration<float, std::milli>;
+
 class Application
 {
     public:
@@ -21,7 +26,7 @@ class Application
         virtual ~Application();
 
         bool init(); // Initializes SDL window and OpenGL context
-        void loop(int fps); // Main app loop
+        void loop(int const fps); // Main app loop
 
         Renderer *getRenderer();
 

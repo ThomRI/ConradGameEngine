@@ -45,24 +45,27 @@ bool Application::init()
     /* Enabling depth test */
     glEnable(GL_DEPTH_TEST);
 
+    /* Disabling vsync */
+    SDL_GL_SetSwapInterval(0);
+
     std::cout << "Application initialized." << std::endl;
 
     return true;
 }
 
-void Application::loop(int fps)
+void Application::loop(int const fps)
 {
-    double delay = 1000.0 / fps;
-    std::cout << "Starting app loop at " << fps << " fps (delay : " << delay << "ms)." << std::endl;
+    ms delay(1000.0/fps);
+    std::cout << "Starting app loop with " << fps << " fps (delay : " << delay.count() << ")" << std::endl;
 
     SDL_Event event;
     while(m_run) {
-        double start = SDL_GetTicks();
+        auto start = std::chrono::steady_clock::now();
 
-        SDL_WaitEvent(&event);
+        /*SDL_WaitEvent(&event);
         if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
             m_run = false;
-        }
+        }*/
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //glClearColor(1.0, 0.0, 0.0, 0.0);
@@ -72,10 +75,10 @@ void Application::loop(int fps)
         SDL_GL_SwapWindow(m_window);
 
         // consistent fps system
-        double delta = delay - (SDL_GetTicks() - start); // Time that remains to be waited before next frame
-        if(delta > 0) {
-            //std::cout << delta << std::endl;
-            SDL_Delay(delta);
+        auto delta = std::chrono::duration_cast<ms>(delay - (std::chrono::steady_clock::now() - start)); // Time that remains to be waited before next frame
+        if(delta.count() > 0) {
+            std::cout << "FPS Fidelity : " << delta.count()*100 / delay.count() << "%" << std::endl;
+            std::this_thread::sleep_for(delta);
         }
     }
 }

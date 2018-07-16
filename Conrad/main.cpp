@@ -17,10 +17,10 @@ int main(int argc, char **argv)
     Shader shader(string("shaders/basic/color3D.vert"), string("shaders/basic/color3D.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    TestCube *cube = new TestCube(1.0);
+    TestCube *cube = new TestCube(2.5);
     app->getRenderer()->addMesh(cube);
 
-    app->loop(30); // 60 fps
+    app->loop(1000); // 60 fps
 
     return 0;
 }
