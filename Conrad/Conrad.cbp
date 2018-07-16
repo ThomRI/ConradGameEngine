@@ -22,7 +22,7 @@
 					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
 					<Add library="$(#sdl2.LIB)/libSDL2main.a" />
 					<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
-					<Add library="$(#glew.LIB)/Release/Win32/glew32.lib" />
+					<Add library="$(#glew.LIB)/glew32.lib" />
 					<Add directory="$(#sdl2.LIB)" />
 					<Add directory="$(#glew.LIB)/Release/Win32" />
 				</Linker>
@@ -44,7 +44,7 @@
 					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
 					<Add library="$(#sdl2.LIB)/libSDL2main.a" />
 					<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
-					<Add library="$(#glew.LIB)/Release/Win32/glew32.lib" />
+					<Add library="$(#glew.LIB)/glew32.lib" />
 					<Add directory="$(#sdl2.LIB)" />
 					<Add directory="$(#glew.LIB)/Release/Win32" />
 				</Linker>
@@ -61,13 +61,21 @@
 			<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
 			<Add library="$(#sdl2.LIB)/libSDL2main.a" />
 			<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
-			<Add library="$(#glew.LIB)/Release/Win32/glew32.lib" />
+			<Add library="$(#glew.LIB)/glew32.lib" />
 			<Add directory="$(#sdl2.LIB)" />
 			<Add directory="$(#glew.LIB)/Release/Win32" />
 		</Linker>
+		<Unit filename="include/AbstractMesh.h" />
 		<Unit filename="include/Application.h" />
+		<Unit filename="include/Renderer.h" />
+		<Unit filename="include/Shader.h" />
+		<Unit filename="include/StaticMesh.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/AbstractMesh.cpp" />
 		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/Renderer.cpp" />
+		<Unit filename="src/Shader.cpp" />
+		<Unit filename="src/StaticMesh.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

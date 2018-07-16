@@ -2,6 +2,7 @@
 #define APPLICATION_H
 
 #include <SDL2/SDL.h>
+#include "Renderer.h"
 
 /* GLEW Initialization */
 #ifdef WIN32
@@ -18,7 +19,9 @@ class Application
         virtual ~Application();
 
         bool init(); // Initializes SDL window and OpenGL context
-        void loop(); // Main app loop
+        void loop(int fps); // Main app loop
+
+        Renderer *getRenderer();
 
     protected:
 
@@ -32,6 +35,9 @@ class Application
 
         /* OpenGL */
         SDL_GLContext m_context;
+
+        /* Rendering */
+        Renderer *m_renderer;
 };
 
 #endif // APPLICATION_H

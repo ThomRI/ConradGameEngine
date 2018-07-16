@@ -12,8 +12,6 @@ Shader::Shader(Shader const &shader)
 {
     m_vertexPath = shader.m_vertexID;
     m_fragmentPath = shader.m_fragmentPath;
-
-    load();
 }
 
 bool Shader::load()
@@ -127,12 +125,27 @@ bool Shader::compile(GLuint &id, GLenum type, string const path)
     return true;
 }
 
+GLuint Shader::getProgramID()
+{
+    return m_programID;
+}
+
+GLuint Shader::getVertexShaderID()
+{
+    return m_vertexID;
+}
+
+GLuint Shader::getFragmentShaderID()
+{
+    return m_fragmentID;
+}
+
 Shader &Shader::operator=(Shader const &shader)
 {
     m_vertexPath = shader.m_vertexPath;
     m_fragmentPath = shader.m_fragmentPath;
 
-    load()
+    load();
 
     return *this;
 }

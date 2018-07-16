@@ -3,7 +3,7 @@
 Application::Application(char *title, int width, int height) :
     m_width(width), m_height(height), m_title(title)
 {
-    //ctor
+    m_renderer = new Renderer();
 }
 
 bool Application::init()
@@ -46,15 +46,29 @@ bool Application::init()
     return true;
 }
 
-void Application::loop()
+void Application::loop(int fps)
 {
+    double delay = 1000.0 / fps;
     while(m_run) {
+        double start = SDL_GetTicks();
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            /* Render here */
+            m_renderer->render();
 
         SDL_GL_SwapWindow(m_window);
+
+        // consistent fps system
+        double delta = delay - (SDL_GetTicks() - start); // Time that remains to be waited before next frame
+        if(delta > 0) {
+            SDL_Delay(delta);
+        }
     }
+}
+
+Renderer *Application::getRenderer()
+{
+    return m_renderer;
 }
 
 Application::~Application()

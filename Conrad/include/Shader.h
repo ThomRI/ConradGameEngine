@@ -33,6 +33,11 @@ class Shader
 
         bool load();
 
+        /* Getters */
+        GLuint getProgramID();
+        GLuint getVertexShaderID();
+        GLuint getFragmentShaderID();
+
         /* Operator overload */
         Shader &operator=(Shader const &shader);
 

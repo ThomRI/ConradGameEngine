@@ -1,12 +1,40 @@
 #include "AbstractMesh.h"
 
+AbstractMesh::AbstractMesh(int verticeLength, int colorsLength) :
+    m_verticesLength(verticesLength), m_colorsLength(colorsLength)
+{
+
+}
+
 AbstractMesh::AbstractMesh(int verticesLength, int colorsLength, float *vertices, float *colors, GLenum meshType) :
-    m_vertices(vertices), m_colors(colors), m_texCoords(texCoords), m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_meshType(meshType)
+    m_vertices(vertices), m_colors(colors), m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_meshType(meshType)
 {
     //ctor
 }
 
-/// \brief Uploads the mesh data to the GPU, getting the mesh ready to be drawn.
+bool AbstractMesh::setVertices(float *vertices, int length)
+{
+    if(length != m_verticesLength || m_loaded) { // Already loaded means can't update vertices until I make the method to update VBO
+        return false;
+    }
+
+    m_vertices = vertices;
+    return true;
+
+    //TODO : AbstractMesh::setVertices() : Update VBO
+}
+
+bool AbstractMesh::setColors(float *colors, int length)
+{
+    if(length != m_colorsLength || m_loaded) {
+        return false;
+    }
+
+    m_colors = colors;
+    return true;
+}
+
+/// \brief Uploads the mesh data to the GPU, getting the mesh ready to be drawn (setting up VBO and VAO for the mesh).
 void AbstractMesh::load()
 {
     /* ##### VBO ##### */
@@ -42,7 +70,7 @@ void AbstractMesh::load()
         /* Setting up VAO */
         glBindVertexArray(m_vaoID);
 
-        /* GPU sided code from here */
+        /* GPU sided code from here (stored in the VAO) */
             glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
                 glVertexAttribPointer(VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
                 glEnableVertexAttribArray(VERTEX_BUFFER); // First enabled is VERTEX_BUFFER for the shader
@@ -53,9 +81,12 @@ void AbstractMesh::load()
         /* End of GPU sided code */
 
         glBindVertexArray(0);
+
+
+        m_loaded = true;
 }
 
-/// \return The modelview matrix of the mesh.
+/// \return The modelview matrix of the mesh (reference)
 glm::mat4 &AbstractMesh::get_modelview()
 {
     return m_modelview;

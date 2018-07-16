@@ -20,8 +20,12 @@
 class AbstractMesh
 {
     public:
+        AbstractMesh(int verticesLength, int colorsLength);
         AbstractMesh(int verticesLength, int colorsLength, float *vertices, float *colors, GLenum meshType);
         virtual ~AbstractMesh();
+
+        bool setVertices(float *vertices, int length);
+        bool setColors(float *colors, int length);
 
         void load();
         void draw();
@@ -29,8 +33,11 @@ class AbstractMesh
         glm::mat4 &get_modelview();
 
     protected:
+        /* World */
+        glm::mat4 m_modelview = mat4(1.0);
 
     private:
+        /* Mesh datas */
         float   *m_vertices,
                 *m_colors,
                 *m_texCoords;
@@ -42,8 +49,7 @@ class AbstractMesh
                 m_vaoID;
         GLenum m_meshType; // GL_STATIC_DRAW / GL_DYNAMIC_DRAW / GL_STREAM_DRAW
 
-        /* World */
-        glm::mat4 m_modelview = mat4(1.0);
+        bool m_loaded = false;
 
 };
 
