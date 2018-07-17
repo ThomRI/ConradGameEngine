@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     Shader shader(string("shaders/basic/color3D.vert"), string("shaders/basic/color3D.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    TestCube *cube = new TestCube(2.5);
+    TestCube *cube = new TestCube(1.0);
     app->getRenderer()->addMesh(cube);
 
     app->loop(120); // 60 fps

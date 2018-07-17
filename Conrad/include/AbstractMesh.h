@@ -10,6 +10,9 @@
 
  #include "scope.h"
  #include <iostream>
+ #include <algorithm>
+
+ #include "AbstractTexture.h"
 
  /* GLM */
 #include <glm/glm.hpp>
@@ -38,12 +41,15 @@
 class AbstractMesh
 {
     public:
-        AbstractMesh(int verticesLength, int colorsLength, GLenum meshType);
-        AbstractMesh(int verticesLength, int colorsLength, float *vertices, float *colors, GLenum meshType);
+        AbstractMesh(int verticesLength, int colorsLength, int texLength, GLenum meshType);
+        AbstractMesh(int verticesLength, float *vertices, int colorsLength, float *colors, int texLength, float *texCoords, GLenum meshType);
+        AbstractMesh(int verticesLenght, float *vertices, int colorsLength, float *colors, GLenum meshType);
         virtual ~AbstractMesh();
 
         bool setVertices(float *vertices, int length);
         bool setColors(float *colors, int length);
+        bool setTexCoords(float *texCoords, int length);
+        bool setTexture(AbstractTexture *texture);
 
         void load();
         void draw();
@@ -59,10 +65,15 @@ class AbstractMesh
         float   *m_vertices,
                 *m_colors,
                 *m_texCoords;
+
+        AbstractTexture *m_texture;
+
         int m_verticesLength, // Number of vertices
-            m_colorsLength;
+            m_colorsLength,
+            m_texLength;
         int m_verticesSize,
-            m_colorsSize;
+            m_colorsSize,
+            m_texSize;
 
         /* OpenGL */
         GLuint  m_vboID,

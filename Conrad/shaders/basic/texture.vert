@@ -6,7 +6,7 @@
 // Entrées
 
 in vec3 in_Vertex;
-in vec3 in_Color;
+in vec2 in_TexCoord0;
 
 
 // Uniform
@@ -17,7 +17,7 @@ uniform mat4 modelview;
 
 // Sortie
 
-out vec3 color;
+out vec2 coordTexture;
 
 
 // Fonction main
@@ -29,7 +29,7 @@ void main()
     gl_Position = projection * modelview * vec4(in_Vertex, 1.0);
 
 
-    // Envoi de la couleur au Fragment Shader
+    // Envoi des coordonnées de texture au Fragment Shader
 
-    color = in_Color;
+    coordTexture = in_TexCoord0;
 }

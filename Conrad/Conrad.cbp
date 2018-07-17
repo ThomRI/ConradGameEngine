@@ -5,6 +5,11 @@
 		<Option title="Conrad" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option show_notes="0">
+			<notes>
+				<![CDATA[16/07/2018 15:54 | Implemented AbstractMesh yesterday. One VBO/VAO per mesh for now.]]>
+			</notes>
+		</Option>
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/Conrad" prefix_auto="1" extension_auto="1" />
@@ -12,6 +17,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add directory="$(#sdl2.INCLUDE)" />
 					<Add directory="$(#glm.INCLUDE)" />
@@ -19,12 +25,8 @@
 					<Add directory="$(#glew.INCLUDE)" />
 				</Compiler>
 				<Linker>
-					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
-					<Add library="$(#sdl2.LIB)/libSDL2main.a" />
-					<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
-					<Add library="$(#glew.LIB)/glew32.lib" />
 					<Add directory="$(#sdl2.LIB)" />
-					<Add directory="$(#glew.LIB)/Release/Win32" />
+					<Add directory="$(#glew.LIB)" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -34,6 +36,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 					<Add directory="$(#sdl2.INCLUDE)" />
 					<Add directory="$(#glm.INCLUDE)" />
 					<Add directory="include" />
@@ -41,41 +44,47 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
-					<Add library="$(#sdl2.LIB)/libSDL2main.a" />
-					<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
-					<Add library="$(#glew.LIB)/glew32.lib" />
 					<Add directory="$(#sdl2.LIB)" />
-					<Add directory="$(#glew.LIB)/Release/Win32" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
+			<Add option="-DWIN32" />
 			<Add directory="$(#sdl2.INCLUDE)" />
 			<Add directory="$(#glm.INCLUDE)" />
 			<Add directory="$(#glew.INCLUDE)" />
+			<Add directory="$(#sdl2_image.INCLUDE)" />
 		</Compiler>
 		<Linker>
-			<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libmingw32.a" />
-			<Add library="$(#sdl2.LIB)/libSDL2main.a" />
-			<Add library="$(#sdl2.LIB)/libSDL2.dll.a" />
-			<Add library="$(#glew.LIB)/glew32.lib" />
+			<Add library="mingw32" />
+			<Add library="SDL2main" />
+			<Add library="SDL2" />
+			<Add library="opengl32" />
+			<Add library="glew32" />
+			<Add library="SDL2_image" />
 			<Add directory="$(#sdl2.LIB)" />
-			<Add directory="$(#glew.LIB)/Release/Win32" />
+			<Add directory="$(#glew.LIB)" />
+			<Add directory="$(#sdl2_image.LIB)" />
 		</Linker>
 		<Unit filename="include/AbstractMesh.h" />
+		<Unit filename="include/AbstractTexture.h" />
 		<Unit filename="include/Application.h" />
 		<Unit filename="include/Renderer.h" />
 		<Unit filename="include/Shader.h" />
 		<Unit filename="include/StaticMesh.h" />
+		<Unit filename="include/TestCube.h" />
+		<Unit filename="include/scope.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/AbstractMesh.cpp" />
+		<Unit filename="src/AbstractTexture.cpp" />
 		<Unit filename="src/Application.cpp" />
 		<Unit filename="src/Renderer.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />
+		<Unit filename="src/TestCube.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

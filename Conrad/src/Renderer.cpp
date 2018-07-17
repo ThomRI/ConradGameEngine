@@ -21,14 +21,12 @@ void Renderer::render()
 {
     glUseProgram(m_shader.getProgramID());
 
-    /* Shader enabled */
-
         // VBOs and AttribPointers are token care of in AbstractMesh (by the VAO). Here we just send the matrices and call AbstractMesh::draw()
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             // Sending matrices to the Shader
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projection));
-            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr(m_global_modelview/* * (*mesh)->get_modelview()*/));
+            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr(m_global_modelview * (*mesh)->get_modelview()));
 
             (*mesh)->draw();
         }
