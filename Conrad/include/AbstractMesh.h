@@ -60,6 +60,8 @@ class AbstractMesh
         /* World */
         glm::mat4 m_modelview = glm::mat4(1.0);
 
+        void setupAlphaTex();
+
     private:
         /* Mesh datas */
         float   *m_vertices,
@@ -81,6 +83,7 @@ class AbstractMesh
         GLenum m_meshType; // GL_STATIC_DRAW / GL_DYNAMIC_DRAW / GL_STREAM_DRAW
 
         bool m_loaded = false;
+        bool m_tex_loaded = false;
 
 };
 

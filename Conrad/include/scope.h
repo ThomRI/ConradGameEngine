@@ -18,4 +18,8 @@
     #define GRID_2D_INDEX(x, y, w) (y * w + x)
 #endif
 
+/* Paths */
+#define TEXPATH "textures"
+#define ALPHAONE_PATH TEXPATH "/alpha_onepx.png" // One pixel 100% alpha texture
+
 #endif // SCOPE_H_INCLUDED

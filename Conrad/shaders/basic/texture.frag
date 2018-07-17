@@ -1,28 +1,19 @@
-// Version du GLSL
-
 #version 150 core
 
 
-// Entrée
-
-in vec2 coordTexture;
+// Inputs
+in vec3 color;
+in vec2 texCoord;
 
 
 // Uniform
+uniform sampler2D tex;
 
-uniform sampler2D texture;
 
-
-// Sortie 
-
+// Output
 out vec4 out_Color;
-
-
-// Fonction main
 
 void main()
 {
-    // Couleur du pixel
-
-    out_Color = texture(texture, coordTexture);
+    out_Color = texture(tex, texCoord) * vec4(color, 1.0);
 }

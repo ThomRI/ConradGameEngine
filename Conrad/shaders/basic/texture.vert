@@ -1,26 +1,20 @@
-// Version du GLSL
-
 #version 150 core
 
 
-// Entrées
-
+// Inputs
 in vec3 in_Vertex;
+in vec3 in_Color;
 in vec2 in_TexCoord0;
 
 
 // Uniform
-
 uniform mat4 projection;
 uniform mat4 modelview;
 
 
-// Sortie
-
-out vec2 coordTexture;
-
-
-// Fonction main
+// Output
+out vec3 color;
+out vec2 texCoord;
 
 void main()
 {
@@ -31,5 +25,6 @@ void main()
 
     // Envoi des coordonnées de texture au Fragment Shader
 
-    coordTexture = in_TexCoord0;
+    color = in_Color;
+    texCoord = in_TexCoord0;
 }

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1531792223 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1531795906 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
@@ -693,12 +693,13 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1531792715 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
+1531796649 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
 	"AbstractMesh.h"
 
-1531792728 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
+1531796137 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
 	"scope.h"
 	<iostream>
+	<algorithm>
 	"AbstractTexture.h"
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
@@ -707,7 +708,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1531789757 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+1531795954 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
 
 1526978384 c:\libs\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -1258,19 +1259,19 @@
 	"StaticMesh.h"
 	<iostream>
 
-1531792140 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
+1531794488 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
 	"AbstractMesh.h"
 
 1531770406 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
 	"Shader.h"
 
-1531792760 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
+1531794582 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
 	"StaticMesh.h"
 
 1531771413 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1531791350 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1531793380 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h

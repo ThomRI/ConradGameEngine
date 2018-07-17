@@ -6,6 +6,7 @@ Application::Application(char *title, int width, int height) :
     m_renderer = new Renderer();
 }
 
+/// \return The initialization status (false for failed, true for a success).
 bool Application::init()
 {
     // SDL init
@@ -53,6 +54,7 @@ bool Application::init()
     return true;
 }
 
+/// \brief Main loop of an Application
 void Application::loop(int const fps)
 {
     ms delay(1000.0/fps);

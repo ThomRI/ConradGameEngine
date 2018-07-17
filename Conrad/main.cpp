@@ -14,7 +14,7 @@ int main(int argc, char **argv)
         cout << "Error setting up SDL or context" << endl;
     }
 
-    Shader shader(string("shaders/basic/color3D.vert"), string("shaders/basic/color3D.frag"));
+    Shader shader(string("shaders/basic/texture.vert"), string("shaders/basic/texture.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
     TestCube *cube = new TestCube(1.0);

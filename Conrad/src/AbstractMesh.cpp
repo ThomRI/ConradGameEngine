@@ -3,23 +3,33 @@
 AbstractMesh::AbstractMesh(int verticesLength, int colorsLength, int texLength, GLenum meshType) :
     m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_texLength(texLength), m_meshType(meshType)
 {
-
+    // This constructor is used to be able to use setVertices, setColors and setTexture afterwards instead of pushing directly in the constructor. ALL OF THIS BEFORE LOADING THE MESH
 }
 
+// Texture constructor
 AbstractMesh::AbstractMesh(int verticesLength, float *vertices, int colorsLength, float *colors, int texLength, float *texCoords, GLenum meshType) :
     m_vertices(vertices), m_colors(colors), m_texCoords(texCoords), m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_texLength(texLength), m_meshType(meshType)
 {
-    if(m_texCoords == nullptr) {
-        m_texCoords = new float[texLength * 3];
-        std::fill_n(m_texCoords, texLength * 3, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
 
-
-    }
 }
 
 AbstractMesh::AbstractMesh(int verticesLength, float *vertices, int colorsLength, float *colors, GLenum meshType)
 {
-    AbstractMesh(verticesLenght, vertices, colorsLength, colors, colorsLength, nullptr, meshType); // Calling the texture-constructor with nullptr as texCoords.
+    AbstractMesh(verticesLength, vertices, colorsLength, colors, colorsLength, nullptr, meshType); // Calling the texture-constructor with nullptr as texCoords.
+}
+
+/// \brief Sets up an alpha texture without color. This is used to be compatible with the texturing system, without any effect on a pure-colors render.
+void AbstractMesh::setupAlphaTex()
+{
+    m_texCoords = new float[m_texLength * 3];
+    std::fill_n(m_texCoords, m_texLength * 3, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
+
+    m_texture = new AbstractTexture(ALPHAONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
+    if(!m_texture->load()) {
+        std::cout << "Error while loading a non-textured mesh. App may crash." << std::endl;
+    }
+
+    m_tex_loaded = true;
 }
 
 bool AbstractMesh::setVertices(float *vertices, int length)
@@ -60,12 +70,23 @@ bool AbstractMesh::setTexture(AbstractTexture *texture)
     // TODO : Allow an abstract mesh to be update after loading
 
     m_texture = texture;
-    return m_texture->load();
+    if(m_texture->load()) {
+        m_tex_loaded = true;
+        return true;
+    }
+
+    return false;
 }
 
 /// \brief Uploads the mesh data to the GPU, getting the mesh ready to be drawn (setting up VBO and VAO for the mesh).
 void AbstractMesh::load()
 {
+    /* If no texture has been specified until here, we load a single pixel of alpha set to 1.0 with no color, in order to use the texture system but without any effect on the render */
+    /* Note that the engine is created in order to always use a texture */
+    if(!m_tex_loaded) {
+        setupAlphaTex();
+    }
+
     m_verticesSize = 3 * m_verticesLength * sizeof(float);
     m_colorsSize = 3 * m_colorsLength * sizeof(float);
     m_texSize = 3 * m_texLength * sizeof(float);
@@ -86,7 +107,7 @@ void AbstractMesh::load()
 
             glBufferSubData(GL_ARRAY_BUFFER, 0, m_verticesSize, m_vertices);
             glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize, m_colorsSize, m_colors);
-            if(m_usesTex) glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize, m_texSize, m_texCoords);
+            glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize, m_texSize, m_texCoords);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
