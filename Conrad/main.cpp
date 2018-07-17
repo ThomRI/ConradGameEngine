@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Shader.h"
 #include "TestCube.h"
+#include "TestTriangle.h"
 #include "utilities.hpp"
 
 using namespace std;
@@ -21,15 +22,17 @@ int main(int argc, char **argv)
     /*TestCube *cube = new TestCube(1.0);
     app->getRenderer()->addMesh(cube);*/
 
-    StaticMesh *mesh = loadOBJ_static("cube.obj", false);
+    /*StaticMesh *mesh = loadOBJ_static("cube.obj", false);
     AbstractTexture *texture = new AbstractTexture("textures/crate13.jpg");
-    float tex[6] = {1.0, 0.0,   0.0, 1.0,   0.0, 0.0};
-    mesh->setTexCoords(tex, 6);
+    //float tex[6] = {1.0, 0.0,   0.0, 1.0,   0.0, 0.0};
 
     mesh->setTexture(texture);
 
     mesh->load();
-    app->getRenderer()->addMesh(mesh);
+    app->getRenderer()->addMesh(mesh);*/
+
+    TestTriangle *triangle = new TestTriangle(1.0);
+    app->getRenderer()->addMesh(triangle);
 
     app->loop(120); // 120 fps
 

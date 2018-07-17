@@ -68,7 +68,6 @@ TestCube::TestCube(float size) :
     }
 
     AbstractTexture *texture = new AbstractTexture("textures/crate13.jpg");
-    std::cout << "debug" << std::endl;
     if(!setTexture(texture)) {
         std::cout << "Error loading texture : " << SDL_GetError() << std::endl;
     }

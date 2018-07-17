@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1531857264 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1531860857 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
 	"TestCube.h"
+	"TestTriangle.h"
 	"utilities.hpp"
 
 1519925905 c:\libs\sdl2-2.0.8\x86_64-w64-mingw32\include\sdl2\sdl.h
@@ -695,10 +696,10 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1531856858 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
+1531861169 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
 	"AbstractMesh.h"
 
-1531856999 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
+1531859699 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
 	"scope.h"
 	<iostream>
 	<algorithm>
@@ -1262,19 +1263,19 @@
 	<iostream>
 	<algorithm>
 
-1531794488 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
+1531859301 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
 	"AbstractMesh.h"
 
 1531770406 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
 	"Shader.h"
 
-1531856599 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
+1531859800 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
 	"StaticMesh.h"
 
-1531801384 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
+1531859204 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1531857777 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1531860322 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
@@ -1874,7 +1875,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531856940 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
+1531860695 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
 	"AbstractTexture.h"
 
 1531838782 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
@@ -1892,4 +1893,10 @@
 	<tuple>
 	<sstream>
 	"StaticMesh.h"
+
+1531858751 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testtriangle.h
+	"StaticMesh.h"
+
+1531861619 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testtriangle.cpp
+	"TestTriangle.h"
 

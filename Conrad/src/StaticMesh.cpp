@@ -1,19 +1,19 @@
 #include "StaticMesh.h"
 
-StaticMesh::StaticMesh(int bufferLength) :
-    AbstractMesh(bufferLength, bufferLength, bufferLength, GL_STATIC_DRAW)
+StaticMesh::StaticMesh(int bufferCount) :
+    AbstractMesh(bufferCount, bufferCount, bufferCount, GL_STATIC_DRAW)
 {
 
 }
 
-StaticMesh::StaticMesh(int bufferLength, float *vertices, float *colors) :
-    AbstractMesh(bufferLength, vertices, bufferLength, colors, GL_STATIC_DRAW)
+StaticMesh::StaticMesh(int bufferCount, float *vertices, float *colors) :
+    AbstractMesh(bufferCount, vertices, bufferCount, colors, GL_STATIC_DRAW)
 {
 
 }
 
-StaticMesh::StaticMesh(int bufferLength, float *vertices, float *colors, float *texCoords) :
-    AbstractMesh(bufferLength, vertices, bufferLength, colors, bufferLength, texCoords, GL_STATIC_DRAW)
+StaticMesh::StaticMesh(int bufferCount, float *vertices, float *colors, float *texCoords) :
+    AbstractMesh(bufferCount, vertices, bufferCount * 3, colors, bufferCount, texCoords, GL_STATIC_DRAW)
 {
     // ctor
 }

@@ -1,28 +1,28 @@
 #include "AbstractMesh.h"
 
-AbstractMesh::AbstractMesh(int verticesLength, int colorsLength, int texLength, GLenum meshType) :
-    m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_texLength(texLength), m_meshType(meshType)
+AbstractMesh::AbstractMesh(int verticesCount, int colorsCount, int texCount, GLenum meshType) :
+    m_verticesCount(verticesCount), m_colorsCount(colorsCount), m_texCount(texCount), m_meshType(meshType)
 {
     // This constructor is used to be able to use setVertices, setColors and setTexture afterwards instead of pushing directly in the constructor. ALL OF THIS BEFORE LOADING THE MESH
 }
 
 // Texture constructor
-AbstractMesh::AbstractMesh(int verticesLength, float *vertices, int colorsLength, float *colors, int texLength, float *texCoords, GLenum meshType) :
-    m_vertices(vertices), m_colors(colors), m_texCoords(texCoords), m_verticesLength(verticesLength), m_colorsLength(colorsLength), m_texLength(texLength), m_meshType(meshType)
+AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, GLenum meshType) :
+    m_vertices(vertices), m_colors(colors), m_texCoords(texCoords), m_verticesCount(verticesCount), m_colorsCount(colorsCount), m_texCount(texCount), m_meshType(meshType)
 {
 
 }
 
-AbstractMesh::AbstractMesh(int verticesLength, float *vertices, int colorsLength, float *colors, GLenum meshType)
+AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, GLenum meshType)
 {
-    AbstractMesh(verticesLength, vertices, colorsLength, colors, colorsLength, nullptr, meshType); // Calling the texture-constructor with nullptr as texCoords.
+    AbstractMesh(verticesCount, vertices, colorsCount, colors, colorsCount, nullptr, meshType); // Calling the texture-constructor with nullptr as texCoords.
 }
 
 /// \brief Sets up an alpha texture without color. This is used to be compatible with the texturing system, without any effect on a pure-colors render.
 void AbstractMesh::setupAlphaTex()
 {
-    m_texCoords = new float[m_texLength * 2];
-    std::fill_n(m_texCoords, m_texLength * 2, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
+    m_texCoords = new float[m_texCount * 2];
+    std::fill_n(m_texCoords, m_texCount * 2, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
 
     m_texture = new AbstractTexture(ALPHAONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
     if(!m_texture->load()) {
@@ -34,7 +34,7 @@ void AbstractMesh::setupAlphaTex()
 
 bool AbstractMesh::setVertices(float *vertices, int length)
 {
-    if(length != 3 * m_verticesLength || m_loaded) { // Already loaded means can't update vertices until I make the method to update VBO
+    if(length != 3 * m_verticesCount || m_loaded) { // Already loaded means can't update vertices until I make the method to update VBO
         return false;
     }
 
@@ -46,7 +46,7 @@ bool AbstractMesh::setVertices(float *vertices, int length)
 
 bool AbstractMesh::setColors(float *colors, int length)
 {
-    if(length != 3 * m_colorsLength || m_loaded) {
+    if(length != 3 * m_colorsCount || m_loaded) {
         return false;
     }
 
@@ -56,7 +56,7 @@ bool AbstractMesh::setColors(float *colors, int length)
 
 bool AbstractMesh::setTexCoords(float *texCoords, int length)
 {
-    if(length != 2 * m_texLength || m_loaded) {
+    if(length != 2 * m_texCount || m_loaded) {
         return false;
     }
 
@@ -87,9 +87,9 @@ void AbstractMesh::load()
         setupAlphaTex();
     }
 
-    m_verticesSize = 3 * m_verticesLength * sizeof(float);
-    m_colorsSize = 3 * m_colorsLength * sizeof(float);
-    m_texSize = 2 * m_texLength * sizeof(float);
+    m_verticesSize = 3 * m_verticesCount * sizeof(float);
+    m_colorsSize = 3 * m_colorsCount * sizeof(float);
+    m_texSize = 2 * m_texCount * sizeof(float);
 
     /* ##### VBO ##### */
 
@@ -155,7 +155,7 @@ void AbstractMesh::draw()
     glBindVertexArray(m_vaoID); // Using the VAO
 
         m_texture->bind();
-        glDrawArrays(GL_TRIANGLES, 0, m_verticesLength);
+            glDrawArrays(GL_TRIANGLES, 0, m_verticesCount);
         m_texture->unbind();
 
     glBindVertexArray(0);

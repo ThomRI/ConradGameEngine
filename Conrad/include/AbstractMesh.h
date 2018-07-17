@@ -41,9 +41,9 @@
 class AbstractMesh
 {
     public:
-        AbstractMesh(int verticesLength, int colorsLength, int texLength, GLenum meshType);
-        AbstractMesh(int verticesLength, float *vertices, int colorsLength, float *colors, int texLength, float *texCoords, GLenum meshType);
-        AbstractMesh(int verticesLenght, float *vertices, int colorsLength, float *colors, GLenum meshType);
+        AbstractMesh(int verticesCount, int colorsCount, int texCount, GLenum meshType);
+        AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, GLenum meshType);
+        AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, GLenum meshType);
         virtual ~AbstractMesh();
 
         bool setVertices(float *vertices, int length);
@@ -70,9 +70,9 @@ class AbstractMesh
 
         AbstractTexture *m_texture;
 
-        int m_verticesLength, // Number of vertices
-            m_colorsLength,
-            m_texLength;
+        int m_verticesCount, // Number of vertices
+            m_colorsCount,
+            m_texCount;
         int m_verticesSize,
             m_colorsSize,
             m_texSize;
