@@ -10,10 +10,19 @@
 
 #include "StaticMesh.h"
 
+#define X_coord 0
+#define Y_coord 1
+#define Z_coord 2
+
+#define VERTEX 0
+#define TEXTURE 1
+#define NORMAL 2
+#define FACE 3
+
 using namespace std;
 using coordinate3d = tuple<float, float, float>;
 using coordinate2d = tuple<float, float>;
-using Face = tuple<int, int, int,  int, int, int,  int, int, int>; // v1,vt1,vn1    , v2,vt2,vn2,   v3,vt3,vn3
+//using Face = tuple<int, int, int,  int, int, int,  int, int, int>; // v1,vt1,vn1    , v2,vt2,vn2,   v3,vt3,vn3
 
 /*!
  *  \file utilities.hpp
@@ -42,42 +51,61 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
     } file.close();
 
     /* Parsing the .obj lines */
+    int totalVertexCount = 0; // With duplicates for faces
+
     vector<coordinate3d> vertices;
     vector<coordinate2d> tex;
     vector<coordinate3d> normals;
-    vector<Face> faces;
+
+    vector<int> faces_vertex_index;
+    vector<int> faces_tex_index;
+    vector<int> faces_normal_index;
 
     for(vector<string>::iterator it = lines.begin(); it != lines.end(); it++) {
         line = (*it);
         stringstream stream(line);
-        char c; stream >> c; // First char of the string
-        switch(c) { // First char of the line
-            case 'v': // Vertex
+        string c; stream >> c; // First char of the string
+
+        int index = -1;
+        if(c == "v")        index = VERTEX;
+        else if(c == "vt")  index = TEXTURE;
+        else if(c == "vn")  index = NORMAL;
+        else if(c == "f")   index = FACE;
+        switch(index) { // First char of the line
+            case VERTEX: // Vertex
+            {
                 float x, y, z;
                 stream >> x >> y >> z;
                 vertices.push_back(make_tuple(x, y, z));
-            break;
 
-            case 'vt': // Texture coordinate
+                break;
+            }
+
+            case TEXTURE:  // Texture coordinate
+            {
                 float u, v;
                 stream >> u >> v;
                 tex.push_back(make_tuple(u, v));
-            break;
 
-            case 'vn': // Normal
+                break;
+            }
+
+            case NORMAL: // Normal
+            {
                 float x, y, z;
                 stream >> x >> y >> z;
                 normals.push_back(make_tuple(x, y, z));
-            break;
 
-            case 'f': // Face
-                string[3] vert;
+                break;
+            }
+
+            case FACE: // Face
+            {
+                string vert[3];
                 stream >> vert[0] >> vert[1] >> vert[2];
 
-                int v[3];   //v1, v2, v3
-                int vt[3];  //vt1, vt2, vt3
-                int vn[3];  //vn1, vn2, vn3
-                for(int i = 0;i < 3;i++) {
+                for(int i = 0;i < 3;i++) { // One vertex
+                    totalVertexCount++;
                     stringstream sub_stream(vert[i]);
                     int indexes[3];
 
@@ -91,16 +119,15 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
                     }
                     /* Now indexes[0] is vertex ; indexes[1] is texture ; indexes[2] is normal */
 
-                    v[i]    = indexes[0]; // Vertex
-                    vt[i]   = indexes[1]; // Texture
-                    vn[i]   = indexes[2]; // Normal
+                    // Indexes start at 1 on .obj. The indexes now stored are the real indexes ready to be accessed from.
+
+                    faces_vertex_index.push_back(indexes[0] - 1);   // One vertex  (3 coords)
+                    faces_tex_index.push_back(indexes[1] - 1);      // One texture (2 coords)
+                    faces_normal_index.push_back(indexes[2] - 1);   // One normal  (3 coords)
                 }
 
-                Face f = make_tuple(v[0], vt[0], vn[0],
-                                    v[1], vt[1], vn[1],
-                                    v[2], vt[2], vn[2]);
-                faces.push_back(f);
-            break;
+                break;
+            }
 
             default: break;
         }
@@ -108,16 +135,34 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
 
     /* Finished parsing the file */
     /* Creating the mesh */
-    float *vertices_array = malloc(vertices.size());
-    copy(vertices.begin(), vertices.end(), vertices_array);
+    float *vertices_array, *colors_array, *tex_array;
+    vertices_array = (float*) malloc(totalVertexCount * 3 * sizeof(float));
 
-    float *colors_array = malloc(vertices.size());
-    memset(colors_array, 1.0, vertices.size()); // Colors have no effect
+    colors_array = (float*) malloc(totalVertexCount * 3 * sizeof(float));
+    memset(colors_array, 1.0, totalVertexCount * 3); // Colors have no effect
 
-    float *tex_array = malloc(tex.size());
-    copy(tex.begin(), tex.end(), tex_array);
+    tex_array = (float*) malloc(totalVertexCount * 2 * sizeof(float));
+
+    /* Filling arrays with faces order */
+    for(int i = 0;i < faces_vertex_index.size();i++) { // One vertex
+        coordinate3d vertex_coords = vertices[faces_vertex_index[i]];
+
+        vertices_array[3*i]     = get<X_coord>(vertex_coords);
+        vertices_array[3*i + 1] = get<Y_coord>(vertex_coords);
+        vertices_array[3*i + 2] = get<Z_coord>(vertex_coords);
+    }
+
+    for(int i = 0;i < faces_tex_index.size();i++) { // One texture
+        coordinate2d tex_coords = tex[faces_tex_index[i]];
+
+        tex_array[3*i]      = get<X_coord>(tex_coords); // U
+        tex_array[3*i + 1]  = get<Y_coord>(tex_coords); // V
+    }
+
+    /* Normals not supported for now */
 
     StaticMesh *mesh = new StaticMesh(vertices.size(), vertices_array, colors_array, tex_array);
+
 
     if(load) mesh->load();
     return mesh;

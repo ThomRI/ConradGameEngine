@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1531801610 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1531849140 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
 	"TestCube.h"
+	"utilities.hpp"
 
 1519925905 c:\libs\sdl2-2.0.8\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -682,7 +683,7 @@
 	<GL/glew.h>
 	<GL3/gl3.h>
 
-1531838765 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1531839410 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -697,7 +698,7 @@
 1531799417 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
 	"AbstractMesh.h"
 
-1531796137 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
+1531839548 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
 	"scope.h"
 	<iostream>
 	<algorithm>
@@ -1882,4 +1883,13 @@
 
 1531838825 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
+
+1531855224 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
+	<string>
+	<iostream>
+	<fstream>
+	<vector>
+	<tuple>
+	<sstream>
+	"StaticMesh.h"
 

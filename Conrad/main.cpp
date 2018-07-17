@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Shader.h"
 #include "TestCube.h"
+#include "utilities.hpp"
 
 using namespace std;
 
@@ -19,6 +20,8 @@ int main(int argc, char **argv)
 
     TestCube *cube = new TestCube(1.0);
     app->getRenderer()->addMesh(cube);
+
+    StaticMesh *mesh = loadOBJ_static("cube.obj", false);
 
     app->loop(120); // 120 fps
 
