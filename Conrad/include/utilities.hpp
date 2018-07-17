@@ -51,8 +51,6 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
     } file.close();
 
     /* Parsing the .obj lines */
-    int totalVertexCount = 0; // With duplicates for faces
-
     vector<coordinate3d> vertices;
     vector<coordinate2d> tex;
     vector<coordinate3d> normals;
@@ -105,7 +103,6 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
                 stream >> vert[0] >> vert[1] >> vert[2];
 
                 for(int i = 0;i < 3;i++) { // One vertex
-                    totalVertexCount++;
                     stringstream sub_stream(vert[i]);
                     int indexes[3];
 
@@ -135,13 +132,19 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
 
     /* Finished parsing the file */
     /* Creating the mesh */
-    float *vertices_array, *colors_array, *tex_array;
-    vertices_array = (float*) malloc(totalVertexCount * 3 * sizeof(float));
+    float *vertices_array;
+    float *colors_array;
+    float *tex_array;
+    vertices_array = (float*) malloc(faces_vertex_index.size() * 3 * sizeof(float));
+    colors_array = (float*) malloc(faces_vertex_index.size() * 3 * sizeof(float));
+    tex_array = (float*) malloc(faces_tex_index.size() * 2 * sizeof(float));
 
-    colors_array = (float*) malloc(totalVertexCount * 3 * sizeof(float));
-    memset(colors_array, 1.0, totalVertexCount * 3); // Colors have no effect
+    if(vertices_array == 0 || colors_array == 0 || tex_array == 0) {
+        std::cout << "Error parsing .obj : out of memory" << std::endl;
+        return nullptr;
+    }
 
-    tex_array = (float*) malloc(totalVertexCount * 2 * sizeof(float));
+    std::fill_n(colors_array, faces_vertex_index.size() * 3, 1.0); // Colors aren't used for textured materials
 
     /* Filling arrays with faces order */
     for(int i = 0;i < faces_vertex_index.size();i++) { // One vertex
@@ -155,13 +158,13 @@ static StaticMesh *loadOBJ_static(string filepath, bool load = true)
     for(int i = 0;i < faces_tex_index.size();i++) { // One texture
         coordinate2d tex_coords = tex[faces_tex_index[i]];
 
-        tex_array[3*i]      = get<X_coord>(tex_coords); // U
-        tex_array[3*i + 1]  = get<Y_coord>(tex_coords); // V
+        tex_array[2*i]      = get<X_coord>(tex_coords); // U
+        tex_array[2*i + 1]  = get<Y_coord>(tex_coords); // V
     }
 
     /* Normals not supported for now */
 
-    StaticMesh *mesh = new StaticMesh(vertices.size(), vertices_array, colors_array, tex_array);
+    StaticMesh *mesh = new StaticMesh(faces_vertex_index.size(), vertices_array, colors_array, tex_array);
 
 
     if(load) mesh->load();

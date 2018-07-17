@@ -78,8 +78,8 @@ class AbstractMesh
             m_texSize;
 
         /* OpenGL */
-        GLuint  m_vboID,
-                m_vaoID;
+        GLuint  m_vboID = 0, // 0 is always unused
+                m_vaoID = 0;
         GLenum m_meshType; // GL_STATIC_DRAW / GL_DYNAMIC_DRAW / GL_STREAM_DRAW
 
         bool m_loaded = false;

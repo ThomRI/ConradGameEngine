@@ -18,10 +18,18 @@ int main(int argc, char **argv)
     Shader shader(string("shaders/basic/texture.vert"), string("shaders/basic/texture.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    TestCube *cube = new TestCube(1.0);
-    app->getRenderer()->addMesh(cube);
+    /*TestCube *cube = new TestCube(1.0);
+    app->getRenderer()->addMesh(cube);*/
 
     StaticMesh *mesh = loadOBJ_static("cube.obj", false);
+    AbstractTexture *texture = new AbstractTexture("textures/crate13.jpg");
+    float tex[6] = {1.0, 0.0,   0.0, 1.0,   0.0, 0.0};
+    mesh->setTexCoords(tex, 6);
+
+    mesh->setTexture(texture);
+
+    mesh->load();
+    app->getRenderer()->addMesh(mesh);
 
     app->loop(120); // 120 fps
 

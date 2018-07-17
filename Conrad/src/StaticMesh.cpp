@@ -15,7 +15,7 @@ StaticMesh::StaticMesh(int bufferLength, float *vertices, float *colors) :
 StaticMesh::StaticMesh(int bufferLength, float *vertices, float *colors, float *texCoords) :
     AbstractMesh(bufferLength, vertices, bufferLength, colors, bufferLength, texCoords, GL_STATIC_DRAW)
 {
-    //ctor
+    // ctor
 }
 
 StaticMesh::~StaticMesh()

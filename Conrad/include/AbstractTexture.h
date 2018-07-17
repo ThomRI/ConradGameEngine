@@ -47,7 +47,7 @@ class AbstractTexture
         std::string m_filepath;
 
         /* OpenGL */
-        GLuint m_id;
+        GLuint m_id = 0; // 0 is always unused
 };
 
 #endif // ABSTRACTTEXTURE_H
