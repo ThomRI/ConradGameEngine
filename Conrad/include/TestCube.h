@@ -3,6 +3,7 @@
 
 #include "StaticMesh.h"
 #include <iostream>
+#include <algorithm>
 
 class TestCube : public StaticMesh
 {

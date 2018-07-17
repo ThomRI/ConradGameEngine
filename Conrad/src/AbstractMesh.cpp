@@ -21,8 +21,8 @@ AbstractMesh::AbstractMesh(int verticesLength, float *vertices, int colorsLength
 /// \brief Sets up an alpha texture without color. This is used to be compatible with the texturing system, without any effect on a pure-colors render.
 void AbstractMesh::setupAlphaTex()
 {
-    m_texCoords = new float[m_texLength * 3];
-    std::fill_n(m_texCoords, m_texLength * 3, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
+    m_texCoords = new float[m_texLength * 2];
+    std::fill_n(m_texCoords, m_texLength * 2, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
 
     m_texture = new AbstractTexture(ALPHAONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
     if(!m_texture->load()) {
@@ -56,7 +56,7 @@ bool AbstractMesh::setColors(float *colors, int length)
 
 bool AbstractMesh::setTexCoords(float *texCoords, int length)
 {
-    if(length != 3 * m_colorsLength || m_loaded) {
+    if(length != 2 * m_texLength || m_loaded) {
         return false;
     }
 
@@ -89,7 +89,7 @@ void AbstractMesh::load()
 
     m_verticesSize = 3 * m_verticesLength * sizeof(float);
     m_colorsSize = 3 * m_colorsLength * sizeof(float);
-    m_texSize = 3 * m_texLength * sizeof(float);
+    m_texSize = 2 * m_texLength * sizeof(float);
 
     /* ##### VBO ##### */
 

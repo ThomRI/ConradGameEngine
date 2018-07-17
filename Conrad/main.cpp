@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     TestCube *cube = new TestCube(1.0);
     app->getRenderer()->addMesh(cube);
 
-    app->loop(120); // 60 fps
+    app->loop(120); // 120 fps
 
     return 0;
 }

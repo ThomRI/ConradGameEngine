@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1531795906 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1531801452 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
@@ -681,7 +681,7 @@
 	<GL/glew.h>
 	<GL3/gl3.h>
 
-1531780778 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1531801575 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -693,7 +693,7 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1531796649 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
+1531799417 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
 	"AbstractMesh.h"
 
 1531796137 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
@@ -708,7 +708,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1531795954 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+1531801194 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
 
 1526978384 c:\libs\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -1255,9 +1255,10 @@
 	<iostream>
 	<string>
 
-1531760548 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testcube.h
+1531801371 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testcube.h
 	"StaticMesh.h"
 	<iostream>
+	<algorithm>
 
 1531794488 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
 	"AbstractMesh.h"
@@ -1268,7 +1269,7 @@
 1531794582 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
 	"StaticMesh.h"
 
-1531771413 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
+1531801384 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
 1531793380 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
@@ -1871,6 +1872,6 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531792594 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
+1531801189 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
 	"AbstractTexture.h"
 

@@ -43,8 +43,9 @@ bool Application::init()
         }
     #endif // WIN32
 
-    /* Enabling depth test */
+    /* OpenGL settings */
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
 
     /* Disabling vsync */
     SDL_GL_SetSwapInterval(0);
@@ -71,7 +72,7 @@ void Application::loop(int const fps)
         // consistent fps system
         auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // Time that remains to be waited before next frame
         if(delta < delay) {
-            //std::cout << "FPS Fidelity : " << (delay - delta).count()*100 / delay.count() << "%" << std::endl; // For debug only : very slow !
+            std::cout << "FPS Fidelity : " << (delay - delta).count()*100 / delay.count() << "%" << std::endl; // For debug only : very slow !
             std::this_thread::sleep_for(delay - delta);
         }
     }

@@ -103,9 +103,10 @@ SDL_Surface *AbstractTexture::reverse_SDL_surface(SDL_Surface *source)
     unsigned char* sourcePixels = (unsigned char*) source->pixels;
     unsigned char* reversedPixels = (unsigned char*) reversed->pixels;
 
+    int row = source->w * source->format->BytesPerPixel;
     for(int y = 0;y < source->h; y++) {
-        for(int x = 0; x < source->w * source->format->BytesPerPixel; x++) {
-            reversedPixels[GRID_2D_INDEX(x, source->h - 1 - y, source->w * source->format->BytesPerPixel)] = sourcePixels[GRID_2D_INDEX(x, y, source->w * source->format->BytesPerPixel)];
+        for(int x = 0; x < row; x++) {
+            reversedPixels[(source->h - 1 - y) * row + x] = sourcePixels[y * row + x];
         }
     }
 
