@@ -6,7 +6,9 @@
 #include <SDL2/SDL.h>
 #include <chrono>
 #include <thread>
+
 #include "Renderer.h"
+#include "InputManager.h"
 
 /* GLEW Initialization */
 #ifdef WIN32
@@ -27,8 +29,10 @@ class Application
 
         bool init(); // Initializes SDL window and OpenGL context
         void loop(int const fps); // Main app loop
+        void interrupt();
 
         Renderer *getRenderer();
+        InputManager *inputs(); // Used by other classes to retrieve active inputs. The get.. nomenclature isn't respected here for simpler uses.
 
     protected:
 
@@ -45,6 +49,9 @@ class Application
 
         /* Rendering */
         Renderer *m_renderer;
+
+        /* Input management */
+        InputManager *m_inputManager;
 };
 
 #endif // APPLICATION_H

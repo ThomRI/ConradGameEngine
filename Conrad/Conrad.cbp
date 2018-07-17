@@ -7,7 +7,8 @@
 		<Option compiler="gcc" />
 		<Option show_notes="0">
 			<notes>
-				<![CDATA[16/07/2018 15:54 | Implemented AbstractMesh yesterday. One VBO/VAO per mesh for now.]]>
+				<![CDATA[16/07/2018 15:54 | Implemented AbstractMesh yesterday. One VBO/VAO per mesh for now.
+17/07/2018 03:10 | Implemented AbstractTexture. Every mesh is considered as using a texture (which is ok in a game engine, every mesh will be using textures). If a mesh hasn't any specified texture coordinates, the engine still uses textures for the mesh with the same coordinates for every vertex (whatever..), and a fully transparent texture applied.]]>
 			</notes>
 		</Option>
 		<Build>
@@ -56,22 +57,21 @@
 			<Add directory="$(#sdl2.INCLUDE)" />
 			<Add directory="$(#glm.INCLUDE)" />
 			<Add directory="$(#glew.INCLUDE)" />
-			<Add directory="$(#sdl2_image.INCLUDE)" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
 			<Add library="SDL2main" />
 			<Add library="SDL2" />
+			<Add library="SDL2_image" />
 			<Add library="opengl32" />
 			<Add library="glew32" />
-			<Add library="SDL2_image" />
 			<Add directory="$(#sdl2.LIB)" />
 			<Add directory="$(#glew.LIB)" />
-			<Add directory="$(#sdl2_image.LIB)" />
 		</Linker>
 		<Unit filename="include/AbstractMesh.h" />
 		<Unit filename="include/AbstractTexture.h" />
 		<Unit filename="include/Application.h" />
+		<Unit filename="include/InputManager.h" />
 		<Unit filename="include/Renderer.h" />
 		<Unit filename="include/Shader.h" />
 		<Unit filename="include/StaticMesh.h" />
@@ -81,6 +81,7 @@
 		<Unit filename="src/AbstractMesh.cpp" />
 		<Unit filename="src/AbstractTexture.cpp" />
 		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/InputManager.cpp" />
 		<Unit filename="src/Renderer.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />

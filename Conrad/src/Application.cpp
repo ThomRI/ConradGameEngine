@@ -4,6 +4,7 @@ Application::Application(char *title, int width, int height) :
     m_width(width), m_height(height), m_title(title)
 {
     m_renderer = new Renderer();
+    m_inputManager = new InputManager();
 }
 
 /// \return The initialization status (false for failed, true for a success).
@@ -23,7 +24,7 @@ bool Application::init()
 
     /* OpenGL Context */
 
-    // Version
+    // Version OpenGL 3.1
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
@@ -59,9 +60,10 @@ bool Application::init()
 void Application::loop(int const fps)
 {
     ms delay(1000.0/fps);
-    std::cout << "Starting : " << fps << " fps" << std::endl;
+    std::cout << "Starting app loop at " << fps << " fps" << std::endl;
 
-    while(m_run) {
+    m_run = true;
+    while(m_run && !m_inputManager->close()) {
         auto start = std::chrono::steady_clock::now();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -69,18 +71,32 @@ void Application::loop(int const fps)
 
         SDL_GL_SwapWindow(m_window);
 
+        /* Inputs treatment here */
+        m_inputManager->update();
+        //std::cout << "(" << m_inputManager->getMouseXrel() << " ; " << m_inputManager->getMouseYrel() << ")" << std::endl;
+
         // consistent fps system
         auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // Time that remains to be waited before next frame
         if(delta < delay) {
-            std::cout << "FPS Fidelity : " << (delay - delta).count()*100 / delay.count() << "%" << std::endl; // For debug only : very slow !
+            //std::cout << "FPS Fidelity : " << (delay - delta).count()*100 / delay.count() << "%" << std::endl; // For debug only : very slow !
             std::this_thread::sleep_for(delay - delta);
         }
     }
 }
 
+void Application::interrupt()
+{
+    m_run = false;
+}
+
 Renderer *Application::getRenderer()
 {
     return m_renderer;
+}
+
+InputManager *Application::inputs()
+{
+    return m_inputManager;
 }
 
 Application::~Application()

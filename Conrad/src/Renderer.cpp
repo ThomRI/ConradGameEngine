@@ -19,7 +19,7 @@ void Renderer::setShader(Shader shader)
 
 void Renderer::render()
 {
-    glUseProgram(m_shader.getProgramID());
+    glUseProgram(m_shader.getProgramID()); // Binding shader
 
         // VBOs and AttribPointers are token care of in AbstractMesh (by the VAO). Here we just send the matrices and call AbstractMesh::draw()
 
