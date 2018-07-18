@@ -19,21 +19,26 @@ int main(int argc, char **argv)
     Shader shader(string("shaders/basic/texture.vert"), string("shaders/basic/texture.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
+    /* Test scene */
+    StaticMesh *box = loadOBJ_static("objects/cube.obj", false);
+    StaticMesh *cylinder = loadOBJ_static("objects/cylinder.obj", false);
+    StaticMesh *ground = loadOBJ_static("objects/plane.obj", false);
 
-    TestCube *cube = new TestCube(1.0);
-    app->getRenderer()->addMesh(cube);
+    AbstractTexture *tex_grass = new AbstractTexture("textures/veg005.jpg");
+    AbstractTexture *tex_concrete = new AbstractTexture("textures/concrete001.jpg");
+    AbstractTexture *tex_crate = new AbstractTexture("textures/box.png");
 
-    /*StaticMesh *mesh = loadOBJ_static("cube.obj", false);
-    AbstractTexture *texture = new AbstractTexture("textures/crate13.jpg");
-    //float tex[6] = {1.0, 0.0,   0.0, 1.0,   0.0, 0.0};
+    box->setTexture(tex_crate);
+    cylinder->setTexture(tex_concrete);
+    ground->setTexture(tex_grass);
 
-    mesh->setTexture(texture);
+    box->load();
+    cylinder->load();
+    ground->load();
 
-    mesh->load();
-    app->getRenderer()->addMesh(mesh);*/
-
-    /*TestTriangle *triangle = new TestTriangle(2.0);
-    app->getRenderer()->addMesh(triangle);*/
+    app->getRenderer()->addMesh(box);
+    app->getRenderer()->addMesh(cylinder);
+    app->getRenderer()->addMesh(ground);
 
     app->loop(120); // 120 fps
 

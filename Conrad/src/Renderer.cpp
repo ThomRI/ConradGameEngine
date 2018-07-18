@@ -6,7 +6,8 @@ using namespace glm;
 Renderer::Renderer()
 {
     m_projection = perspective(70.0, 640.0/480, 1.0, 100.0);
-    m_global_modelview = lookAt(vec3(5.0, 5.0, 5.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
+    m_global_modelview = lookAt(vec3(2.0, 1.0, 2.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
+    m_global_modelview *= glm::rotate<float>(90, 1.0f, 0.0f, 0.0f);
 }
 
 void Renderer::setShader(Shader shader)
