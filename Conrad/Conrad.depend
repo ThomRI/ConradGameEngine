@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1531883346 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1531929386 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
 	"TestCube.h"
 	"TestTriangle.h"
 	"utilities.hpp"
+	"scope.h"
 
 1519925905 c:\libs\sdl2-2.0.8\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -684,7 +685,7 @@
 	<GL/glew.h>
 	<GL3/gl3.h>
 
-1531883526 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1531884608 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -711,7 +712,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1531801194 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+1531928835 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
 
 1526978384 c:\libs\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -1275,7 +1276,7 @@
 1531881314 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1531882487 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1531929130 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
@@ -1885,7 +1886,7 @@
 1531838825 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
 
-1531856785 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
+1531930635 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
 	<string>
 	<iostream>
 	<fstream>

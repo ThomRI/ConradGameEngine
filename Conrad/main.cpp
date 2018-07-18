@@ -4,6 +4,7 @@
 #include "TestCube.h"
 #include "TestTriangle.h"
 #include "utilities.hpp"
+#include "scope.h"
 
 using namespace std;
 
@@ -20,9 +21,10 @@ int main(int argc, char **argv)
     app->getRenderer()->setShader(shader); // loads the shader
 
     /* Test scene */
-    StaticMesh *box = loadOBJ_static("objects/cube.obj", false);
-    StaticMesh *cylinder = loadOBJ_static("objects/cylinder.obj", false);
-    StaticMesh *ground = loadOBJ_static("objects/plane.obj", false);
+    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false);
+    StaticMesh *box = meshlist[2];
+    StaticMesh *cylinder = meshlist[0];
+    StaticMesh *ground = meshlist[1];
 
     AbstractTexture *tex_grass = new AbstractTexture("textures/veg010.jpg");
     AbstractTexture *tex_concrete = new AbstractTexture("textures/cylinder.png");
@@ -39,6 +41,8 @@ int main(int argc, char **argv)
     app->getRenderer()->addMesh(box);
     app->getRenderer()->addMesh(cylinder);
     app->getRenderer()->addMesh(ground);
+
+
 
     app->loop(120); // 120 fps
 

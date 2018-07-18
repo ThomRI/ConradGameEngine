@@ -21,14 +21,14 @@
 #define OBJECT 4
 
 using namespace std;
-using coordinate3d = tuple<float, float, float>;
-using coordinate2d = tuple<float, float>;
 
 /* Definitions */
-static vector<StaticMesh*> loadOBJ_static(string, bool);
-static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate2d>*, vector<coordinate3d>*, vector<int>*, vector<int>*, vector<int>*);
+static vector<StaticMesh*> loadOBJ_static(string filepath, bool load);
+static StaticMesh *load_OBJ_once_fromlines(vector<string>*, int, int&);
 
-
+using coordinate3d = tuple<float, float, float>;
+using coordinate2d = tuple<float, float>;
+//using Face = tuple<int, int, int,  int, int, int,  int, int, int>; // v1,vt1,vn1    , v2,vt2,vn2,   v3,vt3,vn3
 
 /*!
  *  \file utilities.hpp
@@ -37,7 +37,7 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate
 
 /*!
  *  \brief Loads a .obj mesh file treated as static mesh each (environment, terrain, ...)
- *  \return (StaticMesh) The mesh, loaded or not depending on the load parameter value.
+ *  \return (vector<StaticMesh*>) The meshes, loaded or not depending on the load parameter value.
  *  \warning Only accepts triangulated meshes ! In other cases, the function behavior is not determined.
  *  \warning Meshes MUST HAVE UV TEXTURE INFOS. This is crucial : the engine works based on textures.
  */
@@ -48,7 +48,7 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
     ifstream file(filepath.c_str());
     if(!file) {
         cout << "Can't load (" << filepath << ")" << endl;
-        return meshes; // empty
+        return meshes; // An empty array
     }
 
     /* Getting the file in memory */
@@ -58,7 +58,33 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
         lines.push_back(line);
     } file.close();
 
-    /* Parsing the .obj lines */
+    /* Searching for the first object */
+    int next = 0; // Always the next "o .." or lines.end() if EOF
+    for(int i = 0;i < lines.size();i++) {
+        line = lines.at(i);
+        stringstream stream(line);
+        string c; stream >> c; // First char of the string
+
+        next = i; // Not in the if so that next can be lines.end() if no object were found
+        if(c == "o") break;
+    }
+
+    /* Splitting object */
+    while(next != lines.size() - 1) { // last index
+        // Loading next object
+        StaticMesh *mesh = load_OBJ_once_fromlines(&lines, next + 1, next); // next + 1 not to include the "o.." of the object that will be parsed // the last parameter is a reference
+        if(load) mesh->load();
+
+        meshes.push_back(mesh);
+    }
+
+    return meshes;
+}
+
+/// \brief Loads one object of a .obj passed as an array of lines starting at the start index. Passes the index of the next object found in next
+static StaticMesh *load_OBJ_once_fromlines(vector<string> *lines, int start, int &next)
+{
+    /* Parsing the lines */
     vector<coordinate3d> vertices;
     vector<coordinate2d> tex;
     vector<coordinate3d> normals;
@@ -67,9 +93,10 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
     vector<int> faces_tex_index;
     vector<int> faces_normal_index;
 
-    bool firstO = true; // Checks if the first "o.." has been read (in order not to create an invalid mesh with the infos above the first object). true = we are still at the first one
-    for(vector<string>::iterator it = lines.begin(); it != lines.end(); it++) {
-        line = (*it);
+    string line;
+    for(int i = start;i < lines->size();i++) {
+        next = i;
+        line = lines->at(i);
         stringstream stream(line);
         string c; stream >> c; // First char of the string
 
@@ -79,26 +106,11 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
         else if(c == "vn")  index = NORMAL;
         else if(c == "f")   index = FACE;
         else if(c == "o")   index = OBJECT;
-
         switch(index) { // First char of the line
-            case OBJECT: // Next object has been detected
+            case OBJECT: // Found next object
             {
-                if(firstO)  { // We don't want to create "last" object if it's the first one
-                    firstO = false;
-                    break;
-                }
-
-                // Creating last object
-                StaticMesh *mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index);
-                if(load) mesh->load();
-
-                meshes.push_back(mesh);
-
-                /* Reseting everything for next mesh */
-                faces_vertex_index.clear();
-                faces_tex_index.clear();
-                faces_normal_index.clear();
-
+                // next is now the index pointing at "o ..."
+                i = lines->size(); // Stopping parsing, creating the mesh and returning
                 break;
             }
 
@@ -162,44 +174,33 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
         }
     }
 
-    /* Don't forget the very last one ! (there is no "o" to trigger it ! */
-    StaticMesh *mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index);
-    if(load) mesh->load();
-
-    meshes.push_back(mesh);
-
-    return meshes;
-}
-
-static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<coordinate2d> *textures, vector<coordinate3d> *normals,
-                                        vector<int> *faces_vertex_index, vector<int> *faces_tex_index, vector<int> *faces_normal_index)
-{
+    /* Finished parsing the file */
     /* Creating the mesh */
     float *vertices_array;
     float *colors_array;
     float *tex_array;
-    vertices_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float));
-    colors_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float));
-    tex_array = (float*) malloc(faces_tex_index->size() * 2 * sizeof(float));
+    vertices_array = (float*) malloc(faces_vertex_index.size() * 3 * sizeof(float));
+    colors_array = (float*) malloc(faces_vertex_index.size() * 3 * sizeof(float));
+    tex_array = (float*) malloc(faces_tex_index.size() * 2 * sizeof(float));
 
     if(vertices_array == 0 || colors_array == 0 || tex_array == 0) {
         std::cout << "Error parsing .obj : out of memory" << std::endl;
         return nullptr;
     }
 
-    std::fill_n(colors_array, faces_vertex_index->size() * 3, 1.0); // Colors aren't used for textured materials
+    std::fill_n(colors_array, faces_vertex_index.size() * 3, 1.0); // Colors aren't used for textured materials
 
     /* Filling arrays with faces order */
-    for(int i = 0;i < faces_vertex_index->size();i++) { // One vertex
-        coordinate3d vertex_coords = vertices->at(faces_vertex_index->at(i));
+    for(int i = 0;i < faces_vertex_index.size();i++) { // One vertex
+        coordinate3d vertex_coords = vertices[faces_vertex_index[i]];
 
         vertices_array[3*i]     = get<X_coord>(vertex_coords);
         vertices_array[3*i + 1] = get<Y_coord>(vertex_coords);
         vertices_array[3*i + 2] = get<Z_coord>(vertex_coords);
     }
 
-    for(int i = 0;i < faces_tex_index->size();i++) { // One texture
-        coordinate2d tex_coords = textures->at(faces_tex_index->at(i));
+    for(int i = 0;i < faces_tex_index.size();i++) { // One texture
+        coordinate2d tex_coords = tex[faces_tex_index[i]];
 
         tex_array[2*i]      = get<X_coord>(tex_coords); // U
         tex_array[2*i + 1]  = get<Y_coord>(tex_coords); // V
@@ -207,7 +208,8 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
 
     /* Normals not supported for now */
 
-    StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array);
+    StaticMesh *mesh = new StaticMesh(faces_vertex_index.size(), vertices_array, colors_array, tex_array);
+
     return mesh;
 }
 
