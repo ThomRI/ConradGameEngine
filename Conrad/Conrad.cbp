@@ -76,7 +76,9 @@
 		<Unit filename="include/Shader.h" />
 		<Unit filename="include/StaticMesh.h" />
 		<Unit filename="include/TestCube.h" />
+		<Unit filename="include/TestTriangle.h" />
 		<Unit filename="include/scope.h" />
+		<Unit filename="include/utilities.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/AbstractMesh.cpp" />
 		<Unit filename="src/AbstractTexture.cpp" />
@@ -86,6 +88,7 @@
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />
 		<Unit filename="src/TestCube.cpp" />
+		<Unit filename="src/TestTriangle.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -132,7 +132,7 @@ void AbstractMesh::load()
                 glVertexAttribPointer(COLOR_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize));
                 glEnableVertexAttribArray(COLOR_BUFFER); // Second enabled is COLOR_BUFFER for the shader
 
-                glVertexAttribPointer(TEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize));
+                glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize));
                 glEnableVertexAttribArray(TEX_BUFFER);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
         /* End of GPU sided code */

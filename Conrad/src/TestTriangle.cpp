@@ -10,7 +10,7 @@ TestTriangle::TestTriangle(int size) :
 
     //float colors[] = {1.0, 0.0, 0.0,    0.0, 1.0, 0.0,  0.0, 0.0, 1.0};
 
-    float tex[] = {0.0, 0.0,    1.0, 0.0,   1.0, 1.0};
+    float tex[] = {0.0, 1.0,    1.0, 0.0,   1.0, 1.0};
 
     setVertices(vertices, 3*3);
     setColors(colors, 3*3);

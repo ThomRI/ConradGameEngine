@@ -73,7 +73,6 @@ void Application::loop(int const fps)
 
         /* Inputs treatment here */
         m_inputManager->update();
-        //std::cout << "(" << m_inputManager->getMouseXrel() << " ; " << m_inputManager->getMouseYrel() << ")" << std::endl;
 
         // consistent fps system
         auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // Time that remains to be waited before next frame

@@ -3,24 +3,23 @@
 TestCube::TestCube(float size) :
     StaticMesh(36) // 36 vertices as for 6 (2 triangles) per faces and 6 faces
 {
-    float vertices[] = {-size, -size, size,  -size, -size, -size,   size, -size, -size, // FRONT DOWN
-                        size, -size, size,   size, -size, size,     -size, -size, size, // FRONT UP
+    float vertices[] = {   -size, -size, -size,   size, -size, -size,   size, size, -size,     // Face 1
+                           -size, -size, -size,   -size, size, -size,   size, size, -size,     // Face 1
 
-                        size, -size, size,  -size, size, size,  -size, -size, size,     // UP DOWN
-                        size, -size, size,  size, size, size,   -size, size, size,      // UP UP
+                           size, -size, size,   size, -size, -size,   size, size, -size,       // Face 2
+                           size, -size, size,   size, size, size,   size, size, -size,         // Face 2
 
-                        size, -size, -size,  size, size, -size,  size, size, size,      // RIGHT DOWN
-                        size, -size, -size,  size, -size, size,  size, size, size,      // RIGHT UP
+                           -size, -size, size,   size, -size, size,   size, -size, -size,      // Face 3
+                           -size, -size, size,   -size, -size, -size,   size, -size, -size,    // Face 3
 
-                        -size, -size, -size,  -size, size, -size,   -size, size, size,  // LEFT DOWN
-                        -size, -size, -size,  -size, -size, size,   -size, size, size,  // LEFT UP
+                           -size, -size, size,   size, -size, size,   size, size, size,        // Face 4
+                           -size, -size, size,   -size, size, size,   size, size, size,        // Face 4
 
-                        size, size, -size,  -size, size, -size,     -size, size, size,  // BACK DOWN
-                        size, size, -size,  size, size, size,       -size, size, size,  // BACK UP
+                           -size, -size, -size,   -size, -size, size,   -size, size, size,     // Face 5
+                           -size, -size, -size,   -size, size, -size,   -size, size, size,     // Face 5
 
-                        size, -size, -size,  -size, -size, -size,  -size, size, -size,  // DOWN DOWN
-                        size, -size, -size,  size, size, -size,    -size, size, -size}; // DOWN UP
-
+                           -size, size, size,   size, size, size,   size, size, -size,         // Face 6
+                           -size, size, size,   -size, size, -size,   size, size, -size};      // Face 6
     //float vertices[36 * 3] = {0.0};
     /*float colors[] = {  1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
                         1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
@@ -42,23 +41,23 @@ TestCube::TestCube(float size) :
     float colors[3 * 36];
     std::fill_n(colors, 3 * 36, 1.0);
 
-    float tex[] = { 0.0, 0.0,   0.0, 1.0,   1.0, 0.0,
-                    0.0, 1.0,   1.0, 1.0,   1.0, 0.0,
+    float tex[] = {0, 0,   1, 0,   1, 1,     // Face 1
+                   0, 0,   0, 1,   1, 1,     // Face 1
 
-                    0.0, 0.0,   0.0, 1.0,   1.0, 0.0,
-                    0.0, 1.0,   1.0, 1.0,   1.0, 0.0,
+                   0, 0,   1, 0,   1, 1,     // Face 2
+                   0, 0,   0, 1,   1, 1,     // Face 2
 
-                    0.0, 0.0,   0.0, 1.0,   1.0, 0.0,
-                    0.0, 1.0,   1.0, 1.0,   1.0, 0.0,
+                   0, 0,   1, 0,   1, 1,     // Face 3
+                   0, 0,   0, 1,   1, 1,     // Face 3
 
-                    0.0, 0.0,   0.0, 1.0,   1.0, 0.0,
-                    0.0, 1.0,   1.0, 1.0,   1.0, 0.0,
+                   0, 0,   1, 0,   1, 1,     // Face 4
+                   0, 0,   0, 1,   1, 1,     // Face 4
 
-                    0.0, 0.0,   0.0, 1.0,   1.0, 0.0,
-                    0.0, 1.0,   1.0, 1.0,   1.0, 0.0,
+                   0, 0,   1, 0,   1, 1,     // Face 5
+                   0, 0,   0, 1,   1, 1,     // Face 5
 
-                    0.0, 0.0,   0.0, 1.0,   1.0, 0.0,
-                    0.0, 1.0,   1.0, 1.0,   1.0, 0.0};
+                   0, 0,   1, 0,   1, 1,     // Face 6
+                   0, 0,   0, 1,   1, 1};    // Face 6
 
 
     setVertices(vertices, 3 * 36);

@@ -70,6 +70,7 @@ bool AbstractTexture::load()
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
+    SDL_FreeSurface(SDL_image);
     return true;
 }
 
