@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 {
     cout << "Hello world!" << endl;
 
-    Application *app = new Application("Sexer", 640, 480);
+    Application *app = new Application("Sexer", 1280, 720);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
@@ -24,8 +24,8 @@ int main(int argc, char **argv)
     StaticMesh *cylinder = loadOBJ_static("objects/cylinder.obj", false);
     StaticMesh *ground = loadOBJ_static("objects/plane.obj", false);
 
-    AbstractTexture *tex_grass = new AbstractTexture("textures/veg005.jpg");
-    AbstractTexture *tex_concrete = new AbstractTexture("textures/concrete001.jpg");
+    AbstractTexture *tex_grass = new AbstractTexture("textures/veg010.jpg");
+    AbstractTexture *tex_concrete = new AbstractTexture("textures/cylinder.png");
     AbstractTexture *tex_crate = new AbstractTexture("textures/box.png");
 
     box->setTexture(tex_crate);

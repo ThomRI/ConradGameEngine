@@ -38,6 +38,7 @@ bool AbstractMesh::setVertices(float *vertices, int length)
         return false;
     }
 
+    delete m_vertices;
     m_vertices = vertices;
     return true;
 
@@ -50,6 +51,7 @@ bool AbstractMesh::setColors(float *colors, int length)
         return false;
     }
 
+    delete m_colors;
     m_colors = colors;
     return true;
 }
@@ -60,6 +62,7 @@ bool AbstractMesh::setTexCoords(float *texCoords, int length)
         return false;
     }
 
+    delete m_texCoords;
     m_texCoords = texCoords;
     return true;
 }

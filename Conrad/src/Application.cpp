@@ -75,7 +75,7 @@ void Application::loop(int const fps)
         m_inputManager->update();
 
         // consistent fps system
-        auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // Time that remains to be waited before next frame
+        auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // The took that the frame took to be calculated
         if(delta < delay) {
             //std::cout << "FPS Fidelity : " << (delay - delta).count()*100 / delay.count() << "%" << std::endl; // For debug only : very slow !
             std::this_thread::sleep_for(delay - delta);
