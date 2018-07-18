@@ -59,6 +59,7 @@ bool Application::init()
 /// \brief Main loop of an Application
 void Application::loop(int const fps)
 {
+    bool wireframe_pressed(false);
     ms delay(1000.0/fps);
     std::cout << "Starting app loop at " << fps << " fps" << std::endl;
 
@@ -73,6 +74,13 @@ void Application::loop(int const fps)
 
         /* Inputs treatment here */
         m_inputManager->update();
+        if(m_inputManager->isKeyPressed(SDL_SCANCODE_F) && !wireframe_pressed) {
+            m_renderer->toggleWireframe();
+            wireframe_pressed = true;
+        }
+        if(!m_inputManager->isKeyPressed(SDL_SCANCODE_F)) wireframe_pressed = false;
+
+        if(m_inputManager->isKeyPressed(SDL_SCANCODE_ESCAPE)) m_run = false;
 
         // consistent fps system
         auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // The took that the frame took to be calculated

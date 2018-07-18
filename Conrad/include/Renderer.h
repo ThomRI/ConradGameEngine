@@ -30,9 +30,11 @@ class Renderer
         void setShader(Shader shader);
 
         void render(); // Pushes next frame into buffer
+        void toggleWireframe(); // Toggles wireframe rendering
 
         int addMesh(AbstractMesh *mesh);
         AbstractMesh *getMesh(int meshID);
+
 
     protected:
 
@@ -44,6 +46,9 @@ class Renderer
 
         glm::mat4 m_projection = glm::mat4(1.0);
         glm::mat4 m_global_modelview = glm::mat4(1.0); // Set as identity by default
+
+        /* OpenGL */
+        bool m_wireframe = false;
 };
 
 #endif // RENDERER_H

@@ -6,7 +6,7 @@ using namespace glm;
 Renderer::Renderer()
 {
     m_projection = perspective(70.0, 640.0/480, 1.0, 100.0);
-    m_global_modelview = lookAt(vec3(2.5, 1.0, 2.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
+    m_global_modelview = lookAt(vec3(4.0, 1.0, 3.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
     m_global_modelview *= glm::rotate<float>(90, 1.0f, 0.0f, 0.0f);
 }
 
@@ -34,6 +34,14 @@ void Renderer::render()
 
 
     glUseProgram(0);
+}
+
+void Renderer::toggleWireframe()
+{
+    if(m_wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    else            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    m_wireframe = !m_wireframe;
 }
 
 /*!

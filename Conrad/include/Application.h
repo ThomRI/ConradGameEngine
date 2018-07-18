@@ -35,6 +35,7 @@ class Application
         InputManager *inputs(); // Used by other classes to retrieve active inputs. The get.. nomenclature isn't respected here for simpler uses.
 
     protected:
+        void toggleWireframe();
 
     private:
         /* Window */
