@@ -18,13 +18,10 @@ out vec2 texCoord;
 
 void main()
 {
-    // Position finale du vertex en 3D
 
     gl_Position = projection * modelview * vec4(in_Vertex, 1.0);
 
-
-    // Envoi des coordonnées de texture au Fragment Shader
-
+    // To fragment
     color = in_Color;
     texCoord = in_TexCoord0;
 }

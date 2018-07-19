@@ -50,6 +50,7 @@ class AbstractMesh
         bool setColors(float *colors, int length);
         bool setTexCoords(float *texCoords, int length);
         bool setTexture(AbstractTexture *texture);
+        bool setMaterial(AbstractMaterial *material);
 
         void load();
         void draw();
@@ -69,6 +70,7 @@ class AbstractMesh
                 *m_texCoords;
 
         AbstractTexture *m_texture;
+        AbstractMaterial *m_material;
 
         int m_verticesCount, // Number of vertices
             m_colorsCount,

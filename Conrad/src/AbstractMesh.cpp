@@ -72,6 +72,7 @@ bool AbstractMesh::setTexture(AbstractTexture *texture)
     if(m_loaded) return false; // A loaded mesh can't be updated (for now)
     // TODO : Allow an abstract mesh to be update after loading
 
+    delete m_texture;
     m_texture = texture;
     if(m_texture->load()) {
         m_tex_loaded = true;
@@ -79,6 +80,14 @@ bool AbstractMesh::setTexture(AbstractTexture *texture)
     }
 
     return false;
+}
+
+bool AbstractMesh::setMaterial(AbstractMaterial *material)
+{
+    delete m_material;
+    m_material = material;
+
+    return true; // Always succeeds
 }
 
 /// \brief Uploads the mesh data to the GPU, getting the mesh ready to be drawn (setting up VBO and VAO for the mesh).

@@ -14,11 +14,21 @@
 #define Y_coord 1
 #define Z_coord 2
 
-#define VERTEX 0
+#define VERTEX  0
 #define TEXTURE 1
-#define NORMAL 2
-#define FACE 3
-#define OBJECT 4
+#define NORMAL  2
+#define FACE    3
+#define OBJECT  4
+
+#include "AbstractMaterial.h"
+
+#define AMBIENT     0
+#define DIFFUSE     1
+#define SPECULAR    3
+#define EMIT        4
+#define SPEC_EXP    5
+#define ALPHA       6
+#define NEWMTL      7
 
 using namespace std;
 using coordinate3d = tuple<float, float, float>;
@@ -29,6 +39,7 @@ static vector<StaticMesh*> loadOBJ_static(string, bool);
 static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate2d>*, vector<coordinate3d>*, vector<int>*, vector<int>*, vector<int>*);
 
 
+/* ############# PARSING .OBJ ############# */
 
 /*!
  *  \file utilities.hpp
@@ -209,6 +220,126 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
 
     StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array);
     return mesh;
+}
+
+/* ############# MATERIALS ############# */
+
+/*!
+ *  \brief Loads a .MTL file into an AbstractMaterial array
+ *  \return (vector<AbstractMaterial>) loaded materials
+ */
+static vector<AbstractMaterial> loadMTL(string filepath)
+{
+    vector<AbstractMaterial> materials;
+    ifstream file(filepath.c_str());
+    if(!file) {
+        cout << "Can't load (" << filepath << ")" << endl;
+        return materials; // empty
+    }
+
+    /* Getting the file in memory */
+    string line;
+    vector<string> lines;
+    while(getline(file, line)) {
+        lines.push_back(line);
+    } file.close();
+
+    RGB Ka, Kd, Ks, Ke;
+    float Ns, d;
+    bool first(true); // Are we still at the first one ?
+
+    for(vector<string>::iterator it = lines.begin(); it != lines.end(); it++) {
+        line = (*it);
+        stringstream stream(line);
+        string c; stream >> c; // identifier
+
+        int index = -1;
+        if(c == "Ka")           index = AMBIENT;
+        else if(c == "Kd")      index = DIFFUSE;
+        else if(c == "Ks")      index = SPECULAR;
+        else if(c == "Ke")      index = EMIT;
+        else if(c == "Ns")      index = SPEC_EXP;
+        else if(c == "d")       index = ALPHA;
+        else if(c == "newmtl")  index = NEWMTL;
+
+        switch(index) {
+            case NEWMTL:
+            {
+                if(first) {
+                    first = false;
+                    break;
+                }
+
+                // Treating last material
+                AbstractMaterial material(Ka, Kd, Ks, Ke, Ns, d);
+                materials.push_back(material);
+
+                // No need to reset : the values will be overwritten
+
+                break;
+            }
+
+            case AMBIENT:
+            {
+                float x, y, z;
+                stream >> x >> y >> z;
+
+                Ka = {x, y, z};
+                break;
+            }
+
+            case DIFFUSE:
+            {
+                float x, y, z;
+                stream >> x >> y >> z;
+
+                Kd = {x, y, z};
+                break;
+            }
+
+            case SPECULAR:
+            {
+                float x, y, z;
+                stream >> x >> y >> z;
+
+                Ks = {x, y, z};
+                break;
+            }
+
+            case EMIT:
+            {
+                float x, y, z;
+                stream >> x >> y >> z;
+
+                Ke = {x, y, z};
+                break;
+            }
+
+            case SPEC_EXP:
+            {
+                float value;
+                stream >> value;
+
+                Ns = value;
+                break;
+            }
+
+            case ALPHA:
+            {
+                float value;
+                stream >> value;
+
+                d = value;
+                break;
+            }
+        }
+    }
+
+    // Very last material
+    AbstractMaterial material(Ka, Kd, Ks, Ke, Ns, d);
+    materials.push_back(material);
+
+    return materials;
 }
 
 #endif // UTILITIES_HPP_INCLUDED
