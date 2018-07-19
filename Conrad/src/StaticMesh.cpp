@@ -7,7 +7,7 @@ StaticMesh::StaticMesh(int bufferCount) :
 }
 
 StaticMesh::StaticMesh(int bufferCount, float *vertices, float *colors, float *vertexNormals) :
-    AbstractMesh(bufferCount, vertices, bufferCount, colors, GL_STATIC_DRAW)
+    AbstractMesh(bufferCount, vertices, bufferCount, colors, vertexNormals, GL_STATIC_DRAW)
 {
 
 }

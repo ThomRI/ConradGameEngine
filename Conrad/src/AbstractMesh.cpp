@@ -3,7 +3,7 @@
 AbstractMesh::AbstractMesh(int verticesCount, int colorsCount, int texCount, GLenum meshType) :
     m_verticesCount(verticesCount), m_colorsCount(colorsCount), m_texCount(texCount), m_meshType(meshType)
 {
-    // This constructor is used to be able to use setVertices, setColors and setTexture afterwards instead of pushing directly in the constructor. ALL OF THIS BEFORE LOADING THE MESH
+    // This constructor is used to be able to use setVertices, setColors and setTexture (and ...) afterwards instead of pushing directly in the constructor. ALL OF THIS BEFORE LOADING THE MESH
 }
 
 AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, float *vertexNormals, GLenum meshType)

@@ -247,7 +247,7 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
         // Now normals_array contains the averaged normals of each vertex!
     }
 
-    StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array);
+    StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array, normals_array);
     return mesh;
 }
 
