@@ -31,12 +31,14 @@
 #define NEWMTL      7
 
 using namespace std;
-using coordinate3d = tuple<float, float, float>;
-using coordinate2d = tuple<float, float>;
+using coordinate3d  = tuple<float, float, float>;
+using coordinate2d  = tuple<float, float>;
+using mapper        = tuple<int, int>;
 
 /* Definitions */
 static vector<StaticMesh*> loadOBJ_static(string, bool);
-static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate2d>*, vector<coordinate3d>*, vector<int>*, vector<int>*, vector<int>*);
+static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate2d>*, vector<coordinate3d>*, vector<int>*, vector<int>*, vector<int>*, vector<mapper>*);
+static vector<coordinate3d> generate_average_vertex_normals(vector<coordinate3d>*, vector<mapper>*, int);
 
 
 /* ############# PARSING .OBJ ############# */
@@ -52,7 +54,7 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate
  *  \warning Only accepts triangulated meshes ! In other cases, the function behavior is not determined.
  *  \warning Meshes MUST HAVE UV TEXTURE INFOS. This is crucial : the engine works based on textures.
  */
-static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
+static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true, bool compute_vertex_normals = true)
 {
     vector<StaticMesh*> meshes;
 
@@ -73,6 +75,8 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
     vector<coordinate3d> vertices;
     vector<coordinate2d> tex;
     vector<coordinate3d> normals;
+
+    vector<mapper> vertex_normals_mapper; // (vertex index, normal index)
 
     vector<int> faces_vertex_index;
     vector<int> faces_tex_index;
@@ -100,7 +104,9 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
                 }
 
                 // Creating last object
-                StaticMesh *mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index);
+                StaticMesh *mesh;
+                if(compute_vertex_normals)  mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index, &vertex_normals_mapper);
+                else                        mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index, nullptr);
                 if(load) mesh->load();
 
                 meshes.push_back(mesh);
@@ -164,6 +170,9 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
                     faces_vertex_index.push_back(indexes[0] - 1);   // One vertex  (3 coords)
                     faces_tex_index.push_back(indexes[1] - 1);      // One texture (2 coords)
                     faces_normal_index.push_back(indexes[2] - 1);   // One normal  (3 coords)
+
+                    // Associating the corresponding vertex index with the normal index (for calculating vertex normals)
+                    vertex_normals_mapper.push_back(make_tuple(indexes[0] - 1, indexes[2] - 1));
                 }
 
                 break;
@@ -174,7 +183,9 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
     }
 
     /* Don't forget the very last one ! (there is no "o" to trigger it ! */
-    StaticMesh *mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index);
+    StaticMesh *mesh;
+    if(compute_vertex_normals)  mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index, &vertex_normals_mapper);
+    else                        mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index, nullptr);
     if(load) mesh->load();
 
     meshes.push_back(mesh);
@@ -183,15 +194,19 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true)
 }
 
 static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<coordinate2d> *textures, vector<coordinate3d> *normals,
-                                        vector<int> *faces_vertex_index, vector<int> *faces_tex_index, vector<int> *faces_normal_index)
+                                        vector<int> *faces_vertex_index, vector<int> *faces_tex_index, vector<int> *faces_normal_index,
+                                        vector<mapper> *vertex_normals_mapper = nullptr) // nullptr for not computing the vertex normals
 {
     /* Creating the mesh */
     float *vertices_array;
     float *colors_array;
     float *tex_array;
-    vertices_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float));
+    float *normals_array;
+    vertices_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float)); // vertices counted with multiplicity
     colors_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float));
     tex_array = (float*) malloc(faces_tex_index->size() * 2 * sizeof(float));
+
+    if(vertex_normals_mapper != nullptr) normals_array = (float*) malloc(faces_normal_index->size() * 3 * sizeof(float)); // Only allocating if necessary
 
     if(vertices_array == 0 || colors_array == 0 || tex_array == 0) {
         std::cout << "Error parsing .obj : out of memory" << std::endl;
@@ -216,10 +231,61 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
         tex_array[2*i + 1]  = get<Y_coord>(tex_coords); // V
     }
 
-    /* Normals not supported for now */
+    /* Computing normals */
+    if(vertex_normals_mapper != nullptr) { // Should compute vertex normals
+        vector<coordinate3d> averaged_normals = generate_average_vertex_normals(normals, vertex_normals_mapper, vertices->size());
+        // averaged_normals[i] is the normal of the i-th vertex
+
+        for(int i = 0;i < faces_normal_index->size() * 3;i++) {
+            coordinate3d normal = averaged_normals[faces_normal_index->at(i)]; // Getting the averaged normal of the i-th vertex USED at index faces_normal_index->at(i)
+
+            normals_array[3*i]      = get<X_coord>(normal);
+            normals_array[3*i + 1]  = get<Y_coord>(normal);
+            normals_array[3*i + 2]  = get<Z_coord>(normal);
+        }
+        // Now normals_array contains the averaged normals of each vertex!
+    }
 
     StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array);
     return mesh;
+}
+
+static vector<coordinate3d> generate_average_vertex_normals(vector<coordinate3d> *normals, vector<mapper> *vertex_normals_mapper, int numberOfVertices)
+{
+    vector<coordinate3d> averaged_normals_vertex_mapper(numberOfVertices, make_tuple(0, 0, 0)); // at index i : (normal vector) of the vertex i (one entry per vertex)
+    //Note : vertex_normals_mapper may (most likely do) have multiple entries per vertex, that's why we're using a mapper
+
+    int *occurrences;    // at index i : number of times the vertex i is used (for averaging)
+    occurrences = (int *) malloc(numberOfVertices * sizeof(int));
+    std::fill_n(occurrences, numberOfVertices, 0);
+
+    for(vector<mapper>::iterator it = vertex_normals_mapper->begin();it != vertex_normals_mapper->end();it++) {
+        mapper _map = (*it);
+        int vertex_index = get<0>(_map);
+        int normal_index = get<1>(_map);
+
+        occurrences[vertex_index] += 1;
+
+        coordinate3d normal = normals->at(normal_index);
+        coordinate3d vertex_current_normal = averaged_normals_vertex_mapper.at(vertex_index);
+
+        // Adding normal to vertex_current_normal
+        get<X_coord>(vertex_current_normal) += get<X_coord>(normal);
+        get<Y_coord>(vertex_current_normal) += get<Y_coord>(normal);
+        get<Z_coord>(vertex_current_normal) += get<Z_coord>(normal);
+    }
+
+    /* Dividing by occurrences */
+    for(int i = 0;i < averaged_normals_vertex_mapper.size();i++) { // i-th vertex
+        int div = occurrences[i];
+
+        get<X_coord>(averaged_normals_vertex_mapper.at(i)) /= div;
+        get<Y_coord>(averaged_normals_vertex_mapper.at(i)) /= div;
+        get<Z_coord>(averaged_normals_vertex_mapper.at(i)) /= div;
+    }
+
+    free(occurrences);
+    return averaged_normals_vertex_mapper;
 }
 
 /* ############# MATERIALS ############# */

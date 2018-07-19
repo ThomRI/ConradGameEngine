@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 
     /* Test scene */
     cout << "Loading scene.obj..." << endl;
-    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false);
+    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, false);
 
     StaticMesh *bridge = meshlist[0];
     StaticMesh *gun = meshlist[1];

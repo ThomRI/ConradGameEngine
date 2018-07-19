@@ -5,7 +5,7 @@ AbstractMaterial::AbstractMaterial()
     //ctor
 }
 
-AbstractMaterial::AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float m_specularExponent, float m_alpha) :
+AbstractMaterial::AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float specularExponent, float alpha) :
     m_ambient(ambient), m_diffuse(diffuse), m_specular(specular), m_emit(emit), m_specularExponent(specularExponent), m_alpha(alpha)
 {
 

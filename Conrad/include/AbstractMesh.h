@@ -13,6 +13,7 @@
  #include <algorithm>
 
  #include "AbstractTexture.h"
+ #include "AbstractMaterial.h"
 
  /* GLM */
 #include <glm/glm.hpp>

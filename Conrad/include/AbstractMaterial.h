@@ -6,7 +6,7 @@
  *  \author ThomRI
  */
 
-#include "utilities.hpp"
+ #include "scope.h" // RGB structure
 
 /*!
  *  \class AbstractMaterial
@@ -16,7 +16,7 @@ class AbstractMaterial
 {
     public:
         AbstractMaterial();
-        AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float m_specularExponent, float m_alpha);
+        AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float specularExponent, float alpha);
         virtual ~AbstractMaterial();
 
         /* Getters */
