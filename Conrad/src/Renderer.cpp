@@ -5,9 +5,9 @@ using namespace glm;
 
 Renderer::Renderer()
 {
-    m_projection = perspective(70.0, 640.0/480, 1.0, 100.0);
-    m_global_modelview = lookAt(vec3(4.0, 1.0, 3.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
-    m_global_modelview *= glm::rotate<float>(90, 1.0f, 0.0f, 0.0f);
+    m_projection = perspective(70.0, 16.0/9, 1.0, 100.0);
+    m_global_modelview = lookAt(vec3(2.0, 3.0, 3.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
+    //m_global_modelview *= glm::rotate<float>(90, 1.0f, 0.0f, 0.0f);
 }
 
 void Renderer::setShader(Shader shader)
@@ -20,6 +20,7 @@ void Renderer::setShader(Shader shader)
 
 void Renderer::render()
 {
+    //m_global_modelview *= glm::rotate<float>(1, 0.0f, 0.0f, 1.0f);
     glUseProgram(m_shader.getProgramID()); // Binding shader
 
         // VBOs and AttribPointers are token care of in AbstractMesh (by the VAO). Here we just send the matrices and call AbstractMesh::draw()
@@ -28,6 +29,7 @@ void Renderer::render()
             // Sending matrices to the Shader
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projection));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr(m_global_modelview * (*mesh)->get_modelview()));
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 0.0, 0.0, 2.0);
 
             (*mesh)->draw();
         }

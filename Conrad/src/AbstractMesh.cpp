@@ -106,6 +106,7 @@ void AbstractMesh::load()
     m_verticesSize = 3 * m_verticesCount * sizeof(float);
     m_colorsSize = 3 * m_colorsCount * sizeof(float);
     m_texSize = 2 * m_texCount * sizeof(float);
+    m_vertexNormalsSize = m_verticesSize; // Easier for code maintenance
 
     /* ##### VBO ##### */
 
@@ -119,11 +120,12 @@ void AbstractMesh::load()
 
         /* Uploading datas */
         glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
-            glBufferData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize + m_texSize, 0, m_meshType);
+            glBufferData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize + m_texSize + m_vertexNormalsSize, 0, m_meshType);
 
-            glBufferSubData(GL_ARRAY_BUFFER, 0, m_verticesSize, m_vertices);
-            glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize, m_colorsSize, m_colors);
-            glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize, m_texSize, m_texCoords);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, m_verticesSize, m_vertices);                                                    // VERTICES
+            glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize, m_colorsSize, m_colors);                                           // COLORS
+            glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize, m_texSize, m_texCoords);                            // TEXTURE COORDS
+            glBufferSubData(GL_ARRAY_BUFFER, m_verticesSize + m_colorsSize + m_texSize, m_vertexNormalsSize, m_vertexNormals);  // NORMAL OF EACH VERTEX (for light calculations)
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -142,14 +144,17 @@ void AbstractMesh::load()
 
         /* GPU sided code from here (stored in the VAO) */
             glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
-                glVertexAttribPointer(VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+                glVertexAttribPointer(VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));                                                   // VERTICES
                 glEnableVertexAttribArray(VERTEX_BUFFER); // First enabled is VERTEX_BUFFER for the shader
 
-                glVertexAttribPointer(COLOR_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize));
+                glVertexAttribPointer(COLOR_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize));                                       // COLORS
                 glEnableVertexAttribArray(COLOR_BUFFER); // Second enabled is COLOR_BUFFER for the shader
 
-                glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize));
+                glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize));                          // TEXTURE COORDS
                 glEnableVertexAttribArray(TEX_BUFFER);
+
+                glVertexAttribPointer(VERTEX_NORMAL_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize + m_texSize));    // NORMAL OF EACH VERTEX
+                glEnableVertexAttribArray(VERTEX_NORMAL_BUFFER);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
         /* End of GPU sided code */
 

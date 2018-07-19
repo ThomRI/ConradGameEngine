@@ -9,9 +9,10 @@
 #endif
 
 /* Defines for VertexAttribPointer IDs */
-#define VERTEX_BUFFER   0
-#define COLOR_BUFFER    1
-#define TEX_BUFFER      2
+#define VERTEX_BUFFER           0
+#define COLOR_BUFFER            1
+#define TEX_BUFFER              2
+#define VERTEX_NORMAL_BUFFER    3
 
 /* Paths */
 #define TEXPATH "textures"

@@ -17,24 +17,43 @@ int main(int argc, char **argv)
         cout << "Error setting up SDL or context" << endl;
     }
 
-    Shader shader(string("shaders/basic/texture.vert"), string("shaders/basic/texture.frag"));
+    Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
     /* Cube only */
+
     cout << "Loading cube.obj" << endl;
     vector<StaticMesh*> meshlist = loadOBJ_static("objects/cube.obj", false, true);
 
     StaticMesh *box = meshlist[0];
-    AbstractTexture *tex_crate = new AbstractTexture("textures/box.png");
+    AbstractTexture *tex_crate = new AbstractTexture("textures/cube.png");
 
     box->setTexture(tex_crate);
+    /*float colors[] = {  1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,
+                        1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0};
+    box->setColors(colors, 3*36);*/
     box->load();
 
     app->getRenderer()->addMesh(box);
 
 
     /* Test scene */
-    /*
+/*
     cout << "Loading scene.obj..." << endl;
     vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
     cout << "Loaded the file" << endl;
@@ -76,8 +95,8 @@ int main(int argc, char **argv)
     app->getRenderer()->addMesh(cylinder);
     app->getRenderer()->addMesh(ground);
     app->getRenderer()->addMesh(torus);
-    app->getRenderer()->addMesh(gun);
-    */
+    app->getRenderer()->addMesh(gun);*/
+
 
     cout << "Ready!" << endl;
     app->loop(120); // 120 fps

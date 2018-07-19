@@ -62,6 +62,7 @@ bool Shader::load()
     glBindAttribLocation(m_programID, VERTEX_BUFFER, "in_Vertex");
     glBindAttribLocation(m_programID, COLOR_BUFFER, "in_Color");
     glBindAttribLocation(m_programID, TEX_BUFFER, "in_TexCoord0"); // Multitexturing isn't supported for now
+    glBindAttribLocation(m_programID, VERTEX_NORMAL_BUFFER, "in_VertexNormal");
     // TODO : Add multitexturing
 
     /* Linking */
