@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     vector<StaticMesh*> meshlist = loadOBJ_static("objects/cube.obj", false, true);
 
     StaticMesh *box = meshlist[0];
-    AbstractTexture *tex_crate = new AbstractTexture("textures/cube.png");
+    AbstractTexture *tex_crate = new AbstractTexture("textures/box.png");
 
     box->setTexture(tex_crate);
     /*float colors[] = {  1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0,

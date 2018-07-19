@@ -234,7 +234,6 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
     }
 
     /* Computing normals */
-    /*
     if(vertex_normals_mapper != nullptr) { // Should compute vertex normals
         map<int, coordinate3d> averaged_normals = generate_average_vertex_normals(normals, vertex_normals_mapper);
         // averaged_normals[i] is the normal of the i-th vertex
@@ -246,16 +245,16 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
             normals_array[3*i + 2]  = get<Z_coord>(normal);
         }
         // Now normals_array contains the averaged normals of each vertex!
-    }*/
+    }
 
-
+    /*
     for(int i = 0;i < faces_normal_index->size();i++) {
         coordinate3d normal_coords = normals->at(faces_normal_index->at(i));
 
         normals_array[3*i]      = get<X_coord>(normal_coords);
         normals_array[3*i + 1]  = get<Y_coord>(normal_coords);
         normals_array[3*i + 2]  = get<Z_coord>(normal_coords);
-    }
+    }*/
 
     StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array, normals_array);
     return mesh;
