@@ -22,11 +22,11 @@ int main(int argc, char **argv)
 
     /* Test scene */
     cout << "Loading scene.obj..." << endl;
-    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
+    vector<StaticMesh*> meshlist = loadOBJ_static("objects/cube.obj", false, true);
     cout << "Loaded the file" << endl;
 
 
-    StaticMesh *torus = meshlist[0];
+    /*StaticMesh *torus = meshlist[0];
     StaticMesh *cylinder = meshlist[1];
     StaticMesh *gun = meshlist[2];
     StaticMesh *box = meshlist[3];
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     app->getRenderer()->addMesh(cylinder);
     app->getRenderer()->addMesh(ground);
     app->getRenderer()->addMesh(torus);
-    app->getRenderer()->addMesh(gun);
+    app->getRenderer()->addMesh(gun);*/
     cout << "\t Loaded!" << endl;
 
 

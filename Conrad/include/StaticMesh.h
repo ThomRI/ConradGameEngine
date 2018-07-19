@@ -17,8 +17,8 @@ class StaticMesh : public AbstractMesh
 {
     public:
         StaticMesh(int bufferCount);
-        StaticMesh(int bufferCount, float *vertices, float *colors); // bufferLength is a NUMBER OF VERTICES (not a byte size)
-        StaticMesh(int bufferCount, float *vertices, float *colors, float *texCoords);
+        StaticMesh(int bufferCount, float *vertices, float *colors, float *vertexNormals); // bufferLength is a NUMBER OF VERTICES (not a byte size)
+        StaticMesh(int bufferCount, float *vertices, float *colors, float *texCoords, float *vertexNormals);
         virtual ~StaticMesh();
 
     protected:

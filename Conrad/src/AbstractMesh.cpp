@@ -6,16 +6,16 @@ AbstractMesh::AbstractMesh(int verticesCount, int colorsCount, int texCount, GLe
     // This constructor is used to be able to use setVertices, setColors and setTexture afterwards instead of pushing directly in the constructor. ALL OF THIS BEFORE LOADING THE MESH
 }
 
-// Texture constructor
-AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, GLenum meshType) :
-    m_vertices(vertices), m_colors(colors), m_texCoords(texCoords), m_verticesCount(verticesCount), m_colorsCount(colorsCount), m_texCount(texCount), m_meshType(meshType)
+AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, float *vertexNormals, GLenum meshType)
 {
-
+    AbstractMesh(verticesCount, vertices, colorsCount, colors, colorsCount, nullptr, vertexNormals, meshType); // Calling the texture-constructor with nullptr as texCoords.
 }
 
-AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, GLenum meshType)
+// Texture constructor
+AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, float *vertexNormals, GLenum meshType) :
+    m_vertices(vertices), m_colors(colors), m_texCoords(texCoords), m_verticesCount(verticesCount), m_colorsCount(colorsCount), m_texCount(texCount), m_vertexNormals(vertexNormals), m_meshType(meshType)
 {
-    AbstractMesh(verticesCount, vertices, colorsCount, colors, colorsCount, nullptr, meshType); // Calling the texture-constructor with nullptr as texCoords.
+
 }
 
 /// \brief Sets up an alpha texture without color. This is used to be compatible with the texturing system, without any effect on a pure-colors render.
@@ -61,6 +61,16 @@ bool AbstractMesh::setTexCoords(float *texCoords, int length)
     }
 
     m_texCoords = texCoords;
+    return true;
+}
+
+bool AbstractMesh::setVertexNormals(float *vertexNormals, int length)
+{
+    if(length != 3 * m_verticesCount || m_loaded) {
+        return false;
+    }
+
+    m_vertexNormals = vertexNormals;
     return true;
 }
 

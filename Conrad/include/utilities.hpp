@@ -265,7 +265,7 @@ static map<int, coordinate3d> generate_average_vertex_normals(vector<coordinate3
         int normal_index = get<1>(_map);
 
         coordinate3d normal = normals->at(normal_index);
-        coordinate3d vertex_current_normal = averaged_normals_vertex_mapper[vertex_index]; // reference in order to change the value
+        coordinate3d &vertex_current_normal = averaged_normals_vertex_mapper[vertex_index]; // reference in order to change the value
 
         // Adding normal to vertex_current_normal
         get<X_coord>(vertex_current_normal) += get<X_coord>(normal);

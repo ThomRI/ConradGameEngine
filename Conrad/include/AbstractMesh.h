@@ -43,13 +43,14 @@ class AbstractMesh
 {
     public:
         AbstractMesh(int verticesCount, int colorsCount, int texCount, GLenum meshType);
-        AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, GLenum meshType);
-        AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, GLenum meshType);
+        AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, float *vertexNormals, GLenum meshType);
+        AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, float *vertexNormals, GLenum meshType);
         virtual ~AbstractMesh();
 
         bool setVertices(float *vertices, int length);
         bool setColors(float *colors, int length);
         bool setTexCoords(float *texCoords, int length);
+        bool setVertexNormals(float *vertexNormals, int length);
         bool setTexture(AbstractTexture *texture);
         bool setMaterial(AbstractMaterial *material);
 
@@ -68,17 +69,19 @@ class AbstractMesh
         /* Mesh datas */
         float   *m_vertices,
                 *m_colors,
-                *m_texCoords;
+                *m_texCoords,
+                *m_vertexNormals; // Not faces normals ! There is one normal per vertex that has been averaged from the normals of the faces the vertex is involved in.
 
         AbstractTexture *m_texture;
         AbstractMaterial *m_material;
 
         int m_verticesCount, // Number of vertices
             m_colorsCount,
-            m_texCount;
+            m_texCount; // No vertex normal count : it's the same as m_verticesCount as there will always be one normal per vertex.
         int m_verticesSize,
             m_colorsSize,
-            m_texSize;
+            m_texSize,
+            m_vertexNormalsSize;
 
         /* OpenGL */
         GLuint  m_vboID = 0, // 0 is always unused
