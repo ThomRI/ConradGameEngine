@@ -22,42 +22,39 @@ int main(int argc, char **argv)
 
     /* Test scene */
     cout << "Loading scene.obj..." << endl;
-    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, false);
+    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
+    cout << "Loaded the file" << endl;
 
-    StaticMesh *bridge = meshlist[0];
-    StaticMesh *gun = meshlist[1];
-    StaticMesh *torus = meshlist[2];
-    StaticMesh *cylinder = meshlist[3];
+
+    StaticMesh *torus = meshlist[0];
+    StaticMesh *cylinder = meshlist[1];
+    StaticMesh *gun = meshlist[2];
+    StaticMesh *box = meshlist[3];
     StaticMesh *ground = meshlist[4];
-    StaticMesh *box = meshlist[5];
 
     AbstractTexture *tex_grass = new AbstractTexture("textures/veg010.jpg");
     AbstractTexture *tex_concrete = new AbstractTexture("textures/cylinder.png");
     AbstractTexture *tex_crate = new AbstractTexture("textures/box.png");
     AbstractTexture *tex_torus = new AbstractTexture("textures/torus.png");
     AbstractTexture *tex_gun = new AbstractTexture("textures/handgun_C.jpg");
-    AbstractTexture *tex_bridge = new AbstractTexture("textures/DirtyWoodPlanks.jpg");
 
     box->setTexture(tex_crate);
     cylinder->setTexture(tex_concrete);
     ground->setTexture(tex_grass);
     torus->setTexture(tex_torus);
     gun->setTexture(tex_gun);
-    bridge->setTexture(tex_bridge);
 
     box->load();
     cylinder->load();
     ground->load();
     torus->load();
     gun->load();
-    bridge->load();
 
     app->getRenderer()->addMesh(box);
     app->getRenderer()->addMesh(cylinder);
     app->getRenderer()->addMesh(ground);
     app->getRenderer()->addMesh(torus);
     app->getRenderer()->addMesh(gun);
-    app->getRenderer()->addMesh(bridge);
     cout << "\t Loaded!" << endl;
 
 

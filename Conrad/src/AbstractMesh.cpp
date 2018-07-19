@@ -38,7 +38,6 @@ bool AbstractMesh::setVertices(float *vertices, int length)
         return false;
     }
 
-    delete m_vertices;
     m_vertices = vertices;
     return true;
 
@@ -51,7 +50,6 @@ bool AbstractMesh::setColors(float *colors, int length)
         return false;
     }
 
-    delete m_colors;
     m_colors = colors;
     return true;
 }
@@ -62,7 +60,6 @@ bool AbstractMesh::setTexCoords(float *texCoords, int length)
         return false;
     }
 
-    delete m_texCoords;
     m_texCoords = texCoords;
     return true;
 }
@@ -72,7 +69,6 @@ bool AbstractMesh::setTexture(AbstractTexture *texture)
     if(m_loaded) return false; // A loaded mesh can't be updated (for now)
     // TODO : Allow an abstract mesh to be update after loading
 
-    delete m_texture;
     m_texture = texture;
     if(m_texture->load()) {
         m_tex_loaded = true;
@@ -84,9 +80,7 @@ bool AbstractMesh::setTexture(AbstractTexture *texture)
 
 bool AbstractMesh::setMaterial(AbstractMaterial *material)
 {
-    delete m_material;
     m_material = material;
-
     return true; // Always succeeds
 }
 
