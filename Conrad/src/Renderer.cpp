@@ -26,7 +26,7 @@ void Renderer::render()
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             // Sending matrices to the Shader
-            (*mesh)->get_modelview() *= glm::rotate<float>(1, 0.0f, 0.0f, 1.0f);
+            (*mesh)->get_modelview() *= glm::rotate<float>(0.2, 0.0f, 0.0f, 1.0f);
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projection));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "camera"), 1, GL_FALSE, glm::value_ptr(m_global_modelview));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr((*mesh)->get_modelview()));
