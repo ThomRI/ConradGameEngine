@@ -17,55 +17,62 @@ int main(int argc, char **argv)
         cout << "Error setting up SDL or context" << endl;
     }
 
-    Shader shader(string("shaders/basic/texture.vert"), string("shaders/basic/texture.frag"));
+    Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
     /* Test scene */
+
     cout << "Loading scene.obj..." << endl;
     vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
-    cout << "Loaded the file" << endl;
+    cout << "Loaded the file (" << meshlist.size() << " meshes" << endl;
 
-
-    StaticMesh *torus = meshlist[0];
-    StaticMesh *cylinder = meshlist[1];
-    StaticMesh *gun = meshlist[2];
-    StaticMesh *box = meshlist[3];
-    StaticMesh *ground = meshlist[4];
+    StaticMesh *leaves01 = meshlist[0];
+    StaticMesh *base_tree = meshlist[2];
+    StaticMesh *cone = meshlist[3];
+    StaticMesh *gun = meshlist[4];
+    StaticMesh *cylinder = meshlist[5];
+    StaticMesh *ground = meshlist[6];
 
     cout << "Associated meshes" << endl;
 
     AbstractTexture *tex_grass = new AbstractTexture("textures/veg010.jpg");
-    AbstractTexture *tex_concrete = new AbstractTexture("textures/cylinder.png");
-    AbstractTexture *tex_crate = new AbstractTexture("textures/box.png");
-    AbstractTexture *tex_torus = new AbstractTexture("textures/torus.png");
+    AbstractTexture *tex_wood = new AbstractTexture("textures/wooden.png");
+    AbstractTexture *tex_leaves = new AbstractTexture("textures/HazelnutLeaves.png");
+    AbstractTexture *tex_base_tree = new AbstractTexture("textures/HazelnutBark.png");
     AbstractTexture *tex_gun = new AbstractTexture("textures/handgun_C.jpg");
+    AbstractTexture *tex_cone = new AbstractTexture("textures/wall068b.jpg");
 
     cout << "Created textures" << endl;
 
-    box->setTexture(tex_crate);
-    cylinder->setTexture(tex_concrete);
+    cylinder->setTexture(tex_wood);
     ground->setTexture(tex_grass);
-    torus->setTexture(tex_torus);
     gun->setTexture(tex_gun);
+    cone->setTexture(tex_cone);
+    leaves01->setTexture(tex_leaves);
+    base_tree->setTexture(tex_base_tree);
+
+
 
     cout << "Associated textures" << endl;
 
-    box->load();
     cylinder->load();
     ground->load();
-    torus->load();
     gun->load();
+    cone->load();
+    leaves01->load();
+    base_tree->load();
 
     cout << "Loaded meshes" << endl;
 
-    app->getRenderer()->addMesh(box);
     app->getRenderer()->addMesh(cylinder);
     app->getRenderer()->addMesh(ground);
-    app->getRenderer()->addMesh(torus);
     app->getRenderer()->addMesh(gun);
+    app->getRenderer()->addMesh(cone);
+    app->getRenderer()->addMesh(leaves01);
+    app->getRenderer()->addMesh(base_tree);
+
+
     cout << "Ready!" << endl;
-
-
     app->loop(120); // 120 fps
 
     return 0;

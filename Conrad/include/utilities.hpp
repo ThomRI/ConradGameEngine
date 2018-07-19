@@ -207,8 +207,7 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
     vertices_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float)); // vertices counted with multiplicity
     colors_array = (float*) malloc(faces_vertex_index->size() * 3 * sizeof(float));
     tex_array = (float*) malloc(faces_tex_index->size() * 2 * sizeof(float));
-
-    if(vertex_normals_mapper != nullptr)    normals_array = (float*) malloc(faces_normal_index->size() * 3 * sizeof(float)); // Only allocating if necessary
+    normals_array = (float*) malloc(faces_normal_index->size() * 3 * sizeof(float)); // Only allocating if necessary
 
     if(vertices_array == 0 || colors_array == 0 || tex_array == 0) {
         std::cout << "Error parsing .obj : out of memory" << std::endl;
@@ -245,16 +244,16 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
             normals_array[3*i + 2]  = get<Z_coord>(normal);
         }
         // Now normals_array contains the averaged normals of each vertex!
+    } else {
+        for(int i = 0;i < faces_normal_index->size();i++) {
+            coordinate3d normal_coords = normals->at(faces_normal_index->at(i));
+
+            normals_array[3*i]      = get<X_coord>(normal_coords);
+            normals_array[3*i + 1]  = get<Y_coord>(normal_coords);
+            normals_array[3*i + 2]  = get<Z_coord>(normal_coords);
+        }
     }
 
-    /*
-    for(int i = 0;i < faces_normal_index->size();i++) {
-        coordinate3d normal_coords = normals->at(faces_normal_index->at(i));
-
-        normals_array[3*i]      = get<X_coord>(normal_coords);
-        normals_array[3*i + 1]  = get<Y_coord>(normal_coords);
-        normals_array[3*i + 2]  = get<Z_coord>(normal_coords);
-    }*/
 
     StaticMesh *mesh = new StaticMesh(faces_vertex_index->size(), vertices_array, colors_array, tex_array, normals_array);
     return mesh;
