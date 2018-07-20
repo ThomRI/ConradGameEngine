@@ -16,6 +16,7 @@
 
 #include "Shader.h"
 #include "AbstractMesh.h"
+#include "AbstractCamera.h"
 
 /*!
  * \class Renderer
@@ -25,6 +26,7 @@ class Renderer
 {
     public:
         Renderer();
+        Renderer(AbstractCamera *camera);
         virtual ~Renderer();
 
         void setShader(Shader shader);
@@ -34,6 +36,9 @@ class Renderer
 
         int addMesh(AbstractMesh *mesh);
         AbstractMesh *getMesh(int meshID);
+
+        void setCamera(AbstractCamera *camera);
+        AbstractCamera *get_camera();
 
 
     protected:
@@ -45,7 +50,7 @@ class Renderer
         std::vector<AbstractMesh*> m_meshes;
 
         glm::mat4 m_projection = glm::mat4(1.0);
-        glm::mat4 m_global_modelview = glm::mat4(1.0); // Set as identity by default
+        AbstractCamera *m_camera;
 
         /* OpenGL */
         bool m_wireframe = false;

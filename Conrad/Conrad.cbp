@@ -68,6 +68,7 @@
 			<Add directory="$(#sdl2.LIB)" />
 			<Add directory="$(#glew.LIB)" />
 		</Linker>
+		<Unit filename="include/AbstractCamera.h" />
 		<Unit filename="include/AbstractMaterial.h" />
 		<Unit filename="include/AbstractMesh.h" />
 		<Unit filename="include/AbstractTexture.h" />
@@ -81,6 +82,7 @@
 		<Unit filename="include/scope.h" />
 		<Unit filename="include/utilities.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/AbstractCamera.cpp" />
 		<Unit filename="src/AbstractMaterial.cpp" />
 		<Unit filename="src/AbstractMesh.cpp" />
 		<Unit filename="src/AbstractTexture.cpp" />

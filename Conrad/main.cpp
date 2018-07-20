@@ -5,6 +5,7 @@
 #include "TestTriangle.h"
 #include "utilities.hpp"
 #include "scope.h"
+#include "FreeCamera.h"
 
 using namespace std;
 
@@ -17,21 +18,33 @@ int main(int argc, char **argv)
         cout << "Error setting up SDL or context" << endl;
     }
 
+    FreeCamera *camera = new FreeCamera(app->getInputManager());
+    app->getRenderer()->setCamera(camera);
+
     Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    /* Test scene */
+    /*vector<StaticMesh*> meshlist = loadOBJ_static("objects/plane.obj", false, true);
 
+    StaticMesh *plane = meshlist[0];
+    AbstractTexture *tex_wood = new AbstractTexture("textures/wooden.png");
+
+    plane->setTexture(tex_wood);
+    plane->load();
+    app->getRenderer()->addMesh(plane);*/
+
+
+    /* Test scene */
     cout << "Loading scene.obj..." << endl;
     vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
-    cout << "Loaded the file (" << meshlist.size() << " meshes" << endl;
+    cout << "Loaded the file (" << meshlist.size() << " meshes)" << endl;
 
-    StaticMesh *leaves01 = meshlist[0];
-    StaticMesh *base_tree = meshlist[1];
+    StaticMesh *gun = meshlist[0];
+    StaticMesh *cylinder = meshlist[1];
     StaticMesh *cone = meshlist[2];
-    StaticMesh *gun = meshlist[3];
-    StaticMesh *cylinder = meshlist[4];
-    StaticMesh *ground = meshlist[5];
+    StaticMesh *leaves01 = meshlist[3];
+    StaticMesh *ground = meshlist[4];
+    StaticMesh *base_tree = meshlist[5];
 
     cout << "Associated meshes" << endl;
 
@@ -50,8 +63,6 @@ int main(int argc, char **argv)
     cone->setTexture(tex_cone);
     leaves01->setTexture(tex_leaves);
     base_tree->setTexture(tex_base_tree);
-
-
 
     cout << "Associated textures" << endl;
 

@@ -1,0 +1,17 @@
+#include "FreeCamera.h"
+
+FreeCamera::FreeCamera(InputManager *inputManager) :
+    m_inputManager(inputManager)
+{
+    //ctor
+}
+
+void FreeCamera::move()
+{
+
+}
+
+FreeCamera::~FreeCamera()
+{
+    //dtor
+}

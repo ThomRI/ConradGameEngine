@@ -14,7 +14,7 @@ uniform mat4 modelview;
 // Output
 out vec3 color;
 out vec2 texCoord;
-out vec3 fragmentPosition;
+out vec3 fragmentPos;
 out vec3 normal;
 
 void main()
@@ -24,8 +24,8 @@ void main()
 	// To fragment
 	color = in_Color;
 	texCoord = in_TexCoord0;
-	fragmentPosition = model3 * in_Vertex;
-	normal = model3 * in_VertexNormal;
+	fragmentPos = model3 * in_Vertex;
+	normal = in_VertexNormal;
 
 	gl_Position = projection * camera * modelview * vec4(in_Vertex, 1.0);
 }

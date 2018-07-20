@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1532047780 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1532111468 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
@@ -7,6 +7,7 @@
 	"TestTriangle.h"
 	"utilities.hpp"
 	"scope.h"
+	"FreeCamera.h"
 
 1519925905 c:\libs\sdl2-2.0.8\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -676,7 +677,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531932448 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
+1532110785 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
 	<SDL2/SDL.h>
 	<chrono>
 	<thread>
@@ -685,7 +686,7 @@
 	<GL/glew.h>
 	<GL3/gl3.h>
 
-1532047644 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1532111888 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -1243,13 +1244,14 @@
 1525699384 c:\libs\glm\gtc\type_ptr.inl
 	<cstring>
 
-1532036083 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
+1532110492 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
 	<vector>
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 	"Shader.h"
 	"AbstractMesh.h"
+	"AbstractCamera.h"
 
 1531766125 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
 	"scope.h"
@@ -1277,7 +1279,7 @@
 1532038328 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1532047300 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1532110854 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
@@ -1880,11 +1882,11 @@
 1531879076 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
 	"AbstractTexture.h"
 
-1531838782 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
+1532112121 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
 	<SDL2/SDL.h>
 	<algorithm>
 
-1531838825 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
+1532112167 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
 
 1532045818 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
@@ -1935,4 +1937,21 @@
 1531763312 c:\libs\glm\include\glm\gtx\string_cast.inl
 	<cstdarg>
 	<cstdio>
+
+1532111222 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractcamera.cpp
+	"AbstractCamera.h"
+
+1532111880 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractcamera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<iostream>
+	<cmath>
+
+1532112205 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\freecamera.cpp
+	"FreeCamera.h"
+
+1532109473 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\freecamera.h
+	"InputManager.h"
+	"AbstractCamera.h"
 

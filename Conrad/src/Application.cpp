@@ -52,8 +52,9 @@ bool Application::init()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    /* Disabling vsync */
-    SDL_GL_SetSwapInterval(0);
+    /* SDL settings */
+    SDL_GL_SetSwapInterval(0); // Disabling vsync
+    SDL_SetRelativeMouseMode(SDL_TRUE); // Trapping cursor inside the window and hiding it
 
     std::cout << "Application initialized." << std::endl;
 
@@ -77,14 +78,16 @@ void Application::loop(int const fps)
         SDL_GL_SwapWindow(m_window);
 
         /* Inputs treatment here */
-        m_inputManager->update();
-        if(m_inputManager->isKeyPressed(SDL_SCANCODE_F) && !wireframe_pressed) {
-            m_renderer->toggleWireframe();
-            wireframe_pressed = true;
-        }
-        if(!m_inputManager->isKeyPressed(SDL_SCANCODE_F)) wireframe_pressed = false;
+            m_inputManager->update();
 
-        if(m_inputManager->isKeyPressed(SDL_SCANCODE_ESCAPE)) m_run = false;
+            if(m_inputManager->isKeyPressed(SDLK_f) && !wireframe_pressed) {
+                m_renderer->toggleWireframe();
+                wireframe_pressed = true;
+            }
+            if(!m_inputManager->isKeyPressed(SDLK_f)) wireframe_pressed = false;
+            if(m_inputManager->isKeyPressed(SDLK_ESCAPE)) m_run = false;
+
+            m_renderer->get_camera()->move();
 
         // consistent fps system
         auto delta = std::chrono::duration_cast<ms>(std::chrono::steady_clock::now() - start); // The took that the frame took to be calculated
@@ -105,7 +108,7 @@ Renderer *Application::getRenderer()
     return m_renderer;
 }
 
-InputManager *Application::inputs()
+InputManager *Application::getInputManager()
 {
     return m_inputManager;
 }

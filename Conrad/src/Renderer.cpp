@@ -6,8 +6,15 @@ using namespace glm;
 Renderer::Renderer()
 {
     m_projection = perspective(70.0, 16.0/9, 1.0, 100.0);
-    m_global_modelview = lookAt(vec3(7.0, 3.5, 5.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0));
-    //m_global_modelview *= glm::rotate<float>(90, 1.0f, 0.0f, 0.0f);
+    m_camera = new AbstractCamera;
+
+    // Z UP X FORWARD
+}
+
+Renderer::Renderer(AbstractCamera *camera) :
+    m_camera(camera)
+{
+
 }
 
 void Renderer::setShader(Shader shader)
@@ -22,16 +29,23 @@ void Renderer::render()
 {
     glUseProgram(m_shader.getProgramID()); // Binding shader
 
+    /* Camera */
+    vec3 cameraPos = m_camera->getPos();
+    glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "cameraPos"), cameraPos[0], cameraPos[1], cameraPos[2]);
+
         // VBOs and AttribPointers are token care of in AbstractMesh (by the VAO). Here we just send the matrices and call AbstractMesh::draw()
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             // Sending matrices to the Shader
             (*mesh)->get_modelview() *= glm::rotate<float>(0.05, 0.0f, 0.0f, 1.0f);
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projection));
-            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "camera"), 1, GL_FALSE, glm::value_ptr(m_global_modelview));
+            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "camera"), 1, GL_FALSE, glm::value_ptr(m_camera->get_lookat()));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr((*mesh)->get_modelview()));
 
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 2.0, 0.838573, 2.0);
+            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "normalMatrix4"), 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse((*mesh)->get_modelview()))));
+
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 0.0, 0.0, 2.0);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightColor"), 1.0, 1.0, 1.0);
 
             (*mesh)->draw();
         }
@@ -65,6 +79,16 @@ AbstractMesh *Renderer::getMesh(int meshID)
     }
 
     return m_meshes.at(meshID);
+}
+
+void Renderer::setCamera(AbstractCamera *camera)
+{
+    m_camera = camera;
+}
+
+AbstractCamera *Renderer::get_camera()
+{
+    return m_camera;
 }
 
 Renderer::~Renderer()

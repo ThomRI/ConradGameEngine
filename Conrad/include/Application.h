@@ -32,7 +32,7 @@ class Application
         void interrupt();
 
         Renderer *getRenderer();
-        InputManager *inputs(); // Used by other classes to retrieve active inputs. The get.. nomenclature isn't respected here for simpler uses.
+        InputManager *getInputManager(); // Used by other classes to retrieve active inputs.
 
     protected:
         void toggleWireframe();
