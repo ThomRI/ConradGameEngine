@@ -57,7 +57,9 @@ class AbstractMesh
         void load();
         void draw();
 
+        /* Getters */
         glm::mat4 &get_modelview();
+        AbstractMaterial *getMaterial();
 
     protected:
         /* World */

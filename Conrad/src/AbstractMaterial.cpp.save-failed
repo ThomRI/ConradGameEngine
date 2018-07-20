@@ -63,16 +63,6 @@ float AbstractMaterial::getAlpha()
     return m_alpha;
 }
 
-AbstractTexture *AbstractMaterial::getDiffuseTexture()
-{
-    return m_diffuseTexture;
-}
-
-AbstractTexture *AbstractMaterial::getSpecularTexture()
-{
-    return m_specularTexture;
-}
-
 /* #### SETTERS #### */
 void AbstractMaterial::setAmbientColor(RGB color)
 {
@@ -106,32 +96,12 @@ void AbstractMaterial::setSpecularColor(float r, float g, float b)
 
 void AbstractMaterial::setEmitColor(RGB color)
 {
-    m_emit = color;
+    m_emit = emit;
 }
 
-void AbstractMaterial::setEmitColor(float r, float g, float b)
+void AbstractMaterial::setEmit(float r, float g, float b)
 {
     setEmit({r, g, b});
-}
-
-void AbstractMaterial::setAmbientStrength(float strength)
-{
-    m_ambientStrength = strength;
-}
-
-void AbstractMaterial::setDiffuseStrength(float strength)
-{
-    m_diffuseStrength = strength;
-}
-
-void AbstractMaterial::setSpecularStrength(float strength)
-{
-    m_specularStrength = strength;
-}
-
-void AbstractMaterial::setEmitStrength(float strength)
-{
-    m_emitStrength = strength;
 }
 
 void AbstractMaterial::setSpecularExponent(float exponent)
@@ -142,16 +112,6 @@ void AbstractMaterial::setSpecularExponent(float exponent)
 void AbstractMaterial::setAlpha(float alpha)
 {
     m_alpha = alpha;
-}
-
-void AbstractMaterial::setDiffuseTexture(AbstractTexture *texture)
-{
-    m_diffuseTexture = texture;
-}
-
-void AbstractMaterial::setSpecularTexture(AbstractTexture *texture)
-{
-    m_specularTexture = texture;
 }
 
 AbstractMaterial::~AbstractMaterial()

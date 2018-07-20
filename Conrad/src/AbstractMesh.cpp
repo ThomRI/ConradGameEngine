@@ -169,6 +169,11 @@ glm::mat4 &AbstractMesh::get_modelview()
     return m_modelview;
 }
 
+AbstractMaterial *AbstractMesh::getMaterial()
+{
+    return m_material;
+}
+
 void AbstractMesh::draw()
 {
     // /!\ Assumes the correct modelview matrix has already been sent

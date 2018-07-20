@@ -23,13 +23,15 @@
 
 #include "AbstractMaterial.h"
 
-#define AMBIENT     0
-#define DIFFUSE     1
-#define SPECULAR    3
-#define EMIT        4
-#define SPEC_EXP    5
-#define ALPHA       6
-#define NEWMTL      7
+#define AMBIENT         0
+#define DIFFUSE         1
+#define SPECULAR        3
+#define EMIT            4
+#define SPEC_EXP        5
+#define ALPHA           6
+#define NEWMTL          7
+#define DIFFUSE_TEX     8
+#define SPECULAR_TEX    9
 
 using namespace std;
 using coordinate3d  = tuple<float, float, float>;
@@ -292,7 +294,7 @@ static map<int, coordinate3d> generate_average_vertex_normals(vector<coordinate3
  *  \brief Loads a .MTL file into an AbstractMaterial array
  *  \return (vector<AbstractMaterial>) loaded materials
  */
-static vector<AbstractMaterial> loadMTL(string filepath)
+static vector<AbstractMaterial> loadMTL(string filepath, bool load_textures = true)
 {
     vector<AbstractMaterial> materials;
     ifstream file(filepath.c_str());
@@ -310,6 +312,10 @@ static vector<AbstractMaterial> loadMTL(string filepath)
 
     RGB Ka, Kd, Ks, Ke;
     float Ns, d;
+
+    AbstractTexture *diffuseTexture, *specularTexture;
+    bool setDiffTex(false), setSpecTex(false);
+
     bool first(true); // Are we still at the first one ?
 
     for(vector<string>::iterator it = lines.begin(); it != lines.end(); it++) {
@@ -325,6 +331,8 @@ static vector<AbstractMaterial> loadMTL(string filepath)
         else if(c == "Ns")      index = SPEC_EXP;
         else if(c == "d")       index = ALPHA;
         else if(c == "newmtl")  index = NEWMTL;
+        else if(c == "map_Kd")  index = DIFFUSE_TEX;
+        else if(c == "map_Ks")  index = SPECULAR_TEX;
 
         switch(index) {
             case NEWMTL:
@@ -336,10 +344,16 @@ static vector<AbstractMaterial> loadMTL(string filepath)
 
                 // Treating last material
                 AbstractMaterial material(Ka, Kd, Ks, Ke, Ns, d);
+
+                if(setDiffTex)  material.setDiffuseTexture(diffuseTexture);
+                if(setSpecTex)  material.setSpecularTexture(specularTexture);
+
                 materials.push_back(material);
 
                 // No need to reset : the values will be overwritten
 
+                setDiffTex = false;
+                setSpecTex = false;
                 break;
             }
 
@@ -396,11 +410,39 @@ static vector<AbstractMaterial> loadMTL(string filepath)
                 d = value;
                 break;
             }
+
+            case DIFFUSE_TEX:
+            {
+                string path;
+                stream >> path;
+
+                diffuseTexture = new AbstractTexture(path);
+                if(load_textures)   diffuseTexture->load();
+
+                setDiffTex = true;
+                break;
+            }
+
+            case SPECULAR_TEX:
+            {
+                string path;
+                stream >> path;
+
+                specularTexture = new AbstractTexture(path);
+                if(load_textures)   specularTexture->load();
+
+                setSpecTex = true;
+                break;
+            }
         }
     }
 
     // Very last material
     AbstractMaterial material(Ka, Kd, Ks, Ke, Ns, d);
+
+    if(setDiffTex)  material.setDiffuseTexture(diffuseTexture);
+    if(setSpecTex)  material.setSpecularTexture(specularTexture);
+
     materials.push_back(material);
 
     return materials;
