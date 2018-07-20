@@ -17,7 +17,8 @@ TestTriangle::TestTriangle(int size) :
     setTexCoords(tex, 3*2);
 
     AbstractTexture *texture = new AbstractTexture("textures/crate13.jpg");
-    setTexture(texture);
+    getMaterial()->setDiffuseTexture(texture);
+    getMaterial()->getDiffuseTexture()->load();
 
     load();
 }

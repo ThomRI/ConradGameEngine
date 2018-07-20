@@ -24,12 +24,11 @@ void AbstractMesh::setupAlphaTex()
     m_texCoords = new float[m_texCount * 2];
     std::fill_n(m_texCoords, m_texCount * 2, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
 
-    m_texture = new AbstractTexture(ALPHAONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
-    if(!m_texture->load()) {
+    AbstractTexture *tex_alpha = new AbstractTexture(ALPHAONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
+    m_material->setDiffuseTexture(tex_alpha);
+    if(!m_material->getDiffuseTexture()->load()) {
         std::cout << "Error while loading a non-textured mesh. App may crash." << std::endl;
     }
-
-    m_tex_loaded = true;
 }
 
 bool AbstractMesh::setVertices(float *vertices, int length)
@@ -74,20 +73,6 @@ bool AbstractMesh::setVertexNormals(float *vertexNormals, int length)
     return true;
 }
 
-bool AbstractMesh::setTexture(AbstractTexture *texture)
-{
-    if(m_loaded) return false; // A loaded mesh can't be updated (for now)
-    // TODO : Allow an abstract mesh to be update after loading
-
-    m_texture = texture;
-    if(m_texture->load()) {
-        m_tex_loaded = true;
-        return true;
-    }
-
-    return false;
-}
-
 bool AbstractMesh::setMaterial(AbstractMaterial *material)
 {
     m_material = material;
@@ -99,7 +84,7 @@ void AbstractMesh::load()
 {
     /* If no texture has been specified until here, we load a single pixel of alpha set to 1.0 with no color, in order to use the texture system but without any effect on the render */
     /* Note that the engine is created in order to always use a texture */
-    if(!m_tex_loaded) {
+    if(!m_material->isDiffuseTextured()) {
         setupAlphaTex();
     }
 
@@ -180,9 +165,9 @@ void AbstractMesh::draw()
 
     glBindVertexArray(m_vaoID); // Using the VAO
 
-        m_texture->bind();
+        m_material->getDiffuseTexture()->bind();
             glDrawArrays(GL_TRIANGLES, 0, m_verticesCount);
-        m_texture->unbind();
+        m_material->getDiffuseTexture()->unbind();
 
     glBindVertexArray(0);
 }

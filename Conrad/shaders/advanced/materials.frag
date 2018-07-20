@@ -9,7 +9,7 @@ in vec3 frag_Normal;
 
 // Uniforms
 uniform sampler2D tex;
-uniform mat3 normalMatrix; // Transformations for the normals (same for every pixels so calculated by the CPU)
+uniform mat4 normalMatrix; // Transformations for the normals (same for every pixels so calculated by the CPU)
 uniform vec3 lightPos; // One light for now..
 uniform vec3 lightColor;
 uniform vec3 cameraPos;
@@ -23,7 +23,7 @@ uniform float diffuseStrength;
 
 uniform vec3 specularColor;
 uniform float specularStrength;
-uniform int specularExponent; [0; 100]
+uniform float specularExponent; // [0; 100]
 
 // uniform vec3 emitColor; // emitting is not supported yet.
 
@@ -33,9 +33,9 @@ out vec4 out_Color;
 
 void main()
 {
-	vec3 transformed_normal = normalMatrix * normal;
+	vec3 transformed_normal = mat3(normalMatrix) * frag_Normal;
 	transformed_normal = normalize(transformed_normal);
-	vec3 lightDir = normalize(lightPos - fragmentPos) // Object -> Light
+	vec3 lightDir = normalize(lightPos - frag_FragmentPos); // Object -> Light
 
 	/* Ambient */
 	vec3 ambient = ambientStrength * ambientColor;
@@ -47,7 +47,7 @@ void main()
 	vec3 cameraDir = normalize(cameraPos - frag_FragmentPos); // Object -> Camera
 	vec3 reflected_lightDir = reflect(-lightDir, transformed_normal);
 
-	vec3 specular = specularStrength * pow(max(0.0, dot(cameraPos, reflected_lightDir)), specularExponent) * specularColor;
+	vec3 specular = specularStrength * pow(max(0.0, dot(cameraDir, reflected_lightDir)), specularExponent) * specularColor;
 
 	out_Color = texture(tex, frag_TexCoord0) * vec4((ambient + diffuse + specular) * lightColor * frag_VertexColor, 1.0);
 

@@ -41,13 +41,14 @@ void Renderer::render()
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "camera"), 1, GL_FALSE, glm::value_ptr(m_camera->get_lookat()));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr((*mesh)->get_modelview()));
 
-            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "normalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse((*mesh)->get_modelview())))));
+            glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "normalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse((*mesh)->get_modelview()))));
 
 
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 0.0, 0.0, 2.0);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 2.0, 0.0, 3.0);
             glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightColor"), 1.0, 1.0, 1.0);
 
             /* Material */
+
             RGB ambientColor = (*mesh)->getMaterial()->getAmbientColor(),
                 diffuseColor = (*mesh)->getMaterial()->getDiffuseColor(),
                 specularColor = (*mesh)->getMaterial()->getSpecularColor();
@@ -57,9 +58,9 @@ void Renderer::render()
                     specularStrength = (*mesh)->getMaterial()->getSpecularStrength(),
                     specularExponent = (*mesh)->getMaterial()->getSpecularExponent();
 
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "ambientColor"), ambientColor[0], ambientColor[1], ambientColor[2]);
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "diffuseColor"), diffuseColor[0], diffuseColor[1], diffuseColor[2]);
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "specularColor"), specularColor[0], specularColor[1], specularColor[2]);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "ambientColor"), ambientColor.r, ambientColor.g, ambientColor.b);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "diffuseColor"), diffuseColor.r, diffuseColor.g, diffuseColor.b);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "specularColor"), specularColor.r, specularColor.g, specularColor.b);
 
             glUniform1f(glGetUniformLocation(m_shader.getProgramID(), "ambientStrength"), ambientStrength);
             glUniform1f(glGetUniformLocation(m_shader.getProgramID(), "diffuseStrength"), diffuseStrength);

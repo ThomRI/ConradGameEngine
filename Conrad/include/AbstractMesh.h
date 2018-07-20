@@ -51,7 +51,6 @@ class AbstractMesh
         bool setColors(float *colors, int length);
         bool setTexCoords(float *texCoords, int length);
         bool setVertexNormals(float *vertexNormals, int length);
-        bool setTexture(AbstractTexture *texture);
         bool setMaterial(AbstractMaterial *material);
 
         void load();
@@ -74,8 +73,7 @@ class AbstractMesh
                 *m_texCoords,
                 *m_vertexNormals; // Not faces normals ! There is one normal per vertex that has been averaged from the normals of the faces the vertex is involved in.
 
-        AbstractTexture *m_texture;
-        AbstractMaterial *m_material;
+        AbstractMaterial *m_material = new AbstractMaterial;
 
         int m_verticesCount, // Number of vertices
             m_colorsCount,

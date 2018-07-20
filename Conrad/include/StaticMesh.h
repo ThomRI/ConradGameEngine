@@ -8,6 +8,7 @@
  */
 
 #include "AbstractMesh.h"
+#include <iostream>
 
 /*!
  * \class StaticMesh StaticMesh.h

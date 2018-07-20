@@ -71,12 +71,19 @@ bool AbstractTexture::load()
     glBindTexture(GL_TEXTURE_2D, 0);
 
     SDL_FreeSurface(SDL_image);
+
+    m_loaded = true;
     return true;
 }
 
 GLuint AbstractTexture::getID()
 {
     return m_id;
+}
+
+bool AbstractTexture::isLoaded()
+{
+    return m_loaded;
 }
 
 void AbstractTexture::bind()

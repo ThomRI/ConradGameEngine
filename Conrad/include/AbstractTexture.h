@@ -39,6 +39,7 @@ class AbstractTexture
 
         /* Getters */
         GLuint getID();
+        bool isLoaded();
 
     protected:
         static SDL_Surface *reverse_SDL_surface(SDL_Surface *source);
@@ -48,6 +49,8 @@ class AbstractTexture
 
         /* OpenGL */
         GLuint m_id = 0; // 0 is always unused
+
+        bool m_loaded = false;
 };
 
 #endif // ABSTRACTTEXTURE_H

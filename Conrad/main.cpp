@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 {
     cout << "Hello world!" << endl;
 
-    Application *app = new Application("Sexer", 1920, 1080);
+    Application *app = new Application("Sexer", 1280, 720);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
@@ -21,20 +21,35 @@ int main(int argc, char **argv)
     FreeCamera *camera = new FreeCamera(app->getInputManager());
     app->getRenderer()->setCamera(camera);
 
-    Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
+    Shader shader(string("shaders/advanced/materials.vert"), string("shaders/advanced/materials.frag"));
+    //Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    /*vector<StaticMesh*> meshlist = loadOBJ_static("objects/plane.obj", false, true);
+    vector<StaticMesh*> meshlist = loadOBJ_static("objects/spaceship.obj", false, true);
+    vector<AbstractMaterial*> materials_list = loadMTL("objects/spaceship.mtl", true);
+
+    StaticMesh *spaceship = meshlist[0];
+    spaceship->setMaterial(materials_list[0]);
+
+    spaceship->getMaterial()->setSpecularStrength(0.5);
+
+    spaceship->load();
+    app->getRenderer()->addMesh(spaceship);
+
+    /*vector<StaticMesh*> meshlist = loadOBJ_static("objects/plane.obj", false, false);
+    vector<AbstractMaterial*> materials_list = loadMTL("objects/plane.mtl", true);
 
     StaticMesh *plane = meshlist[0];
-    AbstractTexture *tex_wood = new AbstractTexture("textures/wooden.png");
+    plane->setMaterial(materials_list[0]);
 
-    plane->setTexture(tex_wood);
+    plane->getMaterial()->setSpecularStrength(0.5);
+    cout << "Specular Exponent : " << plane->getMaterial()->getSpecularExponent() << endl;
+
     plane->load();
     app->getRenderer()->addMesh(plane);*/
 
-
     /* Test scene */
+    /*
     cout << "Loading scene.obj..." << endl;
     vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
     cout << "Loaded the file (" << meshlist.size() << " meshes)" << endl;
@@ -83,7 +98,7 @@ int main(int argc, char **argv)
     app->getRenderer()->addMesh(base_tree);
 
 
-    cout << "Ready!" << endl;
+    cout << "Ready!" << endl;*/
     app->loop(120); // 120 fps
 
     return 0;

@@ -7,6 +7,7 @@
  */
 
  #include "scope.h" // RGB structure
+ #include "AbstractTexture.h"
 
 /*!
  *  \class AbstractMaterial
@@ -16,7 +17,7 @@ class AbstractMaterial
 {
     public:
         AbstractMaterial();
-        AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float specularExponent, float alpha, float ambientStrength = 0.2, float diffuseStrength = 1.0, float specularStrength = 1.0, float emitStrength = 1.0);
+        AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float specularExponent, float alpha, float ambientStrength = 0.1, float diffuseStrength = 1.0, float specularStrength = 1.0, float emitStrength = 1.0);
         virtual ~AbstractMaterial();
 
         /* Getters */
@@ -35,6 +36,9 @@ class AbstractMaterial
 
         AbstractTexture *getDiffuseTexture();
         AbstractTexture *getSpecularTexture();
+
+        bool isDiffuseTextured();
+        bool isSpecularTextured();
 
         /* Setters */
         void setAmbientColor(RGB color);
@@ -82,6 +86,9 @@ class AbstractMaterial
         /* Textures */
         AbstractTexture *m_diffuseTexture,
                         *m_specularTexture;
+
+        bool    m_diffuseTextured = false,
+                m_specularTextured = false;
 };
 
 #endif // ABSTRACTMATERIAL_H

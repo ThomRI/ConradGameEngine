@@ -43,6 +43,8 @@ static vector<StaticMesh*> loadOBJ_static(string, bool);
 static StaticMesh *StaticMeshFromArrays(vector<coordinate3d>*, vector<coordinate2d>*, vector<coordinate3d>*, vector<int>*, vector<int>*, vector<int>*, vector<mapper>* = nullptr);
 static map<int, coordinate3d> generate_average_vertex_normals(vector<coordinate3d>*, vector<mapper>*);
 
+static vector<AbstractMaterial*> loadMTL(string, bool);
+
 
 /* ############# PARSING .OBJ ############# */
 
@@ -294,9 +296,9 @@ static map<int, coordinate3d> generate_average_vertex_normals(vector<coordinate3
  *  \brief Loads a .MTL file into an AbstractMaterial array
  *  \return (vector<AbstractMaterial>) loaded materials
  */
-static vector<AbstractMaterial> loadMTL(string filepath, bool load_textures = true)
+static vector<AbstractMaterial*> loadMTL(string filepath, bool load_textures = true)
 {
-    vector<AbstractMaterial> materials;
+    vector<AbstractMaterial*> materials;
     ifstream file(filepath.c_str());
     if(!file) {
         cout << "Can't load (" << filepath << ")" << endl;
@@ -343,10 +345,10 @@ static vector<AbstractMaterial> loadMTL(string filepath, bool load_textures = tr
                 }
 
                 // Treating last material
-                AbstractMaterial material(Ka, Kd, Ks, Ke, Ns, d);
+                AbstractMaterial *material = new AbstractMaterial(Ka, Kd, Ks, Ke, Ns, d);
 
-                if(setDiffTex)  material.setDiffuseTexture(diffuseTexture);
-                if(setSpecTex)  material.setSpecularTexture(specularTexture);
+                if(setDiffTex)  material->setDiffuseTexture(diffuseTexture);
+                if(setSpecTex)  material->setSpecularTexture(specularTexture);
 
                 materials.push_back(material);
 
@@ -438,10 +440,10 @@ static vector<AbstractMaterial> loadMTL(string filepath, bool load_textures = tr
     }
 
     // Very last material
-    AbstractMaterial material(Ka, Kd, Ks, Ke, Ns, d);
+    AbstractMaterial *material = new AbstractMaterial(Ka, Kd, Ks, Ke, Ns, d);
 
-    if(setDiffTex)  material.setDiffuseTexture(diffuseTexture);
-    if(setSpecTex)  material.setSpecularTexture(specularTexture);
+    if(setDiffTex)  material->setDiffuseTexture(diffuseTexture);
+    if(setSpecTex)  material->setSpecularTexture(specularTexture);
 
     materials.push_back(material);
 

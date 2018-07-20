@@ -8,7 +8,7 @@ in vec3 normal;
 
 // Uniform
 uniform sampler2D tex;
-uniform mat4 normalMatrix4;
+uniform mat4 normalMatrix;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 
@@ -19,7 +19,7 @@ out vec4 out_Color;
 
 void main()
 {
-	vec3 transformed_normal = mat3(normalMatrix4) * normal; // Transforming correctly the normals
+	vec3 transformed_normal = mat3(normalMatrix) * normal; // Transforming correctly the normals
 	vec3 norm = normalize(transformed_normal);
 	vec3 lightDir = normalize(lightPos - fragmentPos); // Object -> Light
 
