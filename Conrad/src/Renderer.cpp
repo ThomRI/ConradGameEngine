@@ -45,7 +45,7 @@ void Renderer::render()
 
 
             glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 2.0, 0.0, 3.0);
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightColor"), 1.0, 1.0, 1.0);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightColor"), 1.0, 0.2, 0.2);
 
             /* Material */
 

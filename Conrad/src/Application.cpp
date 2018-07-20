@@ -55,7 +55,7 @@ bool Application::init()
     /* SDL settings */
     SDL_GL_SetSwapInterval(0); // Disabling vsync
     SDL_SetRelativeMouseMode(SDL_TRUE); // Trapping cursor inside the window and hiding it
-    //SDL_SetWindowFullscreen(m_window, SDL_TRUE);
+    SDL_SetWindowFullscreen(m_window, SDL_TRUE);
 
     std::cout << "Application initialized." << std::endl;
 

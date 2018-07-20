@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 {
     cout << "Hello world!" << endl;
 
-    Application *app = new Application("Sexer", 1280, 720);
+    Application *app = new Application("Sexer", 1920, 1080);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
@@ -25,15 +25,22 @@ int main(int argc, char **argv)
     //Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    vector<StaticMesh*> meshlist = loadOBJ_static("objects/spaceship.obj", false, true);
-    vector<AbstractMaterial*> materials_list = loadMTL("objects/spaceship.mtl", true);
+    vector<StaticMesh*> meshlist = loadOBJ_static("objects/space_scene.obj", false, true);
+    vector<AbstractMaterial*> materials_list = loadMTL("objects/space_scene.mtl", true);
+    // TODO : Access the OBJ and the MTL by name, and load both at the same time, automatically linked
 
-    StaticMesh *spaceship = meshlist[0];
-    spaceship->setMaterial(materials_list[0]);
+    StaticMesh *car = meshlist[0];
+    car->setMaterial(materials_list[0]);
 
-    spaceship->getMaterial()->setSpecularStrength(0.5);
+    StaticMesh *spaceship = meshlist[1];
+    spaceship->setMaterial(materials_list[1]);
 
+    //spaceship->getMaterial()->setSpecularStrength(0.5);
+
+    car->load();
     spaceship->load();
+
+    app->getRenderer()->addMesh(car);
     app->getRenderer()->addMesh(spaceship);
 
     /*vector<StaticMesh*> meshlist = loadOBJ_static("objects/plane.obj", false, false);
