@@ -8,10 +8,10 @@ FreeCamera::FreeCamera(InputManager *inputManager) :
 
 void FreeCamera::move()
 {
-    if(m_inputManager->isKeyPressed(SDLK_z)) forward();
-    if(m_inputManager->isKeyPressed(SDLK_s)) back();
-    if(m_inputManager->isKeyPressed(SDLK_d)) right();
-    if(m_inputManager->isKeyPressed(SDLK_q)) left();
+    if(m_inputManager->isKeyPressed(KEY_Z)) forward();
+    if(m_inputManager->isKeyPressed(KEY_S)) back();
+    if(m_inputManager->isKeyPressed(KEY_D)) right();
+    if(m_inputManager->isKeyPressed(KEY_Q)) left();
 
     rotate(m_inputManager->getMouseYrel(), m_inputManager->getMouseXrel());
 }

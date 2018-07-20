@@ -5,6 +5,9 @@
  *  \file FreeCamera.h
  */
 
+#define KEY_MAP_AZERTY
+#include "key_mapping.h"
+
 #include "InputManager.h"
 #include "AbstractCamera.h"
 

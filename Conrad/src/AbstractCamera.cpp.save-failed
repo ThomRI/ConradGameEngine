@@ -57,8 +57,8 @@ void AbstractCamera::rotate(float dtheta, float dphi)
     m_phi   += dphi * (M_PI / 180) * m_x_sensitivity;
 
     /* Boundaries of theta (0; pi) */
-    if(m_theta < ONE_DEGREE_RAD)             m_theta = ONE_DEGREE_RAD; // One degree before the limit so that the angle never becomes the boundary
-    else if(m_theta > M_PI - ONE_DEGREE_RAD) m_theta = M_PI - ONE_DEGREE_RAD;
+    if(m_theta < 0)             m_theta = 0;
+    else if(m_theta > M_PI) m_theta = M_PI;
 
     if(m_up.x == 1.0) { // X up
         m_orientation.x = cos(m_theta);

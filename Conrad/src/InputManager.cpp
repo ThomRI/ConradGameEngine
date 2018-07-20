@@ -18,11 +18,11 @@ void InputManager::update()
 
             /* Keyboard events */
                 case SDL_KEYDOWN:
-                    m_keys[m_events.key.keysym.sym] = true;
+                    m_keys[m_events.key.keysym.scancode] = true;
                 break;
 
                 case SDL_KEYUP:
-                    m_keys[m_events.key.keysym.sym] = false;
+                    m_keys[m_events.key.keysym.scancode] = false;
                 break;
 
             /* Mouse events */

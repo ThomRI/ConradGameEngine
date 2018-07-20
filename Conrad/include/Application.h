@@ -10,6 +10,9 @@
 #include "Renderer.h"
 #include "InputManager.h"
 
+#define KEY_MAP_AZERTY
+#include "key_mapping.h"
+
 /* GLEW Initialization */
 #ifdef WIN32
     #include <GL/glew.h>

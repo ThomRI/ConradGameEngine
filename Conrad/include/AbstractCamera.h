@@ -17,6 +17,8 @@
     #define M_PI 3.14159265358979323846
 #endif
 
+#define ONE_DEGREE_RAD M_PI/180 // One degree in radians
+
 #define FORWARD     0
 #define TRANSVERAL  1
 #define UP          2

@@ -5,7 +5,7 @@ using namespace glm;
 
 Renderer::Renderer()
 {
-    m_projection = perspective(70.0, 16.0/9, 1.0, 100.0);
+    m_projection = perspective(70.0, 16.0/9, 0.001, 100.0);
     m_camera = new AbstractCamera;
 
     // Z UP X FORWARD
@@ -37,7 +37,6 @@ void Renderer::render()
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             // Sending matrices to the Shader
-            (*mesh)->get_modelview() *= glm::rotate<float>(0.05, 0.0f, 0.0f, 1.0f);
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projection));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "camera"), 1, GL_FALSE, glm::value_ptr(m_camera->get_lookat()));
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "modelview"), 1, GL_FALSE, glm::value_ptr((*mesh)->get_modelview()));

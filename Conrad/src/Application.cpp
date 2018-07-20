@@ -55,6 +55,7 @@ bool Application::init()
     /* SDL settings */
     SDL_GL_SetSwapInterval(0); // Disabling vsync
     SDL_SetRelativeMouseMode(SDL_TRUE); // Trapping cursor inside the window and hiding it
+    SDL_SetWindowFullscreen(m_window, SDL_TRUE);
 
     std::cout << "Application initialized." << std::endl;
 
@@ -80,12 +81,12 @@ void Application::loop(int const fps)
         /* Inputs treatment here */
             m_inputManager->update();
 
-            if(m_inputManager->isKeyPressed(SDLK_f) && !wireframe_pressed) {
+            if(m_inputManager->isKeyPressed(KEY_F) && !wireframe_pressed) {
                 m_renderer->toggleWireframe();
                 wireframe_pressed = true;
             }
-            if(!m_inputManager->isKeyPressed(SDLK_f)) wireframe_pressed = false;
-            if(m_inputManager->isKeyPressed(SDLK_ESCAPE)) m_run = false;
+            if(!m_inputManager->isKeyPressed(KEY_F)) wireframe_pressed = false;
+            if(m_inputManager->isKeyPressed(KEY_ESCAPE)) m_run = false;
 
             m_renderer->get_camera()->move();
 

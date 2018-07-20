@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 {
     cout << "Hello world!" << endl;
 
-    Application *app = new Application("Sexer", 1280, 720);
+    Application *app = new Application("Sexer", 1920, 1080);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
