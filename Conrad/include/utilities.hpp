@@ -4,10 +4,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <map>
-#include <tuple>
 #include <sstream>
+#include <map>
+#include <vector>
+#include <tuple>
 
 #include "StaticMesh.h"
 
@@ -20,6 +20,7 @@
 #define NORMAL  2
 #define FACE    3
 #define OBJECT  4
+#define USEMTL  5
 
 #include "AbstractMaterial.h"
 

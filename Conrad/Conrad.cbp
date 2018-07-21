@@ -73,12 +73,14 @@
 		<Unit filename="include/AbstractMesh.h" />
 		<Unit filename="include/AbstractTexture.h" />
 		<Unit filename="include/Application.h" />
+		<Unit filename="include/FreeCamera.h" />
 		<Unit filename="include/InputManager.h" />
 		<Unit filename="include/Renderer.h" />
 		<Unit filename="include/Shader.h" />
 		<Unit filename="include/StaticMesh.h" />
 		<Unit filename="include/TestCube.h" />
 		<Unit filename="include/TestTriangle.h" />
+		<Unit filename="include/key_mapping.h" />
 		<Unit filename="include/scope.h" />
 		<Unit filename="include/utilities.hpp" />
 		<Unit filename="main.cpp" />
@@ -87,6 +89,7 @@
 		<Unit filename="src/AbstractMesh.cpp" />
 		<Unit filename="src/AbstractTexture.cpp" />
 		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/FreeCamera.cpp" />
 		<Unit filename="src/InputManager.cpp" />
 		<Unit filename="src/Renderer.cpp" />
 		<Unit filename="src/Shader.cpp" />

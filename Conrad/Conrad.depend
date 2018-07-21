@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1532131762 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1532211353 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
 	"TestCube.h"
 	"TestTriangle.h"
-	"utilities.hpp"
+	"OBJ_Static_Handler.h"
 	"scope.h"
 	"FreeCamera.h"
 
@@ -687,7 +687,7 @@
 	<GL/glew.h>
 	<GL3/gl3.h>
 
-1532131767 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1532132374 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -1281,7 +1281,7 @@
 1532038328 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1532129478 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1532136335 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
@@ -1891,14 +1891,14 @@
 1532114134 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
 
-1532126435 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
+1532194342 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
 	<string>
 	<iostream>
 	<fstream>
-	<vector>
-	<map>
-	<tuple>
 	<sstream>
+	<map>
+	<vector>
+	<tuple>
 	"StaticMesh.h"
 	"AbstractMaterial.h"
 
@@ -1960,4 +1960,16 @@
 	"AbstractCamera.h"
 
 1532114818 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\key_mapping.h
+
+1532196268 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\obj_static_handler.cpp
+	"OBJ_Static_Handler.h"
+
+1532195643 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\obj_static_handler.h
+	<string>
+	<iostream>
+	<fstream>
+	<sstream>
+	<map>
+	"scope.h"
+	"utilities.hpp"
 
