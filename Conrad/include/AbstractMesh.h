@@ -64,7 +64,7 @@ class AbstractMesh
         /* World */
         glm::mat4 m_modelview = glm::mat4(1.0);
 
-        void setupAlphaTex();
+        void setBlankTex();
 
     private:
         /* Mesh datas */

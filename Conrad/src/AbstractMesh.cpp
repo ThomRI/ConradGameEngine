@@ -18,14 +18,14 @@ AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, 
 
 }
 
-/// \brief Sets up an alpha texture without color. This is used to be compatible with the texturing system, without any effect on a pure-colors render.
-void AbstractMesh::setupAlphaTex()
+/// \brief Sets up an blank texture. This is used to be compatible with the texturing system, without any effect on a pure-colors render.
+void AbstractMesh::setBlankTex()
 {
-    m_texCoords = new float[m_texCount * 2];
-    std::fill_n(m_texCoords, m_texCount * 2, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)
+    /*m_texCoords = new float[m_texCount * 2];
+    std::fill_n(m_texCoords, m_texCount * 2, 0.0); // Filling the texCoords with zeros (whatever if the texture is not used)*/
 
-    AbstractTexture *tex_alpha = new AbstractTexture(ALPHAONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
-    m_material->setDiffuseTexture(tex_alpha);
+    AbstractTexture *tex_blank = new AbstractTexture(BLANKONE_PATH); // Using a one pixel 100% alpha texture (so that the texture can't be seen)
+    m_material->setDiffuseTexture(tex_blank);
     if(!m_material->getDiffuseTexture()->load()) {
         std::cout << "Error while loading a non-textured mesh. App may crash." << std::endl;
     }
@@ -85,7 +85,7 @@ void AbstractMesh::load()
     /* If no texture has been specified until here, we load a single pixel of alpha set to 1.0 with no color, in order to use the texture system but without any effect on the render */
     /* Note that the engine is created in order to always use a texture */
     if(!m_material->isDiffuseTextured()) {
-        setupAlphaTex();
+        setBlankTex();
     }
 
     m_verticesSize = 3 * m_verticesCount * sizeof(float);

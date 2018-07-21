@@ -155,8 +155,6 @@ void OBJ_Static_Handler::loadOBJ(bool loadMeshes, bool computeVertexNormals)
                 string materialName;
                 stream >> materialName;
 
-                cout << "Using mtl : " << materialName << endl;
-
                 currentMaterial = m_materials[materialName];
                 break;
             }
@@ -231,7 +229,6 @@ void OBJ_Static_Handler::loadMTL(bool loadTextures)
                 if(setSpecTex)  material->setSpecularTexture(specularTexture);
 
                 m_materials[name] = material;
-                cout << "Created material " << name << endl;
                 stream >> name;
                 // No need to reset : the values will be overwritten
 
@@ -328,7 +325,6 @@ void OBJ_Static_Handler::loadMTL(bool loadTextures)
     if(setSpecTex)  material->setSpecularTexture(specularTexture);
 
     m_materials[name] = material;
-    cout << "Created material " << name << endl;
     m_MTL_loaded = true;
 }
 

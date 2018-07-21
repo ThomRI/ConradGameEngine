@@ -44,7 +44,7 @@ void Renderer::render()
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "normalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse((*mesh)->get_modelview()))));
 
 
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 2.0, 0.0, 3.0);
+            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 2.0, 0.0, 6.94901);
             glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightColor"), 1.0, 1.0, 1.0);
 
             /* Material */
