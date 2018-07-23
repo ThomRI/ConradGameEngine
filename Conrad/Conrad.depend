@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1532220153 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1532313786 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
@@ -677,7 +677,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1532114844 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
+1532310296 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
 	<SDL2/SDL.h>
 	<chrono>
 	<thread>
@@ -685,6 +685,7 @@
 	"InputManager.h"
 	"key_mapping.h"
 	<GL/glew.h>
+	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
 1532132374 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
@@ -702,7 +703,7 @@
 1532217843 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
 	"AbstractMesh.h"
 
-1532217762 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
+1532310301 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
 	"scope.h"
 	<iostream>
 	<algorithm>
@@ -715,7 +716,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1532217825 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+1532310633 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
 
 1526978384 c:\libs\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -1245,7 +1246,7 @@
 1525699384 c:\libs\glm\gtc\type_ptr.inl
 	<cstring>
 
-1532110492 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
+1532310688 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
 	<vector>
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
@@ -1253,6 +1254,7 @@
 	"Shader.h"
 	"AbstractMesh.h"
 	"AbstractCamera.h"
+	"AbstractLight.h"
 
 1531766125 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
 	"scope.h"
@@ -1281,7 +1283,7 @@
 1532038328 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1532219683 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1532313095 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
@@ -1881,7 +1883,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1532125628 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
+1532314490 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
 	"AbstractTexture.h"
 
 1532114358 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
@@ -1891,7 +1893,7 @@
 1532114134 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
 
-1532194342 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
+1532310696 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
 	<string>
 	<iostream>
 	<fstream>
@@ -1908,7 +1910,7 @@
 1532126557 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testtriangle.cpp
 	"TestTriangle.h"
 
-1532127456 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmaterial.h
+1532310538 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmaterial.h
 	"scope.h"
 	"AbstractTexture.h"
 
@@ -1972,4 +1974,17 @@
 	<map>
 	"scope.h"
 	"utilities.hpp"
+
+1532313445 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractlight.h
+	<string>
+	<sstream>
+	"scope.h"
+	<iostream>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1532313691 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractlight.cpp
+	"AbstractLight.h"
 

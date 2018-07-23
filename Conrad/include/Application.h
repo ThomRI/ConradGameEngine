@@ -14,12 +14,19 @@
 #include "key_mapping.h"
 
 /* GLEW Initialization */
+/* Cross-plateform includes */
 #ifdef WIN32
     #include <GL/glew.h>
-#else
+
+#elif __APPLE__
+    #define GL3_PROTOTYPES 1
+    #include <OpenGL/gl3.h>
+
+#else // UNIX / Linux
     #define GL3_PROTOTYPES 1
     #include <GL3/gl3.h>
-#endif // WIN32
+
+#endif
 
 /* Timing */
 using ms = std::chrono::duration<float, std::milli>;

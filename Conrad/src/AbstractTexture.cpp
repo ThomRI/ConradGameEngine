@@ -37,7 +37,7 @@ bool AbstractTexture::load()
     /* Getting image format */
         GLenum internalFormat(0), format(0);
         if(SDL_image->format->BytesPerPixel == 3) {
-            internalFormat = GL_RGB;
+            internalFormat = GL_SRGB; // S for gamma correction canceling
             if(SDL_image->format->Rmask == 0xff) { // Red first in the mask
                 format = GL_RGB;
             } else {
@@ -46,7 +46,7 @@ bool AbstractTexture::load()
         }
 
         else if(SDL_image->format->BytesPerPixel == 4) {
-            internalFormat = GL_RGBA;
+            internalFormat = GL_SRGB_ALPHA; // Not GL_RGBA for gamma correction canceling
             if(SDL_image->format->Rmask == 0xff) { // Red first
                 format = GL_RGBA;
             } else {

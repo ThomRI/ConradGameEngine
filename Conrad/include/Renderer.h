@@ -17,6 +17,7 @@
 #include "Shader.h"
 #include "AbstractMesh.h"
 #include "AbstractCamera.h"
+#include "AbstractLight.h"
 
 /*!
  * \class Renderer
@@ -37,6 +38,9 @@ class Renderer
         int addMesh(AbstractMesh *mesh);
         AbstractMesh *getMesh(int meshID);
 
+        int addLight(AbstractLight *light);
+        AbstractLight *getLight(int lightID);
+
         void setCamera(AbstractCamera *camera);
         AbstractCamera *get_camera();
 
@@ -47,7 +51,8 @@ class Renderer
         Shader m_shader;
 
         /* Scene */
-        std::vector<AbstractMesh*> m_meshes;
+        std::vector<AbstractMesh*>  m_meshes;
+        std::vector<AbstractLight*> m_lights;
 
         glm::mat4 m_projection = glm::mat4(1.0);
         AbstractCamera *m_camera;

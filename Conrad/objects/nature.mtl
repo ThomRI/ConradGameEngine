@@ -2,7 +2,7 @@
 # Material Count: 7
 
 newmtl Bark
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.176206 0.051816 0.016055
 Ks 0.015532 0.005717 0.002170
@@ -12,18 +12,18 @@ d 1.000000
 illum 2
 
 newmtl Grass
-Ns 13.725490
+Ns 11.764706
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
-illum 1
+illum 2
 map_Kd C:\Users\Thom\Documents\Projets\C++\ConradGameEngine\Conrad\textures\veg010.jpg
 
 newmtl Leaves
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.184992 0.710547 0.049145
 Ks 0.085514 0.355277 0.074845
@@ -33,7 +33,7 @@ d 1.000000
 illum 2
 
 newmtl Material.001
-Ns 96.078431
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -44,7 +44,7 @@ illum 2
 map_Kd C:\Users\Thom\Documents\Projets\C++\ConradGameEngine\Conrad\textures\wood001.jpg
 
 newmtl handgun
-Ns 94.117647
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 1.000000 1.000000 1.000000
@@ -55,7 +55,7 @@ illum 2
 map_Kd C:\Users\Thom\Documents\Projets\C++\ConradGameEngine\Conrad\textures\handgun_C.jpg
 
 newmtl handgun_handgun_C.jpg
-Ns 94.117647
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 1.000000 1.000000 1.000000
@@ -73,5 +73,5 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
-illum 1
+illum 2
 map_Kd C:\Users\Thom\Documents\Projets\C++\ConradGameEngine\Conrad\textures\Wood_Tower_Col.jpg

@@ -21,7 +21,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 /* Cross-plateform includes */
-
 #ifdef WIN32
     #include <GL/glew.h>
 

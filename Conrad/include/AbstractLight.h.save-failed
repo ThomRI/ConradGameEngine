@@ -1,0 +1,32 @@
+#ifndef ABSTRACTLIGHT_H
+#define ABSTRACTLIGHT_H
+
+/*!
+ *  \file AbstractLight.h
+ */
+
+/* GLM */
+#include <glm/glm.hpp>
+
+/*!
+ *  \class AbstractLight
+ *  \brief Represents a generic source of light
+ */
+class AbstractLight
+{
+    public:
+        AbstractLight();
+        virtual ~AbstractLight();
+
+    protected:
+
+    private:
+        bool m_directional = false;
+        float m_coneAngle = 180.0; // degrees
+
+        /* World */
+        glm::vec3 m_position;
+        glm::vec3 m_color;
+};
+
+#endif // ABSTRACTLIGHT_H

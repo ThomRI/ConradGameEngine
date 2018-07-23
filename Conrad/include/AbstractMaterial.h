@@ -69,10 +69,10 @@ class AbstractMaterial
 
     private:
         /* Values */
-        RGB     m_ambientColor   = {0, 0, 0},
-                m_diffuseColor   = {0, 0, 0},
-                m_specularColor  = {0, 0, 0},
-                m_emitColor      = {0, 0, 0};
+        RGB     m_ambientColor   = RGB(0.0, 0.0, 0.0),
+                m_diffuseColor   = RGB(0.0, 0.0, 0.0),
+                m_specularColor  = RGB(0.0, 0.0, 0.0),
+                m_emitColor      = RGB(0.0, 0.0, 0.0);
 
         float   m_ambientStrength   = 0.1,
                 m_diffuseStrength   = 1.0,

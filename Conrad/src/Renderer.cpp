@@ -8,7 +8,7 @@ Renderer::Renderer()
     m_projection = perspective(70.0, 16.0/9, 0.001, 100.0);
     m_camera = new AbstractCamera;
 
-    // Z UP X FORWARD
+    // Z UP Y FORWARD
 }
 
 Renderer::Renderer(AbstractCamera *camera) :
@@ -43,9 +43,12 @@ void Renderer::render()
 
             glUniformMatrix4fv(glGetUniformLocation(m_shader.getProgramID(), "normalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse((*mesh)->get_modelview()))));
 
+            /* Lights */
+            glUniform1i(glGetUniformLocation(m_shader.getProgramID(), "nbrLights"), m_lights.size());
+            for(int i = 0;i < m_lights.size();i++) {
+                m_lights[i]->sendUniforms(m_shader.getProgramID(), i);
+            }
 
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightPos"), 2.0, 0.0, 6.94901);
-            glUniform3f(glGetUniformLocation(m_shader.getProgramID(), "lightColor"), 1.0, 1.0, 1.0);
 
             /* Material */
 
@@ -98,7 +101,22 @@ AbstractMesh *Renderer::getMesh(int meshID)
         return nullptr;
     }
 
-    return m_meshes.at(meshID);
+    return m_meshes[meshID];
+}
+
+int Renderer::addLight(AbstractLight *light)
+{
+    m_lights.push_back(light);
+    return m_lights.size() - 1;
+}
+
+AbstractLight *Renderer::getLight(int lightID)
+{
+    if(lightID >= m_lights.size() || lightID < 0) {
+        return nullptr;
+    }
+
+    return m_lights[lightID];
 }
 
 void Renderer::setCamera(AbstractCamera *camera)

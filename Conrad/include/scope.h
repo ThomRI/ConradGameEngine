@@ -18,9 +18,15 @@
 #define TEXPATH "textures"
 #define BLANKONE_PATH TEXPATH "/blank_onepx.png" // One pixel 100% alpha texture
 
+/* Shader defines */
+#define LIGHTS_ARRAY_SHADER "lights"
+
 /* Structures */
 typedef struct RGB {
-    float r, g, b;
+    float r = 0.0, g = 0.0, b = 0.0;
+    RGB() : r(0.0), g(0.0), b(0.0) {}
+    RGB(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
+    RGB(const RGB &c) : r(c.r), g(c.g), b(c.b) {}
 } RGB;
 
 #endif // SCOPE_H_INCLUDED

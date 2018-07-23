@@ -1,0 +1,27 @@
+#include "AbstractLight.h"
+
+using namespace glm;
+using namespace std;
+
+AbstractLight::AbstractLight(vec3 position, vec3 color, float intensity) :
+    m_position(position), m_color(color), m_intensity(intensity)
+{
+    //ctor
+}
+
+void AbstractLight::sendUniforms(GLuint programID, size_t index)
+{
+    ostringstream ss;
+    ss << LIGHTS_ARRAY_SHADER << "[" << inde
+}
+
+char *AbstractLight::uniform_str(size_t index, const char* property)
+{
+    ostringstream ss;
+    ss << LIGHTS_ARRAY_SHADER << "[" << index << "]." << property;
+}
+
+AbstractLight::~AbstractLight()
+{
+    //dtor
+}

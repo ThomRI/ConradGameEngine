@@ -3,8 +3,9 @@
 #include "Shader.h"
 #include "TestCube.h"
 #include "TestTriangle.h"
-#include "utilities.hpp"
+#include "OBJ_Static_Handler.h"
 #include "scope.h"
+#include "FreeCamera.h"
 
 using namespace std;
 
@@ -17,62 +18,26 @@ int main(int argc, char **argv)
         cout << "Error setting up SDL or context" << endl;
     }
 
-    Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
+    FreeCamera *camera = new FreeCamera(app->getInputManager());
+    app->getRenderer()->setCamera(camera);
+
+    Shader shader(string("shaders/advanced/materials.vert"), string("shaders/advanced/materials.frag"));
+    //Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    /* Test scene */
+    AbstractLight *light = new AbstractLight(vec3(4.0, 1.0, 6.0), vec3(1.0, 1.0, 1.0));
+    app->getRenderer()->addLight(light);
 
-    cout << "Loading scene.obj..." << endl;
-    vector<StaticMesh*> meshlist = loadOBJ_static("objects/scene.obj", false, true);
-    cout << "Loaded the file (" << meshlist.size() << " meshes" << endl;
+    OBJ_Static_Handler sceneHandler("objects/nature.obj", "objects/nature.mtl");
+    sceneHandler.load(true, true, true);
 
-    StaticMesh *leaves01 = meshlist[0];
-    StaticMesh *base_tree = meshlist[2];
-    StaticMesh *cone = meshlist[3];
-    StaticMesh *gun = meshlist[4];
-    StaticMesh *cylinder = meshlist[5];
-    StaticMesh *ground = meshlist[6];
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Ground"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("BaseTree"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Tree"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Cylinder"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Gun"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("tower"));
 
-    cout << "Associated meshes" << endl;
-
-    AbstractTexture *tex_grass = new AbstractTexture("textures/veg010.jpg");
-    AbstractTexture *tex_wood = new AbstractTexture("textures/wooden.png");
-    AbstractTexture *tex_leaves = new AbstractTexture("textures/HazelnutLeaves.png");
-    AbstractTexture *tex_base_tree = new AbstractTexture("textures/HazelnutBark.png");
-    AbstractTexture *tex_gun = new AbstractTexture("textures/handgun_C.jpg");
-    AbstractTexture *tex_cone = new AbstractTexture("textures/wall068b.jpg");
-
-    cout << "Created textures" << endl;
-
-    cylinder->setTexture(tex_wood);
-    ground->setTexture(tex_grass);
-    gun->setTexture(tex_gun);
-    cone->setTexture(tex_cone);
-    leaves01->setTexture(tex_leaves);
-    base_tree->setTexture(tex_base_tree);
-
-
-
-    cout << "Associated textures" << endl;
-
-    cylinder->load();
-    ground->load();
-    gun->load();
-    cone->load();
-    leaves01->load();
-    base_tree->load();
-
-    cout << "Loaded meshes" << endl;
-
-    app->getRenderer()->addMesh(cylinder);
-    app->getRenderer()->addMesh(ground);
-    app->getRenderer()->addMesh(gun);
-    app->getRenderer()->addMesh(cone);
-    app->getRenderer()->addMesh(leaves01);
-    app->getRenderer()->addMesh(base_tree);
-
-
-    cout << "Ready!" << endl;
     app->loop(120); // 120 fps
 
     return 0;
