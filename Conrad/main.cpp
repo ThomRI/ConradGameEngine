@@ -25,8 +25,8 @@ int main(int argc, char **argv)
     //Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    AbstractLight *light1 = new AbstractLight(glm::vec3(-7.0, 6.0, 3.5), glm::vec3(0.0, 1.0, 0.0), 1.0, 0.1);
-    AbstractLight *light2 = new AbstractLight(glm::vec3(11.0, -10.0, 3.5), glm::vec3(1.0, 0.0, 0.0), 1.0, 0.1);
+    AbstractLight *light1 = new AbstractLight(glm::vec3(-7.0, 6.0, 3.5), glm::vec3(1.0, 1.0, 1.0), 1.0, 0.05);
+    AbstractLight *light2 = new AbstractLight(glm::vec3(11.0, -10.0, 3.5), glm::vec3(1.0, 1.0, 1.0), 1.0, 0.05);
     app->getRenderer()->addLight(light1);
     app->getRenderer()->addLight(light2);
 

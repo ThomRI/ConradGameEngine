@@ -49,10 +49,16 @@ void main()
 
 	/* Lightning */
 	vec3 global_light = vec3(0.0, 0.0, 0.0);
+
+	/* Ambient */
+	vec3 ambient = ambientStrength * ambientColor;
+
+	/* Light objects (diffuse and specular) */
 	for(int i = 0; i < nbrLights; i++) {
 		vec3 lightDir = normalize(lights[i].position - frag_FragmentPos); // Object -> Light	
 		global_light += computeLight(lights[i].intensity, lights[i].attenuation, lights[i].color, lights[i].position, transformed_normal);
 	}
+	global_light += ambient;
 	
 
 	/* Final color with gamma correction (pow) */
@@ -68,17 +74,14 @@ vec3 computeLight(float intensity, float attenuation, vec3 lightColor, vec3 ligh
 
 	float attenuationFactor = 1.0 / (1.0 + attenuation * pow(distance, 2));
 
-	/* Ambient */
-	vec3 ambient = ambientStrength * intensity * ambientColor;
-
 	/* Diffuse */
-	vec3 diffuse = diffuseStrength * intensity * max(0.0, dot(normal, lightDir)) * diffuseColor;
+	vec3 diffuse = diffuseStrength * max(0.0, dot(normal, lightDir)) * diffuseColor;
 
 	/* Specular */
 	vec3 cameraDir = normalize(cameraPos - frag_FragmentPos); // Object -> Camera
 	vec3 reflected_lightDir = reflect(-lightDir, normal);
 
-	vec3 specular = specularStrength * intensity * pow(max(0.0, dot(cameraDir, reflected_lightDir)), specularExponent) * specularColor;	
+	vec3 specular = specularStrength * pow(max(0.0, dot(cameraDir, reflected_lightDir)), specularExponent) * specularColor;	
 
-	return (ambient + attenuationFactor * (diffuse + specular)) * lightColor;
+	return attenuationFactor * intensity * (diffuse + specular) * lightColor;
 }
