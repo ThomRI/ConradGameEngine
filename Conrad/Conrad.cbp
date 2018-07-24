@@ -8,7 +8,9 @@
 		<Option show_notes="0">
 			<notes>
 				<![CDATA[16/07/2018 15:54 | Implemented AbstractMesh yesterday. One VBO/VAO per mesh for now.
-17/07/2018 03:10 | Implemented AbstractTexture. Every mesh is considered as using a texture (which is ok in a game engine, every mesh will be using textures). If a mesh hasn't any specified texture coordinates, the engine still uses textures for the mesh with the same coordinates for every vertex (whatever..), and a fully transparent texture applied.]]>
+17/07/2018 03:10 | Implemented AbstractTexture. Every mesh is considered as using a texture (which is ok in a game engine, every mesh will be using textures). If a mesh hasn't any specified texture coordinates, the engine still uses textures for the mesh with the same coordinates for every vertex (whatever..), and a fully transparent texture applied.
+
+23/07/2018 04:10 | Lots of progresses ! Materials supported, the "fully transparent texture" is now a one pixel blank texture (ofc colors are multiplied not added..). Lightning works perfectly ! It has ambient, diffuse, and specular, and inverse quadratic attenuation (basically in 1/d^2). The lightning system supports multiple lights, but only points for now. Gamma correction was added. It's now very easy to import scenes from blender : an Handler class (OBJ_Static_Handler) was created to take care of everything when importing .obj, including materials ! Which is very cool btw, just a couple of lines to import the scene.]]>
 			</notes>
 		</Option>
 		<Build>
@@ -77,6 +79,7 @@
 		<Unit filename="include/FreeCamera.h" />
 		<Unit filename="include/InputManager.h" />
 		<Unit filename="include/OBJ_Static_Handler.h" />
+		<Unit filename="include/PointLight.h" />
 		<Unit filename="include/Renderer.h" />
 		<Unit filename="include/Shader.h" />
 		<Unit filename="include/StaticMesh.h" />
@@ -95,6 +98,7 @@
 		<Unit filename="src/FreeCamera.cpp" />
 		<Unit filename="src/InputManager.cpp" />
 		<Unit filename="src/OBJ_Static_Handler.cpp" />
+		<Unit filename="src/PointLight.cpp" />
 		<Unit filename="src/Renderer.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />

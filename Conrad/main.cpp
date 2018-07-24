@@ -6,6 +6,8 @@
 #include "OBJ_Static_Handler.h"
 #include "scope.h"
 #include "FreeCamera.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 
 using namespace std;
 
@@ -25,10 +27,12 @@ int main(int argc, char **argv)
     //Shader shader(string("shaders/basic/light.vert"), string("shaders/basic/light.frag"));
     app->getRenderer()->setShader(shader); // loads the shader
 
-    AbstractLight *light1 = new AbstractLight(glm::vec3(-7.0, 6.0, 3.5), glm::vec3(1.0, 1.0, 1.0), 1.0, 0.05);
-    AbstractLight *light2 = new AbstractLight(glm::vec3(11.0, -10.0, 3.5), glm::vec3(1.0, 1.0, 1.0), 1.0, 0.05);
+    PointLight *light1 = new PointLight(glm::vec3(-7.0, 6.0, 3.5), glm::vec3(1.0), 1.5, 0.05);
+    PointLight *light2 = new PointLight(glm::vec3(11.0, -10.0, 3.5), glm::vec3(1.0), 1.5, 0.05);
+    SpotLight *light3 = new SpotLight(glm::vec3(0.0, 0.0, 4.0), glm::vec3(1.0), glm::vec3(0.0, 0.0, -1.0), 45.0f, 1.5f, 0.05f);
     app->getRenderer()->addLight(light1);
     app->getRenderer()->addLight(light2);
+    app->getRenderer()->addLight(light3);
 
     OBJ_Static_Handler sceneHandler("objects/plane.obj", "objects/plane.mtl");
     sceneHandler.load(true, true, true);
