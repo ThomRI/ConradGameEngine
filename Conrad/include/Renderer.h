@@ -26,14 +26,17 @@
 class Renderer
 {
     public:
-        Renderer();
+        Renderer(float viewport_width, float viewport_height);
         Renderer(AbstractCamera *camera);
         virtual ~Renderer();
 
         void setShader(Shader shader);
+        void setDepthShader(Shader shader);
 
         void render(); // Pushes next frame into buffer
         void toggleWireframe(); // Toggles wireframe rendering
+
+        void generateShadowMap(AbstractLight *source);
 
         int addMesh(AbstractMesh *mesh);
         AbstractMesh *getMesh(int meshID);
@@ -44,21 +47,42 @@ class Renderer
         void setCamera(AbstractCamera *camera);
         AbstractCamera *get_camera();
 
-
     protected:
 
     private:
-        Shader m_shader;
+        Shader m_shader, m_depthShader;
 
         /* Scene */
         std::vector<AbstractMesh*>  m_meshes;
         std::vector<AbstractLight*> m_lights;
 
-        glm::mat4 m_projection = glm::mat4(1.0);
+        glm::mat4 m_perspective = glm::mat4(1.0);
+        glm::mat4 m_ortho       = glm::mat4(1.0);
         AbstractCamera *m_camera;
 
         /* OpenGL */
         bool m_wireframe = false;
+
+        struct {
+            GLint   cameraPos,
+                    projection,
+                    camera,
+                    modelview,
+                    normalMatrix,
+                    nbrLights,
+
+                    ambientColor,
+                    diffuseColor,
+                    specularColor,
+
+                    ambientStrength,
+                    diffuseStrength,
+                    specularStrength,
+                    specularExponent;
+        } m_uniformLocations;
+
+        float   m_viewport_width,
+                m_viewport_height;
 };
 
 #endif // RENDERER_H

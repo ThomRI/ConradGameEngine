@@ -40,6 +40,9 @@ class PointLight : public AbstractLight
     protected:
 
     private:
+        /* World */
+        float m_attenuation;
+
 };
 
 #endif // POINTLIGHT_H

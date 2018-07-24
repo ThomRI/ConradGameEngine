@@ -3,7 +3,7 @@
 using namespace glm;
 
 SpotLight::SpotLight(vec3 position, vec3 color, vec3 direction, float coneAngle, float intensity, float attenuation) :
-    AbstractLight(position, color, intensity, attenuation), m_direction(direction), m_coneAngle(coneAngle)
+    AbstractLight(position, color, intensity), m_attenuation(attenuation), m_direction(direction), m_coneAngle(coneAngle)
 {
     //ctor
 }

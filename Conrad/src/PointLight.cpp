@@ -3,7 +3,7 @@
 using namespace glm;
 
 PointLight::PointLight(vec3 position, vec3 color, float intensity, float attenuation) :
-    AbstractLight(position, color, intensity, attenuation)
+    AbstractLight(position, color, intensity), m_attenuation(attenuation)
 {
     //ctor
 }

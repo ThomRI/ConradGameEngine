@@ -82,6 +82,7 @@
 		<Unit filename="include/PointLight.h" />
 		<Unit filename="include/Renderer.h" />
 		<Unit filename="include/Shader.h" />
+		<Unit filename="include/SpotLight.h" />
 		<Unit filename="include/StaticMesh.h" />
 		<Unit filename="include/TestCube.h" />
 		<Unit filename="include/TestTriangle.h" />
@@ -101,6 +102,7 @@
 		<Unit filename="src/PointLight.cpp" />
 		<Unit filename="src/Renderer.cpp" />
 		<Unit filename="src/Shader.cpp" />
+		<Unit filename="src/SpotLight.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />
 		<Unit filename="src/TestCube.cpp" />
 		<Unit filename="src/TestTriangle.cpp" />

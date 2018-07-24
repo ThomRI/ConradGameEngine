@@ -165,6 +165,7 @@ void AbstractMesh::draw()
 
     glBindVertexArray(m_vaoID); // Using the VAO
 
+        glActiveTexture(GL_TEXTURE0); // Diffuse texture
         m_material->getDiffuseTexture()->bind();
             glDrawArrays(GL_TRIANGLES, 0, m_verticesCount);
         m_material->getDiffuseTexture()->unbind();

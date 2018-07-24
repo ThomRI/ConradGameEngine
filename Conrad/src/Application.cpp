@@ -3,7 +3,7 @@
 Application::Application(char *title, int width, int height) :
     m_width(width), m_height(height), m_title(title)
 {
-    m_renderer = new Renderer();
+    m_renderer = new Renderer(m_width, m_height);
     m_inputManager = new InputManager();
 }
 
@@ -67,7 +67,7 @@ void Application::loop(int const fps)
 {
     bool wireframe_pressed(false);
     ms delay(1000.0/fps);
-    std::cout << "Starting app loop at " << fps << " fps" << std::endl;
+    std::cout << "Starting app loop at " << fps << " fps (" << delay.count() << " ms)" << std::endl;
 
     m_run = true;
     while(m_run && !m_inputManager->close()) {

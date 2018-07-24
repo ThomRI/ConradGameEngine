@@ -11,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
+#include "scope.h"
 
 #include <cmath>
 #ifndef M_PI
@@ -54,6 +55,7 @@ class AbstractCamera
         void setPosition(float x, float y, float z);
 
         /* Getters */
+        glm::vec3 getUpVector();
         glm::mat4 &get_lookat();
         glm::vec3 getPos();
 
@@ -61,7 +63,7 @@ class AbstractCamera
         void update(); // updates the lookAt matrix
 
     private:
-        glm::vec3 m_up = glm::vec3(0.0, 0.0, 1.0);
+        glm::vec3 m_up = glm::vec3(UP_VECTOR);
 
         /* Orientation */
         float m_theta = M_PI / 2, m_phi = 0; // looking by the X-axis by default (radians)

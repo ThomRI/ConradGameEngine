@@ -3,8 +3,6 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 
-#define UP_VECTOR 0.0, 0.0, 1.0
-
 /* Defines a byte offset from an index offset */
 #ifndef BUFFER_OFFSET
     #define BUFFER_OFFSET(offset) ((char*)NULL + offset)

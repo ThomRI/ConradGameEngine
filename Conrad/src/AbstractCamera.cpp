@@ -112,6 +112,11 @@ void AbstractCamera::setPosition(float x, float y, float z)
 }
 
 /* #### GETTERS */
+vec3 AbstractCamera::getUpVector()
+{
+    return m_up;
+}
+
 mat4 &AbstractCamera::get_lookat()
 {
     return m_lookAt;

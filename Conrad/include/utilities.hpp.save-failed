@@ -4,10 +4,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <map>
-#include <tuple>
 #include <sstream>
+#include <map>
+#include <vector>
+#include <tuple>
 
 #include "StaticMesh.h"
 
@@ -20,6 +20,7 @@
 #define NORMAL  2
 #define FACE    3
 #define OBJECT  4
+#define USEMTL  5
 
 #include "AbstractMaterial.h"
 
@@ -448,6 +449,20 @@ static vector<AbstractMaterial*> loadMTL(string filepath, bool load_textures = t
     materials.push_back(material);
 
     return materials;
+}
+
+/* ########## MATHS ########## */
+
+const char int_to_string[100][3] = {"0\0\0"};
+
+int nbr_digits(int n)
+{
+    int digits = 0;
+    while(n) {
+        n /= 10;
+        digits++;
+    }
+    return digits;
 }
 
 #endif // UTILITIES_HPP_INCLUDED

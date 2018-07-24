@@ -1,10 +1,14 @@
 #version 150 core
-#define MAX_LIGHTS 5
+#define MAX_LIGHTS 10 // Must by synced with vertex shader!
 #define GAMMA 0.454545
 
 /* Light types */
 #define LIGHT_POINT 0
 #define LIGHT_SPOT	1
+#define LIGHT_SUN	2
+
+#define SHADOW_BIAS_MIN 0.005
+#define SHADOW_BIAS_MAX 0.01
 
 // Inputs
 in vec3 frag_VertexColor;
@@ -31,7 +35,7 @@ uniform vec3 specularColor;
 uniform float specularExponent; // [0; 100]
 // uniform vec3 emitColor; // emitting is not supported yet.
 
-/* Light-related uniforms */
+/* Light-related */
 
 uniform int nbrLights;
 uniform struct Light {
@@ -44,15 +48,21 @@ uniform struct Light {
 
 	/* Directional and cone */
 	vec3 direction;
-
 	float coneAngle;
+
+	/* Shadow */
+	mat4 world; // Light space matrix
+	bool castShadow;
+	sampler2D shadowMapTex;
 } lights[MAX_LIGHTS];
+in vec4 fragPos_lightspace[MAX_LIGHTS];
 
 
 // Outputs
 out vec4 out_Color;
 
 vec3 computeLight(Light, vec3);
+vec3 computeShadow(Light, vec4, vec3);
 
 void main()
 {
@@ -60,15 +70,31 @@ void main()
 
 	/* Lightning */
 	vec3 global_light = vec3(0.0);
+	vec3 global_shadow = vec3(0.0);
+
+	/* Light objects (diffuse and specular) */
+	int nbr_lights_castshadow = 0;
+	for(int i = 0; i < nbrLights; i++) {	
+		global_light += computeLight(lights[i], transformed_normal);
+
+		if(lights[i].castShadow) {
+			global_shadow += computeShadow(lights[i], fragPos_lightspace[i], transformed_normal);
+			nbr_lights_castshadow++;
+		}
+	}
+
+	/* Averaging global_shadow (two lamps : one shadow, the other lits => global_shadow = 0.5) */
+	if(nbr_lights_castshadow == 0) 	global_shadow = vec3(0.0);
+	else							global_shadow /= nbr_lights_castshadow;
+
+	// Light-Shadow : total_pixel_intensity = ambient + (1.0 - shadow) * (diffuse + specular)
+
+	/* Shadow */
+	global_light *= 1.0 - global_shadow; // light is 1 - shadow..
 
 	/* Ambient */
 	vec3 ambient = ambientStrength * ambientColor;
 	global_light += ambient;
-
-	/* Light objects (diffuse and specular) */
-	for(int i = 0; i < nbrLights; i++) {	
-		global_light += computeLight(lights[i], transformed_normal);
-	}
 		
 
 	/* Final color with gamma correction (pow) */
@@ -78,10 +104,19 @@ void main()
 
 vec3 computeLight(Light light, vec3 normal)
 {
-	vec3 lightDir = light.position - frag_FragmentPos; // Object -> Light
-	float distance = length(lightDir); // Getting the distance before normalization
-	lightDir = normalize(lightDir);
+	vec3 lightDir; // Object -> Light !!
+	float attenuationFactor;
+	if(light.type == LIGHT_SUN) {
+		lightDir = -normalize(light.direction);
+		attenuationFactor = 1.0;
+	} else {
+		lightDir = light.position - frag_FragmentPos; // Object -> Light
+		float distance = length(lightDir); // Getting the distance before normalization
+		lightDir = normalize(lightDir);
+
+		attenuationFactor = 1.0 / (1.0 + light.attenuation * pow(distance, 2));
 	// REMINDER : lightDir is only normalized FROM HERE (don't move the 3 line block above) 
+	}
 
 	/* Restriction for cone */
 	if(light.type == LIGHT_SPOT) {
@@ -91,9 +126,6 @@ vec3 computeLight(Light light, vec3 normal)
 			return vec3(0.0); // No light oustide the cone
 		}
 	}
-
-
-	float attenuationFactor = 1.0 / (1.0 + light.attenuation * pow(distance, 2));
 
 	/* Diffuse */
 	vec3 diffuse = diffuseStrength * max(0.0, dot(normal, lightDir)) * diffuseColor;
@@ -105,4 +137,25 @@ vec3 computeLight(Light light, vec3 normal)
 	vec3 specular = specularStrength * pow(max(0.0, dot(cameraDir, reflected_lightDir)), specularExponent) * specularColor;	
 
 	return attenuationFactor * light.intensity * (diffuse + specular) * light.color;
+}
+
+vec3 computeShadow(Light light, vec4 fragpos_light, vec3 normal)
+{
+	vec3 lightDirScene = light.position - frag_FragmentPos; // Object -> Light in the scene pov
+
+	// Perspective divide (in case of perspective matrix used for the shadow map generation)
+	vec3 projCoords = fragpos_light.xyz / fragpos_light.w; // Now in range [-1; 1]
+
+	// Depth map uses range [0, 1]
+	projCoords = projCoords * 0.5 + 0.5; // Now in range [0, 1]
+
+	// Sample the depth from the shadow map
+	float closestDepth = texture(light.shadowMapTex, projCoords.xy).r; // Red or green or blue is whatever (all 3 components are always the same in the shadow map)
+
+	float currentDepth = projCoords.z;
+
+	float bias = max(SHADOW_BIAS_MAX * (1.0 - dot(normal, lightDirScene)), SHADOW_BIAS_MIN);
+	float shadow = (currentDepth - bias > closestDepth) ? 1.0 : 0.0; // Amount of shadow
+
+	return vec3(shadow);
 }
