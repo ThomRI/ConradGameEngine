@@ -55,6 +55,7 @@ uniform struct Light {
 	bool castShadow;
 	sampler2D shadowMapTex;
 } lights[MAX_LIGHTS];
+uniform vec2 shadowMapTexelSize;
 in vec4 fragPos_lightspace[MAX_LIGHTS];
 
 
@@ -148,6 +149,7 @@ vec3 computeShadow(Light light, vec4 fragpos_light, vec3 normal)
 
 	// Depth map uses range [0, 1]
 	projCoords = projCoords * 0.5 + 0.5; // Now in range [0, 1]
+	if(projCoords.z > 1.0) return vec3(0.0);
 
 	// Sample the depth from the shadow map
 	float closestDepth = texture(light.shadowMapTex, projCoords.xy).r; // Red or green or blue is whatever (all 3 components are always the same in the shadow map)
@@ -155,7 +157,16 @@ vec3 computeShadow(Light light, vec4 fragpos_light, vec3 normal)
 	float currentDepth = projCoords.z;
 
 	float bias = max(SHADOW_BIAS_MAX * (1.0 - dot(normal, lightDirScene)), SHADOW_BIAS_MIN);
-	float shadow = (currentDepth - bias > closestDepth) ? 1.0 : 0.0; // Amount of shadow
+	float shadow = 0.0;
+
+	/* PCF Interpolation (+ or - 1 texel around averaging) */
+	vec2 texelSize = 1.0 / textureSize(light.shadowMapTex, 0);
+	for(int x = -1; x <= 1; x++) {
+		for(int y = -1; y <= 1; y++) {
+			float pcfDepth = texture(light.shadowMapTex, projCoords.xy + vec2(x, y) * texelSize).r;
+			shadow += (currentDepth - bias > pcfDepth) ? 1.0 : 0.0; // Amount of shadow
+		}
+	} shadow /= 9;
 
 	return vec3(shadow);
 }

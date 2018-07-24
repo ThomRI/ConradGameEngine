@@ -43,6 +43,8 @@ void Renderer::setShader(Shader shader)
     m_uniformLocations.specularStrength = glGetUniformLocation(m_shader.getProgramID(), "specularStrength");
     m_uniformLocations.specularExponent = glGetUniformLocation(m_shader.getProgramID(), "specularExponent");
 
+    m_uniformLocations.shadowMapTexelSize = glGetUniformLocation(m_shader.getProgramID(), "shadowMapTexelSize");
+
     // Diffuse texture
     glUseProgram(m_shader.getProgramID());
         glUniform1i(glGetUniformLocation(m_shader.getProgramID(), "tex"), 0); // ID 0 for diffuse textures
@@ -80,6 +82,9 @@ void Renderer::render()
             for(int i = 0;i < m_lights.size();i++) {
                 m_lights[i]->sendUniforms(m_shader.getProgramID(), i);
             }
+
+            /* Shadow */
+            glUniform1f(m_uniformLocations.shadowMapTexelSize, 1.0f / SHADOWMAP_SIZE);
 
             /* Material */
             RGB ambientColor = (*mesh)->getMaterial()->getAmbientColor(),
@@ -121,12 +126,14 @@ void Renderer::generateShadowMap(AbstractLight *source)
     glViewport(0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE);
     glBindFramebuffer(GL_FRAMEBUFFER, source->getFrameBufferID());
     glClear(GL_DEPTH_BUFFER_BIT);
+    glCullFace(GL_FRONT);
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "modelview"), 1, GL_FALSE, value_ptr((*mesh)->get_modelview())); // modelview of the mesh
             (*mesh)->draw();
         }
 
+    glCullFace(GL_BACK);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glUseProgram(0);
 

@@ -24,6 +24,9 @@ AbstractLight::AbstractLight(vec3 position, vec3 color, float intensity, bool ca
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+            float borderColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+            glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
         glBindTexture(GL_TEXTURE_2D, 0);
 
         /* Binding both */
