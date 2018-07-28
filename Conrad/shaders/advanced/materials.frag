@@ -142,14 +142,23 @@ vec3 computeLight(Light light, vec3 normal)
 
 vec3 computeShadow(Light light, vec4 fragpos_light, vec3 normal)
 {
-	vec3 lightDirScene = light.position - frag_FragmentPos; // Object -> Light in the scene pov
+	vec3 lightDirScene = normalize(light.position - frag_FragmentPos); // Object -> Light in the scene pov
+
+	/* Restriction for cone */
+	/*if(light.type == LIGHT_SPOT) {
+		float angle = degrees(acos(dot(-lightDirScene, normalize(light.direction))));
+
+		if(angle > light.coneAngle) {
+			return vec3(0.0); // No shadow
+		}
+	}*/
 
 	// Perspective divide (in case of perspective matrix used for the shadow map generation)
 	vec3 projCoords = fragpos_light.xyz / fragpos_light.w; // Now in range [-1; 1]
 
 	// Depth map uses range [0, 1]
 	projCoords = projCoords * 0.5 + 0.5; // Now in range [0, 1]
-	if(projCoords.z > 1.0) return vec3(0.0);
+	if(projCoords.z > 1.0) return vec3(0.0); // for points light, allows not to cast shadow everywhere
 
 	// Sample the depth from the shadow map
 	float closestDepth = texture(light.shadowMapTex, projCoords.xy).r; // Red or green or blue is whatever (all 3 components are always the same in the shadow map)
@@ -159,14 +168,14 @@ vec3 computeShadow(Light light, vec4 fragpos_light, vec3 normal)
 	float bias = max(SHADOW_BIAS_MAX * (1.0 - dot(normal, lightDirScene)), SHADOW_BIAS_MIN);
 	float shadow = 0.0;
 
-	/* PCF Interpolation (+ or - 1 texel around averaging) */
+	/* PCF Interpolation (+ or - 2 texels averaging) */
 	vec2 texelSize = 1.0 / textureSize(light.shadowMapTex, 0);
-	for(int x = -1; x <= 1; x++) {
-		for(int y = -1; y <= 1; y++) {
+	for(int x = -2; x <= 2; x++) {
+		for(int y = -2; y <= 2; y++) {
 			float pcfDepth = texture(light.shadowMapTex, projCoords.xy + vec2(x, y) * texelSize).r;
 			shadow += (currentDepth - bias > pcfDepth) ? 1.0 : 0.0; // Amount of shadow
 		}
-	} shadow /= 9;
+	} shadow /= 25;
 
 	return vec3(shadow);
 }

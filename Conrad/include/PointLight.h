@@ -32,7 +32,7 @@
 class PointLight : public AbstractLight
 {
     public:
-        PointLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, float attenuation = 1.0);
+        PointLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, float attenuation = 1.0, bool castShadow = false);
         virtual ~PointLight();
 
         void sendUniforms(GLuint programID, size_t index);

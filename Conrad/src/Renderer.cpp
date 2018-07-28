@@ -27,28 +27,26 @@ void Renderer::setShader(Shader shader)
     }
 
     /* Uniforms */
-    m_uniformLocations.cameraPos = glGetUniformLocation(m_shader.getProgramID(), "cameraPos");
-    m_uniformLocations.projection = glGetUniformLocation(m_shader.getProgramID(), "projection");
-    m_uniformLocations.camera = glGetUniformLocation(m_shader.getProgramID(), "camera");
-    m_uniformLocations.modelview = glGetUniformLocation(m_shader.getProgramID(), "modelview");
-    m_uniformLocations.normalMatrix = glGetUniformLocation(m_shader.getProgramID(), "normalMatrix");
-    m_uniformLocations.nbrLights = glGetUniformLocation(m_shader.getProgramID(), "nbrLights");
+    m_uniformLocations.cameraPos = m_shader.getUniformLocation("cameraPos");
+    m_uniformLocations.projection = m_shader.getUniformLocation("projection");
+    m_uniformLocations.camera = m_shader.getUniformLocation("camera");
+    m_uniformLocations.modelview = m_shader.getUniformLocation("modelview");
+    m_uniformLocations.normalMatrix = m_shader.getUniformLocation("normalMatrix");
+    m_uniformLocations.nbrLights = m_shader.getUniformLocation("nbrLights");
 
-    m_uniformLocations.ambientColor = glGetUniformLocation(m_shader.getProgramID(), "ambientColor");
-    m_uniformLocations.diffuseColor = glGetUniformLocation(m_shader.getProgramID(), "diffuseColor");
-    m_uniformLocations.specularColor = glGetUniformLocation(m_shader.getProgramID(), "specularColor");
+    m_uniformLocations.ambientColor = m_shader.getUniformLocation("ambientColor");
+    m_uniformLocations.diffuseColor = m_shader.getUniformLocation("diffuseColor");
+    m_uniformLocations.specularColor = m_shader.getUniformLocation("specularColor");
 
-    m_uniformLocations.ambientStrength = glGetUniformLocation(m_shader.getProgramID(), "ambientStrength");
-    m_uniformLocations.diffuseStrength = glGetUniformLocation(m_shader.getProgramID(), "diffuseStrength");
-    m_uniformLocations.specularStrength = glGetUniformLocation(m_shader.getProgramID(), "specularStrength");
-    m_uniformLocations.specularExponent = glGetUniformLocation(m_shader.getProgramID(), "specularExponent");
-
-    m_uniformLocations.shadowMapTexelSize = glGetUniformLocation(m_shader.getProgramID(), "shadowMapTexelSize");
+    m_uniformLocations.ambientStrength = m_shader.getUniformLocation("ambientStrength");
+    m_uniformLocations.diffuseStrength = m_shader.getUniformLocation("diffuseStrength");
+    m_uniformLocations.specularStrength = m_shader.getUniformLocation("specularStrength");
+    m_uniformLocations.specularExponent = m_shader.getUniformLocation("specularExponent");
 
     // Diffuse texture
-    glUseProgram(m_shader.getProgramID());
-        glUniform1i(glGetUniformLocation(m_shader.getProgramID(), "tex"), 0); // ID 0 for diffuse textures
-    glUseProgram(0);
+    m_shader.bind();
+        m_shader.sendInt(m_shader.getUniformLocation("tex"), 0); // ID 0 for diffuse textures
+    m_shader.unbind();
 }
 
 void Renderer::setDepthShader(Shader shader)
@@ -61,30 +59,27 @@ void Renderer::setDepthShader(Shader shader)
 
 void Renderer::render()
 {
-    glUseProgram(m_shader.getProgramID()); // Binding shader
+    m_shader.bind();
 
     /* Camera */
     vec3 cameraPos = m_camera->getPos();
-    glUniform3f(m_uniformLocations.cameraPos, cameraPos[0], cameraPos[1], cameraPos[2]);
+    m_shader.sendVector(m_uniformLocations.cameraPos, cameraPos);
 
         // VBOs and AttribPointers are token care of in AbstractMesh (by the VAO). Here we just send the matrices and call AbstractMesh::draw()
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             // Sending matrices to the Shader
-            glUniformMatrix4fv(m_uniformLocations.projection, 1, GL_FALSE, glm::value_ptr(m_perspective));
-            glUniformMatrix4fv(m_uniformLocations.camera, 1, GL_FALSE, glm::value_ptr(m_camera->get_lookat()));
-            glUniformMatrix4fv(m_uniformLocations.modelview, 1, GL_FALSE, glm::value_ptr((*mesh)->get_modelview()));
+            m_shader.sendMatrix(m_uniformLocations.projection, m_perspective);
+            m_shader.sendMatrix(m_uniformLocations.camera, m_camera->get_lookat());
+            m_shader.sendMatrix(m_uniformLocations.modelview, (*mesh)->get_modelview());
 
-            glUniformMatrix4fv(m_uniformLocations.normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse((*mesh)->get_modelview()))));
+            m_shader.sendMatrix(m_uniformLocations.normalMatrix, glm::transpose(glm::inverse((*mesh)->get_modelview())));
 
             /* Lights */
-            glUniform1i(m_uniformLocations.nbrLights, m_lights.size());
+            m_shader.sendInt(m_uniformLocations.nbrLights, m_lights.size());
             for(int i = 0;i < m_lights.size();i++) {
                 m_lights[i]->sendUniforms(m_shader.getProgramID(), i);
             }
-
-            /* Shadow */
-            glUniform1f(m_uniformLocations.shadowMapTexelSize, 1.0f / SHADOWMAP_SIZE);
 
             /* Material */
             RGB ambientColor = (*mesh)->getMaterial()->getAmbientColor(),
@@ -96,20 +91,21 @@ void Renderer::render()
                     specularStrength = (*mesh)->getMaterial()->getSpecularStrength(),
                     specularExponent = (*mesh)->getMaterial()->getSpecularExponent();
 
-            glUniform3f(m_uniformLocations.ambientColor, ambientColor.r, ambientColor.g, ambientColor.b);
-            glUniform3f(m_uniformLocations.diffuseColor, diffuseColor.r, diffuseColor.g, diffuseColor.b);
-            glUniform3f(m_uniformLocations.specularColor, specularColor.r, specularColor.g, specularColor.b);
 
-            glUniform1f(m_uniformLocations.ambientStrength, ambientStrength);
-            glUniform1f(m_uniformLocations.diffuseStrength, diffuseStrength);
-            glUniform1f(m_uniformLocations.specularStrength, specularStrength);
-            glUniform1f(m_uniformLocations.specularExponent, specularExponent);
+            m_shader.sendRGB(m_uniformLocations.ambientColor, ambientColor);
+            m_shader.sendRGB(m_uniformLocations.diffuseColor, diffuseColor);
+            m_shader.sendRGB(m_uniformLocations.specularColor, specularColor);
+
+            m_shader.sendFloat(m_uniformLocations.ambientStrength, ambientStrength);
+            m_shader.sendFloat(m_uniformLocations.diffuseStrength, diffuseStrength);
+            m_shader.sendFloat(m_uniformLocations.specularStrength, specularStrength);
+            m_shader.sendFloat(m_uniformLocations.specularExponent, specularExponent);
 
             (*mesh)->draw();
         }
 
 
-    glUseProgram(0);
+    m_shader.unbind();
 }
 
 void Renderer::generateShadowMap(AbstractLight *source)
@@ -120,23 +116,23 @@ void Renderer::generateShadowMap(AbstractLight *source)
     source->set_world(source_world);
 
     /* Rendering */
-    glUseProgram(m_depthShader.getProgramID());
+    glCullFace(GL_FRONT);
+    m_depthShader.bind();
     glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "world"), 1, GL_FALSE, value_ptr(source_world));
 
     glViewport(0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE);
     glBindFramebuffer(GL_FRAMEBUFFER, source->getFrameBufferID());
     glClear(GL_DEPTH_BUFFER_BIT);
-    glCullFace(GL_FRONT);
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "modelview"), 1, GL_FALSE, value_ptr((*mesh)->get_modelview())); // modelview of the mesh
             (*mesh)->draw();
         }
 
-    glCullFace(GL_BACK);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glUseProgram(0);
+    m_depthShader.unbind();
 
+    glCullFace(GL_BACK);
     glViewport(0, 0, m_viewport_width, m_viewport_height);
 }
 

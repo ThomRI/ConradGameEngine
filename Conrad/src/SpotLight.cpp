@@ -2,8 +2,8 @@
 
 using namespace glm;
 
-SpotLight::SpotLight(vec3 position, vec3 color, vec3 direction, float coneAngle, float intensity, float attenuation) :
-    AbstractLight(position, color, intensity), m_attenuation(attenuation), m_direction(direction), m_coneAngle(coneAngle)
+SpotLight::SpotLight(vec3 position, vec3 color, vec3 direction, float coneAngle, float intensity, float attenuation, bool castShadow) :
+    AbstractLight(position, color, intensity, castShadow), m_attenuation(attenuation), m_direction(direction), m_coneAngle(coneAngle)
 {
     //ctor
 }
@@ -18,6 +18,8 @@ void SpotLight::sendUniforms(GLuint programID, size_t index)
 
     glUniform3f(glGetUniformLocation(programID, uniform_str(index, "direction")), m_direction[0], m_direction[1], m_direction[2]);
     glUniform1f(glGetUniformLocation(programID, uniform_str(index, "coneAngle")), m_coneAngle);
+
+    sendShadowUniforms(programID, index);
 }
 
 SpotLight::~SpotLight()

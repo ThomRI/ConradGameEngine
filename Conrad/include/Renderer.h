@@ -78,9 +78,7 @@ class Renderer
                     ambientStrength,
                     diffuseStrength,
                     specularStrength,
-                    specularExponent,
-
-                    shadowMapTexelSize;
+                    specularExponent;
         } m_uniformLocations;
 
         float   m_viewport_width,

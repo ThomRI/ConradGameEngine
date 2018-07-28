@@ -84,6 +84,7 @@
 		<Unit filename="include/Shader.h" />
 		<Unit filename="include/SpotLight.h" />
 		<Unit filename="include/StaticMesh.h" />
+		<Unit filename="include/SunLight.h" />
 		<Unit filename="include/TestCube.h" />
 		<Unit filename="include/TestTriangle.h" />
 		<Unit filename="include/key_mapping.h" />
@@ -104,6 +105,7 @@
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/SpotLight.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />
+		<Unit filename="src/SunLight.cpp" />
 		<Unit filename="src/TestCube.cpp" />
 		<Unit filename="src/TestTriangle.cpp" />
 		<Extensions>

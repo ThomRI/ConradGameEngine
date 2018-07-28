@@ -43,6 +43,20 @@ AbstractLight::AbstractLight(vec3 position, vec3 color, float intensity, bool ca
     }
 }
 
+void AbstractLight::sendShadowUniforms(GLuint programID, size_t index)
+{
+    //TODO : Save the uniform locations once for shadows, don't retrieve it each frame...
+    glUniformMatrix4fv(glGetUniformLocation(programID, uniform_str(index, "world")), 1, GL_FALSE, value_ptr(m_world));
+
+    /* Shadow map */
+    glUniform1i(glGetUniformLocation(programID, uniform_str(index, "castShadow")), m_castShadow);
+    if(m_castShadow) {
+        glUniform1i(glGetUniformLocation(programID, uniform_str(index, "shadowMapTex")), index + 10); // > 10 are for lights exclusively
+        glActiveTexture(GL_TEXTURE0 + 10 + index);
+        glBindTexture(GL_TEXTURE_2D, m_depthMapID);
+    }
+}
+
 const char *AbstractLight::uniform_str(size_t index, const char* property)
 {
     ostringstream ss;
@@ -54,14 +68,14 @@ const char *AbstractLight::uniform_str(size_t index, const char* property)
     out = strncpy(out, ss.str().c_str(), ss.str().size());
     return out;
 
-    /*
+    /* WORKS BUT ACTUALLY SLOWER!
     if(index >= 100) return "error";
 
     size_t nbrDigits = 0;
     if(index < 10)  nbrDigits = 1;
     else            nbrDigits = 2;
 
-    size_t size = (LIGHTS_ARRAY_STRLEN + nbrDigits + strlen(property) + 4) * sizeof(char); // lights[0].property, 3 is for [ ] . and \0
+    size_t size = (LIGHTS_ARRAY_STRLEN + nbrDigits + strlen(property) + 4) * sizeof(char); // lights[0].property, 4 is for [ ] . and \0
 
     char *out = (char*) malloc(size);
     sprintf(out, "%s[%s].%s", LIGHTS_ARRAY_SHADER, int100_to_str[index], property);

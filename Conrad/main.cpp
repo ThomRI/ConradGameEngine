@@ -24,12 +24,10 @@ int main(int argc, char **argv)
     FreeCamera *camera = new FreeCamera(app->getInputManager());
     app->getRenderer()->setCamera(camera);
 
-    Shader shader(string("shaders/advanced/materials.vert"), string("shaders/advanced/materials.frag"));
-    Shader depthShader(string("shaders/advanced/depth.vert"), string("shaders/advanced/depth.frag"));
+    Shader shader("shaders/advanced/materials.vert", "shaders/advanced/materials.frag");
+    Shader depthShader("shaders/advanced/depth.vert", "shaders/advanced/depth.frag");
 
-    cout << "CLASSIC SHADER" << endl;
     app->getRenderer()->setShader(shader); // loads the shader
-    cout << "DEPTH SHADER" << endl;
     app->getRenderer()->setDepthShader(depthShader);
 
     //SpotLight *light3 = new SpotLight(glm::vec3(0.0, 0.0, 4.0), glm::vec3(1.0), glm::vec3(0.0, 0.0, -1.0), 45.0f, 1.5f, 0.05f);
@@ -42,9 +40,14 @@ int main(int argc, char **argv)
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube1"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube2"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Spaceship"));
 
-    SunLight *sun = new SunLight(glm::vec3(3.0, 0.0, 5.0), glm::vec3(-1.0, 0.0, -1.0), glm::vec3(1.0), 1.0, true);
+    SunLight *sun = new SunLight(glm::vec3(3.0, 0.0, 5.0), glm::vec3(-3.0, 0.0, -1.0), glm::vec3(1.0), 1.0, true);
+    //PointLight *light = new PointLight(glm::vec3(1.0, 0.0, 2.0), glm::vec3(1.0), 1.0, 0.005, true);
+    SpotLight *spot = new SpotLight(glm::vec3(6.0, 0.2, 9.0), glm::vec3(1.0, 0.2, 0.2), glm::vec3(-1.0, 1.0, -1.5), 20.0, 1.0, 0.005, false);
+    app->getRenderer()->addLight(spot);
     app->getRenderer()->addLight(sun);
+    app->getRenderer()->generateShadowMap(spot);
     app->getRenderer()->generateShadowMap(sun);
 
     app->loop(120); // 120 fps

@@ -3,7 +3,8 @@
 using namespace std;
 using namespace glm;
 
-Renderer::Renderer()
+Renderer::Renderer(float viewport_width, float viewport_height) :
+    m_viewport_width(viewport_width), m_viewport_height(viewport_height)
 {
     m_perspective   = perspective(70.0, 16.0/9, 0.001, 100.0);
     m_ortho         = ortho(-30.0, 30.0, -30.0, 30.0, 0.1, 100.0);
@@ -41,6 +42,11 @@ void Renderer::setShader(Shader shader)
     m_uniformLocations.diffuseStrength = glGetUniformLocation(m_shader.getProgramID(), "diffuseStrength");
     m_uniformLocations.specularStrength = glGetUniformLocation(m_shader.getProgramID(), "specularStrength");
     m_uniformLocations.specularExponent = glGetUniformLocation(m_shader.getProgramID(), "specularExponent");
+
+    // Diffuse texture
+    glUseProgram(m_shader.getProgramID());
+        glUniform1i(glGetUniformLocation(m_shader.getProgramID(), "tex"), 0); // ID 0 for diffuse textures
+    glUseProgram(0);
 }
 
 void Renderer::setDepthShader(Shader shader)
@@ -75,9 +81,7 @@ void Renderer::render()
                 m_lights[i]->sendUniforms(m_shader.getProgramID(), i);
             }
 
-
             /* Material */
-
             RGB ambientColor = (*mesh)->getMaterial()->getAmbientColor(),
                 diffuseColor = (*mesh)->getMaterial()->getDiffuseColor(),
                 specularColor = (*mesh)->getMaterial()->getSpecularColor();
@@ -105,25 +109,30 @@ void Renderer::render()
 
 void Renderer::generateShadowMap(AbstractLight *source)
 {
-    /* Look at : point of view of the light source */
-    mat4 source_view = lookAt(source->getPosition(), vec3(0.0), m_camera.getUpVector()); // pointing at the center of the scene
-    mat4 source_world = m_ortho * source_view;
+    if(!source->castsShadow()) return; // No FBO, no depth texture...
+
+    mat4 source_world = m_ortho * source->get_lookat();
+    source->set_world(source_world);
 
     /* Rendering */
     glUseProgram(m_depthShader.getProgramID());
-    glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "world"), value_ptr(source_world));
+    glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "world"), 1, GL_FALSE, value_ptr(source_world));
 
-    //glViewport(0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE);
+    glViewport(0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE);
+    glCullFace(GL_FRONT);
     glBindFramebuffer(GL_FRAMEBUFFER, source->getFrameBufferID());
     glClear(GL_DEPTH_BUFFER_BIT);
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
-            glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "modelview"), value_ptr((*mesh)->get_modelview())); // modelview of the mesh
+            glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "modelview"), 1, GL_FALSE, value_ptr((*mesh)->get_modelview())); // modelview of the mesh
             (*mesh)->draw();
         }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glUseProgram(0);
+
+    glCullFace(GL_BACK);
+    glViewport(0, 0, m_viewport_width, m_viewport_height);
 }
 
 void Renderer::toggleWireframe()

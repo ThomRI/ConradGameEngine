@@ -146,6 +146,11 @@ void Shader::bind()
     glUseProgram(m_programID);
 }
 
+GLint Shader::getUniformLocation(const GLchar *name)
+{
+    return glGetUniformLocation(m_programID, name);
+}
+
 GLuint Shader::getProgramID()
 {
     return m_programID;

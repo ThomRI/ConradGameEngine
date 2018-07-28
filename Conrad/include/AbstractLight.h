@@ -16,6 +16,7 @@
 /* GLM */
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 /* Cross-plateform includes */
 #ifdef WIN32
@@ -52,6 +53,7 @@ class AbstractLight
         virtual ~AbstractLight();
 
         virtual void sendUniforms(GLuint programID, size_t index) = 0; // Virtual pure
+        virtual void sendShadowUniforms(GLuint programID, size_t index);
 
         /* Setters */
         void set_world(glm::mat4 world);
