@@ -10,50 +10,20 @@ AbstractLight::AbstractLight(vec3 position, vec3 color, float intensity, bool ca
     m_color.g = color[1];
     m_color.b = color[2];
 
-    if(m_castShadow) {
-        /* Frame Buffer */
-        glGenFramebuffers(1, &m_framebufferID);
-
-        /* Depth map texture */
-        glGenTextures(1, &m_depthMapID);
-        glBindTexture(GL_TEXTURE_2D, m_depthMapID);
-
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOWMAP_SIZE, SHADOWMAP_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-            float borderColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
-            glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        /* Binding both */
-        glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferID);
-
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthMapID, 0);
-            glDrawBuffer(GL_NONE); // No color
-            glReadBuffer(GL_NONE);
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-        /* Generating view matrix */
-        m_lookAt = lookAt(m_position, vec3(0.0), vec3(UP_VECTOR));
-    }
+    /* Generating view matrix */
+    m_lookAt = lookAt(m_position, vec3(0.0), vec3(UP_VECTOR));
 }
 
-void AbstractLight::sendShadowUniforms(GLuint programID, size_t index)
+void AbstractLight::sendShadowUniforms(const Shader &shader, size_t index)
 {
     //TODO : Save the uniform locations once for shadows, don't retrieve it each frame...
-    glUniformMatrix4fv(glGetUniformLocation(programID, uniform_str(index, "world")), 1, GL_FALSE, value_ptr(m_world));
+    shader.sendMatrix(shader.getUniformLocation(uniform_str(index, "world")), m_world);
 
     /* Shadow map */
-    glUniform1i(glGetUniformLocation(programID, uniform_str(index, "castShadow")), m_castShadow);
+    shader.sendInt(shader.getUniformLocation(uniform_str(index, "castShadow")), m_castShadow);
     if(m_castShadow) {
-        glUniform1i(glGetUniformLocation(programID, uniform_str(index, "shadowMapTex")), index + 10); // > 10 are for lights exclusively
-        glActiveTexture(GL_TEXTURE0 + 10 + index);
-        glBindTexture(GL_TEXTURE_2D, m_depthMapID);
+        shader.sendInt(shader.getUniformLocation(uniform_str(index, "shadowMapTex")), index + 10); // > 10 are for lights exclusively
+        m_depthBuffer.bindTexture(index);
     }
 }
 
@@ -97,14 +67,9 @@ vec3 AbstractLight::getPosition()
     return m_position;
 }
 
-GLuint AbstractLight::getFrameBufferID()
+DepthBuffer &AbstractLight::getDepthBuffer()
 {
-    return m_framebufferID;
-}
-
-GLuint AbstractLight::getDepthMapID()
-{
-    return m_depthMapID;
+    return m_depthBuffer;
 }
 
 mat4 AbstractLight::get_lookat()

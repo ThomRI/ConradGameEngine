@@ -80,7 +80,7 @@ void AbstractCamera::rotate(float dtheta, float dphi)
 /* #### UPDATE #### */
 void AbstractCamera::update()
 {
-    m_transversal = glm::cross(m_up, m_orientation); // normalized if both vectors are
+    m_transversal = glm::normalize(glm::cross(m_up, m_orientation));
     m_lookAt = lookAt(m_position, m_position + m_orientation, m_up);
 }
 

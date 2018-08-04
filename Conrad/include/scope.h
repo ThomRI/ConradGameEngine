@@ -18,11 +18,17 @@
 
 /* Paths */
 #define TEXPATH "textures"
-#define BLANKONE_PATH TEXPATH "/blank_onepx.png" // One pixel 100% alpha texture
+#define BLANKONE_PATH TEXPATH "/blank_onepx.png" // One pixel 100% blank texture
 
 /* Shader defines */
 #define LIGHTS_ARRAY_SHADER "lights"
 #define LIGHTS_ARRAY_STRLEN 6
+
+/* Shadow mapping */
+#define SHADOWMAP_SIZE 1024
+
+/* Textures IDs */
+#define DEPTHBUFFER_TEXTURE0 10 // First index of a depth buffer texture OpenGL binding
 
 /* Structures */
 struct RGB {

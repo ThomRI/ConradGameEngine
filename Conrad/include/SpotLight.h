@@ -27,7 +27,7 @@ class SpotLight : public AbstractLight
         SpotLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction, float coneAngle, float intensity = 1.0, float attenuation = 1.0, bool castShadow = false);
         virtual ~SpotLight();
 
-        void sendUniforms(GLuint programID, size_t index);
+        void sendUniforms(const Shader &Shader, size_t index);
 
     protected:
 

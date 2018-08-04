@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1532794031 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1533345119 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
@@ -719,7 +719,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1532469076 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+1533329807 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
 
 1526978384 c:\libs\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -1259,7 +1259,7 @@
 	"AbstractCamera.h"
 	"AbstractLight.h"
 
-1532796727 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
+1532797898 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
 	"scope.h"
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
@@ -1279,7 +1279,7 @@
 	"AbstractMesh.h"
 	<iostream>
 
-1532795427 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
+1532796730 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
 	"Shader.h"
 
 1532129542 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
@@ -1288,7 +1288,7 @@
 1532038328 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1532796526 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1533346035 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
 1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
@@ -1948,7 +1948,7 @@
 	<cstdarg>
 	<cstdio>
 
-1532468215 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractcamera.cpp
+1532797017 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractcamera.cpp
 	"AbstractCamera.h"
 
 1532471968 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractcamera.h
@@ -1981,11 +1981,12 @@
 	"scope.h"
 	"utilities.hpp"
 
-1532478823 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractlight.h
+1533346113 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractlight.h
 	<string>
 	<string.h>
 	<sstream>
 	"scope.h"
+	"Shader.h"
 	<iostream>
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
@@ -1993,21 +1994,22 @@
 	<GL/glew.h>
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
+	"DepthBuffer.h"
 
-1532794610 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractlight.cpp
+1533346123 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractlight.cpp
 	"AbstractLight.h"
 
-1532478499 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\pointlight.h
+1532797329 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\pointlight.h
 	"AbstractLight.h"
 	<glm/glm.hpp>
 	<GL/glew.h>
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1532478704 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\pointlight.cpp
+1532797958 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\pointlight.cpp
 	"PointLight.h"
 
-1532478836 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\spotlight.h
+1532797487 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\spotlight.h
 	"AbstractLight.h"
 	<iostream>
 	<glm/glm.hpp>
@@ -2015,16 +2017,28 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1532478795 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\spotlight.cpp
+1532797625 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\spotlight.cpp
 	"SpotLight.h"
 
-1532635516 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sunlight.cpp
+1532797737 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sunlight.cpp
 	"SunLight.h"
 
-1532474059 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sunlight.h
+1532797936 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sunlight.h
 	"AbstractLight.h"
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1533346043 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\depthbuffer.cpp
+	"DepthBuffer.h"
+
+1533346048 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\depthbuffer.h
+	<iostream>
+	"scope.h"
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
 	<GL/glew.h>
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>

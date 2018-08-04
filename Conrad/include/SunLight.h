@@ -35,7 +35,7 @@ class SunLight : public AbstractLight
         SunLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float intensity = 1.0, bool castShadow = true);
         virtual ~SunLight();
 
-        void sendUniforms(GLuint programID, size_t index);
+        void sendUniforms(const Shader &shader, size_t index);
 
     protected:
 

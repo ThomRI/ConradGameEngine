@@ -41,7 +41,7 @@ class Shader
         void bind();
         static inline void unbind() { glUseProgram(0); };
 
-        inline GLint getUniformLocation(const GLchar *name)             { return glGetUniformLocation(m_programID, name); };
+        inline GLint getUniformLocation(const GLchar *name) const       { return glGetUniformLocation(m_programID, name); };
 
         /* Uniform sends */
         static inline void sendVector(GLint location, glm::vec2 vector) { glUniform2f(location, vector[0], vector[1]); };

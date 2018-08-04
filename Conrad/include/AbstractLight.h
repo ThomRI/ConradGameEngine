@@ -9,7 +9,7 @@
 #include <string.h>
 #include <sstream>
 #include "scope.h"
-
+#include "Shader.h"
 
 #include <iostream>
 
@@ -32,6 +32,8 @@
 
 #endif
 
+#include "DepthBuffer.h"
+
 typedef unsigned int light_type;
 
 /* Light types (must always be synchronized with the shader) */
@@ -52,16 +54,15 @@ class AbstractLight
         AbstractLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false);
         virtual ~AbstractLight();
 
-        virtual void sendUniforms(GLuint programID, size_t index) = 0; // Virtual pure
-        virtual void sendShadowUniforms(GLuint programID, size_t index);
+        virtual void sendUniforms(const Shader &shader, size_t index) = 0; // Virtual pure
+        virtual void sendShadowUniforms(const Shader &shader, size_t index);
 
         /* Setters */
         void set_world(glm::mat4 world);
 
         /* Getters */
         glm::vec3 getPosition();
-        GLuint getFrameBufferID();
-        GLuint getDepthMapID();
+        DepthBuffer &getDepthBuffer();
 
         glm::mat4 get_lookat();
         glm::mat4 &get_world();
@@ -79,13 +80,10 @@ class AbstractLight
         glm::mat4 m_world = glm::mat4(1.0);
 
         RGB       m_color;
-
+    private:
         /* Shadow mapping */
         bool m_castShadow = false;
-        GLuint  m_framebufferID,
-                m_depthMapID;
-
-    private:
+        DepthBuffer m_depthBuffer;
 };
 
 #endif // ABSTRACTLIGHT_H

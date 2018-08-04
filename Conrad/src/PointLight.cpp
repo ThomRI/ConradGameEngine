@@ -8,15 +8,15 @@ PointLight::PointLight(vec3 position, vec3 color, float intensity, float attenua
     //ctor
 }
 
-void PointLight::sendUniforms(GLuint programID, size_t index)
+void PointLight::sendUniforms(const Shader &shader, size_t index)
 {
-    glUniform1i(glGetUniformLocation(programID, uniform_str(index, "type")), LIGHT_POINT);
-    glUniform3f(glGetUniformLocation(programID, uniform_str(index, "position")), m_position[0], m_position[1], m_position[2]);
-    glUniform3f(glGetUniformLocation(programID, uniform_str(index, "color")), m_color.r, m_color.g, m_color.b);
-    glUniform1f(glGetUniformLocation(programID, uniform_str(index, "intensity")), m_intensity);
-    glUniform1f(glGetUniformLocation(programID, uniform_str(index, "attenuation")), m_attenuation);
+    shader.sendInt(shader.getUniformLocation(uniform_str(index, "type")), LIGHT_POINT);
+    shader.sendVector(shader.getUniformLocation(uniform_str(index, "position")), m_position);
+    shader.sendRGB(shader.getUniformLocation(uniform_str(index, "color")), m_color);
+    shader.sendFloat(shader.getUniformLocation(uniform_str(index, "intensity")), m_intensity);
+    shader.sendFloat(shader.getUniformLocation(uniform_str(index, "attenuation")), m_attenuation);
 
-    sendShadowUniforms(programID, index);
+    sendShadowUniforms(shader, index);
 }
 
 PointLight::~PointLight()

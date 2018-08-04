@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 {
     cout << "Hello world!" << endl;
 
+
     Application *app = new Application("Sexer", 1280, 720);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
@@ -41,6 +42,7 @@ int main(int argc, char **argv)
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube1"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube2"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Spaceship"));
+
 
     SunLight *sun = new SunLight(glm::vec3(3.0, 0.0, 5.0), glm::vec3(-3.0, 0.0, -1.0), glm::vec3(1.0), 1.0, true);
     //PointLight *light = new PointLight(glm::vec3(1.0, 0.0, 2.0), glm::vec3(1.0), 1.0, 0.005, true);

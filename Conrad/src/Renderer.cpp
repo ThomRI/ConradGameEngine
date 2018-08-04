@@ -78,7 +78,7 @@ void Renderer::render()
             /* Lights */
             m_shader.sendInt(m_uniformLocations.nbrLights, m_lights.size());
             for(int i = 0;i < m_lights.size();i++) {
-                m_lights[i]->sendUniforms(m_shader.getProgramID(), i);
+                m_lights[i]->sendUniforms(m_shader, i);
             }
 
             /* Material */
@@ -121,7 +121,7 @@ void Renderer::generateShadowMap(AbstractLight *source)
     glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "world"), 1, GL_FALSE, value_ptr(source_world));
 
     glViewport(0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE);
-    glBindFramebuffer(GL_FRAMEBUFFER, source->getFrameBufferID());
+    source->getDepthBuffer().bind();
     glClear(GL_DEPTH_BUFFER_BIT);
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
