@@ -87,6 +87,7 @@ void AbstractCamera::update()
 void AbstractCamera::move()
 {
     // Virtual pure
+    // Is called each frame/tick
 }
 
 /* #### SETTERS #### */
@@ -98,7 +99,7 @@ void AbstractCamera::setSpeed(vec3 speed)
 
 void AbstractCamera::setSpeed(float forwardSpeed, float transversalSpeed, float upSpeed)
 {
-    setSpeed(vec3(forwardSpeed, transversalSpeed, upSpeed));
+    m_shiftSpeed = vec3(forwardSpeed, transversalSpeed, upSpeed);
 }
 
 void AbstractCamera::setPosition(vec3 position)

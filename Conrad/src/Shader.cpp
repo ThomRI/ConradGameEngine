@@ -11,7 +11,13 @@ Shader::Shader()
 Shader::Shader(string vertexPath, string fragmentPath) :
     m_vertexPath(vertexPath), m_fragmentPath(fragmentPath)
 {
+    m_usesGeometryShader = false;
+}
 
+Shader::Shader(string vertexPath, string fragmentPath, string geometryPath) :
+    m_vertexPath(vertexPath), m_fragmentPath(fragmentPath), m_geometryPath(geometryPath)
+{
+    m_usesGeometryShader = true;
 }
 
 void Shader::setVertexPath(string vertexPath)
@@ -24,10 +30,10 @@ void Shader::setFragmentPath(string fragmentPath)
     m_fragmentPath = fragmentPath;
 }
 
-void Shader::setPaths(string vertexPath, string fragmentPath)
+void Shader::setGeometryPath(string geometryPath)
 {
-    m_vertexPath = vertexPath;
-    m_fragmentPath = fragmentPath;
+    m_geometryPath = geometryPath;
+    m_usesGeometryShader = true;
 }
 
 bool Shader::load()
@@ -39,6 +45,12 @@ bool Shader::load()
 
     if(glIsShader(m_fragmentID) == GL_TRUE) {
         glDeleteShader(m_fragmentID);
+    }
+
+    if(m_usesGeometryShader) {
+        if(glIsShader(m_geometryID) == GL_TRUE) {
+            glDeleteShader(m_geometryID);
+        }
     }
 
     if(glIsProgram(m_programID) == GL_TRUE) {
@@ -54,10 +66,17 @@ bool Shader::load()
         return false;
     }
 
+    if(m_usesGeometryShader) {
+        if(!Shader::compile(m_geometryID, GL_GEOMETRY_SHADER, m_geometryPath)) {
+            return false;
+        }
+    }
+
     /* Program Creation */
     m_programID = glCreateProgram();
-    glAttachShader(m_programID, m_vertexID);
-    glAttachShader(m_programID, m_fragmentID);
+                                glAttachShader(m_programID, m_vertexID);
+                                glAttachShader(m_programID, m_fragmentID);
+    if(m_usesGeometryShader)    glAttachShader(m_programID, m_geometryID);
 
     /* VertexAttribPointer IDs (those are universal in the engine */
     glBindAttribLocation(m_programID, VERTEX_BUFFER, "in_Vertex");

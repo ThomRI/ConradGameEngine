@@ -16,6 +16,7 @@ void OBJ_Static_Handler::load(bool loadTextures, bool loadMeshes, bool computeVe
     loadOBJ(loadMeshes, computeVertexNormals);
 }
 
+/* IF OUT OF RANGE : REMEMBER, FACES LINES MUST HAVE A TEXTURE COORD ! */
 void OBJ_Static_Handler::loadOBJ(bool loadMeshes, bool computeVertexNormals)
 {
     ifstream file(m_OBJ_path.c_str());
@@ -331,6 +332,16 @@ void OBJ_Static_Handler::loadMTL(bool loadTextures)
 StaticMesh *OBJ_Static_Handler::getMesh(string meshname)
 {
     return m_meshes.at(meshname); // ->at() checks existence
+}
+
+vector<StaticMesh *> OBJ_Static_Handler::getAllMeshes()
+{
+    vector<StaticMesh *> v;
+    for(map<string, StaticMesh *>::iterator it = m_meshes.begin();it != m_meshes.end();it++) {
+        v.push_back(it->second);
+    }
+
+    return v;
 }
 
 OBJ_Static_Handler::~OBJ_Static_Handler()

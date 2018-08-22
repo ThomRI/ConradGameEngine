@@ -22,7 +22,6 @@
 
 /* Shader defines */
 #define LIGHTS_ARRAY_SHADER "lights"
-#define LIGHTS_ARRAY_STRLEN 6
 
 /* Shadow mapping */
 #define SHADOWMAP_SIZE 1024

@@ -100,6 +100,7 @@ static vector<StaticMesh*> loadOBJ_static(string filepath, bool load = true, boo
         else if(c == "vn")  index = NORMAL;
         else if(c == "f")   index = FACE;
         else if(c == "o")   index = OBJECT;
+        else                continue; // Unknown char
 
         switch(index) { // First char of the line
             case OBJECT: // Next object has been detected
@@ -215,7 +216,7 @@ static StaticMesh *StaticMeshFromArrays(vector<coordinate3d> *vertices, vector<c
     normals_array = (float*) malloc(faces_normal_index->size() * 3 * sizeof(float)); // Only allocating if necessary
 
     if(vertices_array == 0 || colors_array == 0 || tex_array == 0) {
-        std::cout << "Error parsing .obj : out of memory" << std::endl;
+        std::cout << "(StaticMeshFromArrays) Error parsing .obj : out of memory" << std::endl;
         return nullptr;
     }
 

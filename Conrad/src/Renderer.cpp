@@ -110,7 +110,7 @@ void Renderer::render()
 
 void Renderer::generateShadowMap(AbstractLight *source)
 {
-    if(!source->castsShadow()) return; // No FBO, no depth texture...
+    if(!source->castsShadow()) return; // No DepthBuffer, no depth texture...
 
     mat4 source_world = m_ortho * source->get_lookat();
     source->set_world(source_world);
@@ -120,7 +120,7 @@ void Renderer::generateShadowMap(AbstractLight *source)
     m_depthShader.bind();
     glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "world"), 1, GL_FALSE, value_ptr(source_world));
 
-    glViewport(0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE);
+    glViewport(0, 0, source->getDepthBuffer().getShadowMapWidth(), source->getDepthBuffer().getShadowMapHeight());
     source->getDepthBuffer().bind();
     glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -186,6 +186,11 @@ void Renderer::setCamera(AbstractCamera *camera)
 AbstractCamera *Renderer::get_camera()
 {
     return m_camera;
+}
+
+Shader *Renderer::getShader()
+{
+    return &m_shader;
 }
 
 Renderer::~Renderer()

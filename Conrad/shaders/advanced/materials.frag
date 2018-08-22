@@ -44,7 +44,11 @@ uniform struct Light {
 	vec3 position;
 	vec3 color;
 	float intensity;
-	float attenuation;
+	
+	float linearAttenuation; // linear (a coeff)
+	float quadAttenuation; // quadratic (b coeff)
+
+	float spotExponent;
 
 	/* Directional and cone */
 	vec3 direction;
@@ -78,11 +82,15 @@ void main()
 	for(int i = 0; i < nbrLights; i++) {	
 		global_light += computeLight(lights[i], transformed_normal);
 
+
 		if(lights[i].castShadow) {
 			global_shadow += computeShadow(lights[i], fragPos_lightspace[i], transformed_normal);
 			nbr_lights_castshadow++;
 		}
 	}
+
+	/* Averaging gloabl_light */
+	if(nbrLights != 0) global_light / nbrLights;
 
 	/* Averaging global_shadow (two lamps : one shadow, the other lits => global_shadow = 0.5) */
 	if(nbr_lights_castshadow == 0) 	global_shadow = vec3(0.0);
@@ -115,13 +123,17 @@ vec3 computeLight(Light light, vec3 normal)
 		float distance = length(lightDir); // Getting the distance before normalization
 		lightDir = normalize(lightDir);
 
-		attenuationFactor = 1.0 / (1.0 + light.attenuation * pow(distance, 2));
+		attenuationFactor = 1.0 / (1.0 + light.linearAttenuation * distance + light.quadAttenuation * pow(distance, 2));
+		//attenuationFactor = 1.0;
 	// REMINDER : lightDir is only normalized FROM HERE (don't move the 3 line block above) 
 	}
 
 	/* Restriction for cone */
 	if(light.type == LIGHT_SPOT) {
-		float angle = degrees(acos(dot(-lightDir, normalize(light.direction)))); // Angle between light direction and (Light -> Object) vector
+		float dotP = dot(-lightDir, normalize(light.direction));
+		attenuationFactor *= pow(dotP, light.spotExponent);
+
+		float angle = degrees(acos(dotP)); // Angle between light direction and (Light -> Object) vector in degrees
 
 		if(angle > light.coneAngle) {
 			return vec3(0.0); // No light oustide the cone
@@ -167,6 +179,12 @@ vec3 computeShadow(Light light, vec4 fragpos_light, vec3 normal)
 
 	float bias = max(SHADOW_BIAS_MAX * (1.0 - dot(normal, lightDirScene)), SHADOW_BIAS_MIN);
 	float shadow = 0.0;
+
+	/* NO PCF */
+	/* 
+	float texDepth = texture(light.shadowMapTex, projCoords.xy).r;
+	shadow = (currentDepth - bias > texDepth) ? 1.0 : 0.0;
+	*/
 
 	/* PCF Interpolation (+ or - 2 texels averaging) */
 	vec2 texelSize = 1.0 / textureSize(light.shadowMapTex, 0);

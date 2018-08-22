@@ -6,9 +6,10 @@ AbstractMesh::AbstractMesh(int verticesCount, int colorsCount, int texCount, GLe
     // This constructor is used to be able to use setVertices, setColors and setTexture (and ...) afterwards instead of pushing directly in the constructor. ALL OF THIS BEFORE LOADING THE MESH
 }
 
-AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, float *vertexNormals, GLenum meshType)
+AbstractMesh::AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, float *vertexNormals, GLenum meshType) :
+    m_vertices(vertices), m_colors(colors), m_texCoords(nullptr), m_verticesCount(verticesCount), m_colorsCount(colorsCount), m_texCount(colorsCount), m_vertexNormals(vertexNormals), m_meshType(meshType)
 {
-    AbstractMesh(verticesCount, vertices, colorsCount, colors, colorsCount, nullptr, vertexNormals, meshType); // Calling the texture-constructor with nullptr as texCoords.
+
 }
 
 // Texture constructor

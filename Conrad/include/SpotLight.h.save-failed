@@ -21,10 +21,10 @@
 
 #endif
 
-class SpotLight : public AbstractLight
+class SpotLight : public , float radiusAbstractLight
 {
     public:
-        SpotLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction, float coneAngle, float spotExponent, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 1.0, float minIntensity = 0.001, float maxDistance = 10.0);
+        SpotLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction, float coneAngle, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 1.0, float minIntensity = 0.0);
         virtual ~SpotLight();
 
         void sendUniforms(const Shader &Shader, size_t index);
@@ -32,9 +32,12 @@ class SpotLight : public AbstractLight
     protected:
 
     private:
+        /* World */
+        float m_attenuation;
+
         /* Cone */
         glm::vec3 m_direction;
-        float m_coneAngle, m_spotExponent;
+        float m_coneAngle;
 };
 
 #endif // SPOTLIGHT_H

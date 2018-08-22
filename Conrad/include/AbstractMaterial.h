@@ -17,7 +17,7 @@ class AbstractMaterial
 {
     public:
         AbstractMaterial();
-        AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float specularExponent, float alpha, float ambientStrength = 0.1, float diffuseStrength = 1.0, float specularStrength = 1.0, float emitStrength = 1.0);
+        AbstractMaterial(RGB ambient, RGB diffuse, RGB specular, RGB emit, float specularExponent, float alpha, float ambientStrength = 0.01, float diffuseStrength = 1.0, float specularStrength = 1.0, float emitStrength = 1.0);
         virtual ~AbstractMaterial();
 
         /* Getters */

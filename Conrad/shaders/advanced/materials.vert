@@ -17,7 +17,11 @@ uniform struct Light {
 	vec3 position;
 	vec3 color;
 	float intensity;
-	float attenuation;
+	
+	float linearAttenuation; // linear (a coeff)
+	float quadAttenuation; // quadratic (b coeff)
+
+	float spotExponent;
 
 	/* Directional and cone */
 	vec3 direction;

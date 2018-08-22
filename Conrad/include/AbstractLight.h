@@ -51,7 +51,7 @@ typedef unsigned int light_type;
 class AbstractLight
 {
     public:
-        AbstractLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false);
+        AbstractLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 0.1, float quadraticAttenuation = 0.0);
         virtual ~AbstractLight();
 
         virtual void sendUniforms(const Shader &shader, size_t index) = 0; // Virtual pure
@@ -80,6 +80,10 @@ class AbstractLight
         glm::mat4 m_world = glm::mat4(1.0);
 
         RGB       m_color;
+
+        /* Attenuation */
+        float   m_linearAttenuation,
+                m_quadraticAttenuation;
     private:
         /* Shadow mapping */
         bool m_castShadow = false;

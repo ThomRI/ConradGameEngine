@@ -57,6 +57,7 @@ void OBJ_Static_Handler::loadOBJ(bool loadMeshes, bool computeVertexNormals)
         else if(c == "f")       index = FACE;
         else if(c == "o")       index = OBJECT;
         else if(c == "usemtl")  index = USEMTL;
+        else                    continue; // Unknown char
 
         switch(index) { // First char of the line
             case OBJECT: // Next object has been detected
@@ -75,7 +76,7 @@ void OBJ_Static_Handler::loadOBJ(bool loadMeshes, bool computeVertexNormals)
                 if(m_MTL_loaded && currentMaterial != nullptr) mesh->setMaterial(currentMaterial);
                 if(loadMeshes) mesh->load();
 
-                m_meshes[name] = (mesh);
+                m_meshes[name] = mesh;
 
                 stream >> name;
 
@@ -167,6 +168,8 @@ void OBJ_Static_Handler::loadOBJ(bool loadMeshes, bool computeVertexNormals)
     StaticMesh *mesh;
     if(computeVertexNormals)    mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index, &vertex_normals_mapper);
     else                        mesh = StaticMeshFromArrays(&vertices, &tex, &normals, &faces_vertex_index, &faces_tex_index, &faces_normal_index);
+
+    if(m_MTL_loaded && currentMaterial != nullptr) mesh->setMaterial(currentMaterial);
     if(loadMeshes) mesh->load();
 
     m_meshes[name] = mesh;
@@ -227,13 +230,12 @@ void OBJ_Static_Handler::loadMTL(bool loadTextures)
                 if(setSpecTex)  material->setSpecularTexture(specularTexture);
 
                 m_materials[name] = material;
-
+                stream >> name;
                 // No need to reset : the values will be overwritten
 
                 setDiffTex = false;
                 setSpecTex = false;
 
-                stream >> name;
                 break;
             }
 
@@ -329,7 +331,17 @@ void OBJ_Static_Handler::loadMTL(bool loadTextures)
 
 StaticMesh *OBJ_Static_Handler::getMesh(string meshname)
 {
-    return m_meshes.at(name); // ->at() checks existence
+    return m_meshes.at(meshname); // ->at() checks existence
+}
+
+vector<StaticMesh *> OBJ_Static_Handler::getAllMeshes()
+{
+    vector<StaticMesh *> v;
+    for(map<string, StaticMesh *>::iterator it = m_meshes.begin();it != m_meshes.end();it++) {
+        v.push_back(it->second);
+    }
+
+    return v;
 }
 
 OBJ_Static_Handler::~OBJ_Static_Handler()

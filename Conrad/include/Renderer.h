@@ -47,6 +47,8 @@ class Renderer
         void setCamera(AbstractCamera *camera);
         AbstractCamera *get_camera();
 
+        Shader *getShader();
+
     protected:
 
     private:

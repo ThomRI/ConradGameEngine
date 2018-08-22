@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     cout << "Hello world!" << endl;
 
 
-    Application *app = new Application("Sexer", 1280, 720);
+    Application *app = new Application("Sexer", 1920, 1080);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
@@ -31,26 +31,38 @@ int main(int argc, char **argv)
     app->getRenderer()->setShader(shader); // loads the shader
     app->getRenderer()->setDepthShader(depthShader);
 
-    //SpotLight *light3 = new SpotLight(glm::vec3(0.0, 0.0, 4.0), glm::vec3(1.0), glm::vec3(0.0, 0.0, -1.0), 45.0f, 1.5f, 0.05f);
-    //app->getRenderer()->addLight(light1);
-
-    OBJ_Static_Handler sceneHandler("objects/shadow_testscene.obj", "objects/shadow_testscene.mtl");
+    OBJ_Static_Handler sceneHandler("objects/lowpolymill.obj", "objects/lowpolymill.mtl");
+    Uint32 start = SDL_GetTicks();
     sceneHandler.load(true, true, true);
+    cout << "Loaded in " << SDL_GetTicks() - start << " ms" << endl;
 
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Ground"));
+    /*app->getRenderer()->addMesh(sceneHandler.getMesh("Ground"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube1"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Cube2"));
     app->getRenderer()->addMesh(sceneHandler.getMesh("Spaceship"));
 
+    app->getRenderer()->addMesh(sceneHandler.getMesh("BaseTree"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Cylinder"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Tree"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Gun"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("tower"));
+    app->getRenderer()->addMesh(sceneHandler.getMesh("Ground"));*/
 
-    SunLight *sun = new SunLight(glm::vec3(3.0, 0.0, 5.0), glm::vec3(-3.0, 0.0, -1.0), glm::vec3(1.0), 1.0, true);
+    vector<StaticMesh *> meshes = sceneHandler.getAllMeshes();
+    for(int i = 0;i < meshes.size();i++) {
+        app->getRenderer()->addMesh(meshes.at(i));
+    }
+
+
     //PointLight *light = new PointLight(glm::vec3(1.0, 0.0, 2.0), glm::vec3(1.0), 1.0, 0.005, true);
-    SpotLight *spot = new SpotLight(glm::vec3(6.0, 0.2, 9.0), glm::vec3(1.0, 0.2, 0.2), glm::vec3(-1.0, 1.0, -1.5), 20.0, 1.0, 0.005, false);
+    SpotLight *spot = new SpotLight(glm::vec3(-3.33681, 0.0, 3.13254), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 0.0, -1.0), 25.0, 50.0, 1.0, true, 0.08, 0.08, 100.0);
     app->getRenderer()->addLight(spot);
-    app->getRenderer()->addLight(sun);
     app->getRenderer()->generateShadowMap(spot);
-    app->getRenderer()->generateShadowMap(sun);
+
+    /*SunLight *sun = new SunLight(glm::vec3(4.71196, 2.68324, 3.91369), glm::vec3(0.0, 0.0, -1.0), glm::vec3(1.0), 0.08, false);
+    app->getRenderer()->addLight(sun);
+    app->getRenderer()->generateShadowMap(sun);*/
 
     app->loop(120); // 120 fps
 

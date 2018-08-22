@@ -32,16 +32,16 @@
 class PointLight : public AbstractLight
 {
     public:
-        PointLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, float attenuation = 1.0, bool castShadow = false);
+        PointLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 1.0, float minIntensity = 0.001, float maxDistance = 10.0);
         virtual ~PointLight();
 
         void sendUniforms(const Shader &Shader, size_t index);
+        //void sendShadowUniforms(const Shader &shader, size_t index);
+        // TODO : Implement cubemap shadowing for point lightsard
 
     protected:
 
     private:
-        /* World */
-        float m_attenuation;
 
 };
 

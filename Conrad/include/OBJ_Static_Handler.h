@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <vector>
 #include "scope.h"
 #include "utilities.hpp"
 
@@ -27,6 +28,7 @@ class OBJ_Static_Handler
 
         /* Getters */
         StaticMesh *getMesh(std::string meshname);
+        vector<StaticMesh *> getAllMeshes();
 
     protected:
         void loadOBJ(bool loadMeshes, bool computeVertexNormals);

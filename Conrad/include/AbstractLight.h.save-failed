@@ -11,7 +11,6 @@
 #include "scope.h"
 #include "Shader.h"
 
-
 #include <iostream>
 
 /* GLM */
@@ -33,6 +32,8 @@
 
 #endif
 
+#include "DepthBuffer.h"
+
 typedef unsigned int light_type;
 
 /* Light types (must always be synchronized with the shader) */
@@ -50,7 +51,7 @@ typedef unsigned int light_type;
 class AbstractLight
 {
     public:
-        AbstractLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false);
+        AbstractLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 0.1, float quadraticAttenuation);
         virtual ~AbstractLight();
 
         virtual void sendUniforms(const Shader &shader, size_t index) = 0; // Virtual pure
@@ -61,8 +62,7 @@ class AbstractLight
 
         /* Getters */
         glm::vec3 getPosition();
-        GLuint getFrameBufferID();
-        GLuint getDepthMapID();
+        DepthBuffer &getDepthBuffer();
 
         glm::mat4 get_lookat();
         glm::mat4 &get_world();
@@ -81,12 +81,13 @@ class AbstractLight
 
         RGB       m_color;
 
+        /* Attenuation */
+        float   m_linearAttenuation,
+                m_quadraticAttenuation;
+    private:
         /* Shadow mapping */
         bool m_castShadow = false;
-        GLuint  m_framebufferID,
-                m_depthMapID;
-
-    private:
+        DepthBuffer m_depthBuffer;
 };
 
 #endif // ABSTRACTLIGHT_H

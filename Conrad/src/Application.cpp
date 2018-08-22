@@ -83,6 +83,7 @@ void Application::loop(int const fps)
 
             if(m_inputManager->isKeyPressed(KEY_F) && !wireframe_pressed) {
                 m_renderer->toggleWireframe();
+                //m_renderer->getShader()->load();
                 wireframe_pressed = true;
             }
             if(!m_inputManager->isKeyPressed(KEY_F)) wireframe_pressed = false;

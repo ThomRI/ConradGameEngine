@@ -51,6 +51,10 @@ class DepthBuffer
         void bind();
         static inline void unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); };
 
+        /* Getters */
+        GLsizei getShadowMapWidth();
+        GLsizei getShadowMapHeight();
+
     protected:
 
     private:

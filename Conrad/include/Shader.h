@@ -30,11 +30,12 @@ class Shader
     public:
         Shader();
         Shader(std::string vertexPath, std::string fragmentPath);
+        Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath);
         virtual ~Shader();
 
         void setVertexPath(std::string vertexPath);
         void setFragmentPath(std::string fragmentPath);
-        void setPaths(std::string vertexPath, std::string fragmentPath);
+        void setGeometryPath(std::string geometryPath);
 
         bool load();
 
@@ -69,10 +70,14 @@ class Shader
     private:
         GLuint  m_vertexID,
                 m_fragmentID,
+                m_geometryID,
                 m_programID;
 
         std::string m_vertexPath,
-                    m_fragmentPath;
+                    m_fragmentPath,
+                    m_geometryPath;
+
+        bool m_usesGeometryShader = false;
 };
 
 #endif // SHADER_H
