@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     cout << "Hello world!" << endl;
 
 
-    Application *app = new Application("Sexer", 1920, 1080);
+    Application *app = new Application("Sexer", 1280, 720);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 
 
     //PointLight *light = new PointLight(glm::vec3(1.0, 0.0, 2.0), glm::vec3(1.0), 1.0, 0.005, true);
-    SpotLight *spot = new SpotLight(glm::vec3(-3.33681, 0.0, 3.13254), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 0.0, -1.0), 25.0, 50.0, 1.0, true, 0.08, 0.08, 100.0);
+    SpotLight *spot = new SpotLight(glm::vec3(-3.33681, 0.0, 3.13254), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 0.0, -1.0), 25.0, 60.0, 1.0, true, 0.08, 0.08, 100.0);
     app->getRenderer()->addLight(spot);
     app->getRenderer()->generateShadowMap(spot);
 
