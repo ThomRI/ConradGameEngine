@@ -3,7 +3,7 @@
 FreeCamera::FreeCamera(InputManager *inputManager) :
     m_inputManager(inputManager)
 {
-    setSpeed(0.005, 0.005, 1.0);
+    setSpeed(0.05, 0.05, 1.0);
 }
 
 void FreeCamera::move()

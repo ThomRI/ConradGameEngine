@@ -1,0 +1,43 @@
+A custom exporter for blender is written un python as conrad_export.py.
+It contains a class that exports a blender scene into a ConradEngine compatible format.
+
+The read sequence is as follow :
+[ObjectCode][Data size][Object datas][ObjectCode][Data size][Object datas][...]
+
+Note that some Objects are looking for subobjects in their datas. A mesh for example will look for material and texture and texture objects inside its datas.
+
+[ObjectCode] is coded on 1 byte (char). Thus 256 values are available from 0 to 255.
+ObjectCode values definition :
+-> Engine related objects
+	0: mesh [MESH_OBJECT_CODE]
+	1: light [LIGHT_OBJECT_CODE]
+	2: camera (not used for now, except for default camera values like starting point, eye, and speeds)
+-> Type objects
+	255: Vector array [VEC_ARRAY_OBJECT]
+	254: String [STR_OBJECT]
+
+### Object dependant parsing methods ###
+
+-> Vector arrays
+	int: count
+	int: dimension (0 is not a valid dimension)
+	[count * dimension floats without interruption] : The actual array
+
+-> Strings
+	int: size (number of characters)
+	[size chars without interruption] : the actual string, a char array
+
+-> Meshes
+	[ObjectCode = MESH_OBJECT_CODE][Data size] 
+	(Total mesh datas :) {
+		char: mesh type (0 : STATIC, 1 : DYNAMIC, 2 : STREAM)
+
+		[VEC_ARRAY_OBJECT] (dimension 3) : points coordinates
+		[VEC_ARRAY_OBJECT] (dimension 3) : colors coordinates
+		[VEC_ARRAY_OBJECT] (dimension 2) : textures coordinates
+		[VEC_ARRAY_OBJECT] (dimension 3) : normals coordinates. Those are VERTEX normals not face normals !!
+
+		/* TODO */
+			-> Add starting translation/rotation/scaling support
+			-> Add animation support
+	}

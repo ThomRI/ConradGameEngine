@@ -41,6 +41,7 @@
 class AbstractMesh
 {
     public:
+        /* xCount is defined as the number of x vectors. Example for colors, the number of components is 3*colorsCount. For 2D textures it is 2*texCount */
         AbstractMesh(int verticesCount, int colorsCount, int texCount, GLenum meshType);
         AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, float *vertexNormals, GLenum meshType);
         AbstractMesh(int verticesCount, float *vertices, int colorsCount, float *colors, int texCount, float *texCoords, float *vertexNormals, GLenum meshType);

@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     cout << "Hello world!" << endl;
 
 
-    Application *app = new Application("Sexer", 1280, 720);
+    Application *app = new Application("Conrad Engine", 1280, 720);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
     }
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     app->getRenderer()->setShader(shader); // loads the shader
     app->getRenderer()->setDepthShader(depthShader);
 
-    OBJ_Static_Handler sceneHandler("objects/lowpolymill.obj", "objects/lowpolymill.mtl");
+    OBJ_Static_Handler sceneHandler("objects/shadow_testscene.obj", "objects/shadow_testscene.mtl");
     Uint32 start = SDL_GetTicks();
     sceneHandler.load(true, true, true);
     cout << "Loaded in " << SDL_GetTicks() - start << " ms" << endl;
@@ -56,13 +56,13 @@ int main(int argc, char **argv)
 
 
     //PointLight *light = new PointLight(glm::vec3(1.0, 0.0, 2.0), glm::vec3(1.0), 1.0, 0.005, true);
-    SpotLight *spot = new SpotLight(glm::vec3(-3.33681, 0.0, 3.13254), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 0.0, -1.0), 25.0, 60.0, 1.0, true, 0.08, 0.08, 100.0);
+    SpotLight *spot = new SpotLight(glm::vec3(-5.0, 0.0, 4.13254), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 0.0, -1.0), 25.0, 60.0, 10.0, true, 0.08, 0.08, 100.0);
     app->getRenderer()->addLight(spot);
     app->getRenderer()->generateShadowMap(spot);
 
-    /*SunLight *sun = new SunLight(glm::vec3(4.71196, 2.68324, 3.91369), glm::vec3(0.0, 0.0, -1.0), glm::vec3(1.0), 0.08, false);
+    SunLight *sun = new SunLight(glm::vec3(4.71196, 2.68324, 3.91369), glm::vec3(0.0, 0.0, -1.0), glm::vec3(1.0, 0.8, 0.4), 0.08, false);
     app->getRenderer()->addLight(sun);
-    app->getRenderer()->generateShadowMap(sun);*/
+    app->getRenderer()->generateShadowMap(sun);
 
     app->loop(120); // 120 fps
 
