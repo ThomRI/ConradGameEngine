@@ -6,6 +6,8 @@ The read sequence is as follow :
 
 Note that some Objects are looking for subobjects in their datas. A mesh for example will look for material and texture and texture objects inside its datas.
 
+Data sizes are in bytes.
+
 [ObjectCode] is coded on 1 byte (char). Thus 256 values are available from 0 to 255.
 ObjectCode values definition :
 -> Engine related objects
@@ -31,6 +33,7 @@ ObjectCode values definition :
 	[ObjectCode = MESH_OBJECT_CODE][Data size] 
 	(Total mesh datas :) {
 		char: mesh type (0 : STATIC, 1 : DYNAMIC, 2 : STREAM)
+		string: mesh name
 
 		[VEC_ARRAY_OBJECT] (dimension 3) : points coordinates
 		[VEC_ARRAY_OBJECT] (dimension 3) : colors coordinates
