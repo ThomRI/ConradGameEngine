@@ -89,12 +89,12 @@ void main()
 		}
 	}
 
-	/* Averaging gloabl_light */
+	/* Averaging global_light */
 	if(nbrLights != 0) global_light / nbrLights;
 
 	/* Averaging global_shadow (two lamps : one shadow, the other lits => global_shadow = 0.5) */
 	if(nbr_lights_castshadow == 0) 	global_shadow = vec3(0.0);
-	else							global_shadow /= nbr_lights_castshadow;
+	else							global_shadow /= nbr_lights_castshadow; // average
 
 	// Light-Shadow : total_pixel_intensity = ambient + (1.0 - shadow) * (diffuse + specular)
 

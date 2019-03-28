@@ -16,14 +16,15 @@ ObjectCode values definition :
 	2: camera (not used for now, except for default camera values like starting point, eye, and speeds)
 -> Type objects
 	255: Vector array [VEC_ARRAY_OBJECT]
-	254: String [STR_OBJECT]
+	254: Vector [VEC_OBJECT]
+	253: String [STR_OBJECT]
 
 ### Object dependant parsing methods ###
 
 -> Vector arrays
 	int: count
 	int: dimension (0 is not a valid dimension)
-	[count * dimension floats without interruption] : The actual array
+	[count * dimension floats without interruption] : The actual array (floats !)
 
 -> Strings
 	int: size (number of characters)
@@ -36,7 +37,16 @@ ObjectCode values definition :
 		string: mesh name
 
 		[VEC_ARRAY_OBJECT] (dimension 3) : points coordinates
-		[VEC_ARRAY_OBJECT] (dimension 3) : colors coordinates
+		
+		// Material
+		[VEC_OBJECT] (dimension 3) : ambient color
+		[VEC_OBJECT] (dimension 3) : diffuse color
+
+		float: specular intensity
+		[VEC_OBJECT] (dimension 3) : specular color
+
+		[VEC_OBJECT] (dimension 3) : emit color
+
 		[VEC_ARRAY_OBJECT] (dimension 2) : textures coordinates
 		[VEC_ARRAY_OBJECT] (dimension 3) : normals coordinates. Those are VERTEX normals not face normals !!
 

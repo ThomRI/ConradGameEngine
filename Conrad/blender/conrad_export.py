@@ -3,6 +3,7 @@
 # Automatically exports the current .blend file into a ConradEngine readable format WHEN EXECUTED.
 
 import bpy
+import bmesh
 import os
 import struct
 
@@ -13,8 +14,19 @@ OBJTYPE_STREAM = 2
 MESH_OBJECT_CODE = 0
 LIGHT_OBJECT_CODE = 1
 CAMERA_OBJECT_CODE = 2
+
 VEC_ARRAY_OBJECT_CODE = 255
-STR_OBJECT_CODE = 254
+VEC_OBJECT_CODE = 254
+STR_OBJECT_CODE = 253
+
+def triangulate_mesh(mesh):
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+    
+    bmesh.ops.triangulate(bm, faces=bm.faces[:], quad_method='BEAUTY', ngon_method='BEAUTY') # 'FIXED' for faster mode
+    
+    bm.to_mesh(mesh)
+    bm.free()
 
 class ConradExporter:
     def __init__(self, filetarget):
@@ -38,6 +50,17 @@ class ConradExporter:
     def writeChar(self, c):
         self.file.write(bytes([c]))
         
+    def writeVec(self, vec):
+        if len(vec) == 0:
+            return
+        
+        self.writeChar(VEC_OBJECT_CODE)
+        self.writeChar(len(vec)) # Dimension
+        
+        for c in vec:
+            self.writeFloat(c)
+
+    
     def writeVecArray(self, vec_array):
         if len(vec_array) == 0:
             return
@@ -48,9 +71,8 @@ class ConradExporter:
         self.writeChar(len(vec_array[0])) # Dimension
         
         for vec in vec_array:
-            self.writeFloat(vec[0])
-            self.writeFloat(vec[1])
-            self.writeFloat(vec[2])
+            for c in vec:
+                self.writeFloat(c)
     
     def writeMesh(self, mesh, type = OBJTYPE_STATIC):
         self.writeChar(MESH_OBJECT_CODE)
@@ -59,37 +81,65 @@ class ConradExporter:
         name = mesh.name
         print("Writing", name)
         
+        # Geometry
         points_coord = []
-        for v in mesh.vertices:
-            points_coord.append([component for component in v.co])
-        
-        colors_coord = []
-        tex_coord = []
         normals_coord = []
+        triangulate_mesh(mesh) # Triangulating the mesh
+        for v in mesh.vertices:
+            normals_coord.append([c for c in v.normal])
+            points_coord.append([component for component in v.co])
+    
+        # Material
+        ambient_color = [1.0, 1.0, 1.0] # Not supported for now
+        diffuse_color = [mesh.materials[0].diffuse_color[i] for i in range(3)]
         
-        self.writeInt(1 + len(name) + 3*len(points_coord) + 3*len(colors_coord) + 2*len(tex_coord) + 3*len(normals_coord)) # Data size
-        print("Mesh data size = ", 1 + len(name) + 3*len(points_coord) + 3*len(colors_coord) + 2*len(tex_coord) + 3*len(normals_coord))
+        specular_intensity = mesh.materials[0].specular_intensity
+        specular_color = [mesh.materials[0].specular_color[i] for i in range(3)]
+        
+        emit_color = [0.0, 0.0, 0.0] # Not supported for now
+        
+        tex_coord = [[vertex_uv.uv[i] for i in range(2)] for vertex_uv in mesh.uv_layers['UVMap'].data] # UV Map
+        
+        # Writing into file
+        ''' Size : size + type + name + (...)*float '''
+        datasize = 4 + 1 + len(name) + (3*len(points_coord) + 3*len(normals_coord) + 3 + 3 + 1 + 3 + 3 + 2*len(tex_coord)) * 4
+        self.writeInt(datasize) # Data size in bytes
+        print("Data size :", (datasize / 1000), "kb")
         
         self.writeChar(type)
         self.writeString(name)
         
         self.writeVecArray(points_coord)
-        self.writeVecArray(colors_coord)    
+
+        self.writeVec(ambient_color)
+        self.writeVec(diffuse_color)
+
+        self.writeFloat(specular_intensity)
+        self.writeVec(specular_color)
+        
+        self.writeVec(emit_color)
+        
         self.writeVecArray(tex_coord)
         self.writeVecArray(normals_coord)
+        
+        return datasize # size written
             
     def close(self):
         self.file.close()
     
 
 def export(filepath):
+    print("Exporting...")
     ex = ConradExporter(filepath)
     
+    totalSize = 0
     for mesh in bpy.data.meshes:
         if mesh.users == 0: # Deleted object
             continue
-        ex.writeMesh(mesh)
+        totalSize += ex.writeMesh(mesh)
     
     ex.close()
+    
+    print("Done exporting", totalSize/1000, "kb.")
 
 export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.txt")
