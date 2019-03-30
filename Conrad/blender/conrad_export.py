@@ -12,12 +12,14 @@ OBJTYPE_DYNAMIC = 1
 OBJTYPE_STREAM = 2
 
 MESH_OBJECT_CODE = 0
-LIGHT_OBJECT_CODE = 1
-CAMERA_OBJECT_CODE = 2
+MATERIAL_OBJECT_CODE = 1
+LIGHT_OBJECT_CODE = 2
+CAMERA_OBJECT_CODE = 3
 
 VEC_ARRAY_OBJECT_CODE = 255
 VEC_OBJECT_CODE = 254
 STR_OBJECT_CODE = 253
+IMG_OBJECT_CODE = 252
 
 def triangulate_mesh(mesh):
     bm = bmesh.new()
@@ -43,25 +45,25 @@ class ConradExporter:
         l.reverse()
         self.file.write(bytes(l))
     
-    def writeString(self, string):
+    def writeString(self, string): # 4 bytes of meta
         self.writeInt(len(string)) # Size
         self.file.write(bytes(string, 'utf-8'))
         
     def writeChar(self, c):
         self.file.write(bytes([c]))
         
-    def writeVec(self, vec):
+    def writeVec(self, vec): # 5 bytes of meta
         if len(vec) == 0:
             return
         
         self.writeChar(VEC_OBJECT_CODE)
-        self.writeChar(len(vec)) # Dimension
+        self.writeInt(len(vec)) # Dimension
         
         for c in vec:
             self.writeFloat(c)
 
     
-    def writeVecArray(self, vec_array):
+    def writeVecArray(self, vec_array): # 6 bytes of meta
         if len(vec_array) == 0:
             return
         
@@ -73,13 +75,49 @@ class ConradExporter:
         for vec in vec_array:
             for c in vec:
                 self.writeFloat(c)
+                
+    def writeImage(self, image): # 9 bytes of meta
+        self.writeChar(IMG_OBJECT_CODE)
+        
+        sizeX = image.size[0]
+        sizeY = image.size[1]
+        self.writeInt(sizeX) # x size
+        self.writeInt(sizeY) # y size
+        
+        self.file.write(bytes([int(p*255) for p in image.pixels]))
     
+    def writeMaterial(self, material): # 1 byte of meta
+        print("Writing material:", material.name_full)
+        
+        self.writeChar(MATERIAL_OBJECT_CODE)
+        self.writeString(material.name_full)
+        
+        ambient_color = [1.0, 1.0, 1.0] # Not supported for now
+        diffuse_color = [material.diffuse_color[i] for i in range(3)]
+        specular_intensity = material.specular_intensity
+        specular_color = [material.specular_color[i] for i in range(3)]
+        emit_color = [0.0, 0.0, 0.0] # Not supported for now
+        
+        self.writeVec(ambient_color)
+        self.writeVec(diffuse_color)
+        self.writeFloat(specular_intensity)
+        self.writeVec(specular_color)
+        self.writeVec(emit_color)
+        
+        # Texture
+        img = material.node_tree.nodes['Image Texture'].image
+        self.writeImage(img)
+        
+        datasize = 1 + len(material.name_full) + (4*3)*4 + 1 + 6 + len(img.pixels) # Size used in bytes
+        print("\t Material data size :", datasize / 1000, "kB")
+        return datasize
+        
     def writeMesh(self, mesh, type = OBJTYPE_STATIC):
         self.writeChar(MESH_OBJECT_CODE)
         
         # Extracting datas
         name = mesh.name
-        print("Writing", name)
+        print("Writing mesh:", name)
         
         # Geometry
         points_coord = []
@@ -90,35 +128,21 @@ class ConradExporter:
             points_coord.append([component for component in v.co])
     
         # Material
-        ambient_color = [1.0, 1.0, 1.0] # Not supported for now
-        diffuse_color = [mesh.materials[0].diffuse_color[i] for i in range(3)]
-        
-        specular_intensity = mesh.materials[0].specular_intensity
-        specular_color = [mesh.materials[0].specular_color[i] for i in range(3)]
-        
-        emit_color = [0.0, 0.0, 0.0] # Not supported for now
-        
+        material_name = mesh.materials[0].name_full
+
+        # Texture
         tex_coord = [[vertex_uv.uv[i] for i in range(2)] for vertex_uv in mesh.uv_layers['UVMap'].data] # UV Map
         
         # Writing into file
         ''' Size : size + type + name + (...)*float '''
-        datasize = 4 + 1 + len(name) + (3*len(points_coord) + 3*len(normals_coord) + 3 + 3 + 1 + 3 + 3 + 2*len(tex_coord)) * 4
+        datasize = 4 + 1 + len(name) + (3*len(points_coord) + 3*len(normals_coord) + 3 + 3 + 1 + 3 + 3 + 2*len(tex_coord) + 1 + 1) * 4 + len(material_name)+ (18+20)
         self.writeInt(datasize) # Data size in bytes
-        print("Data size :", (datasize / 1000), "kb")
+        print("\tGeometry data size :", (datasize / 1000), "kB")
         
         self.writeChar(type)
         self.writeString(name)
         
         self.writeVecArray(points_coord)
-
-        self.writeVec(ambient_color)
-        self.writeVec(diffuse_color)
-
-        self.writeFloat(specular_intensity)
-        self.writeVec(specular_color)
-        
-        self.writeVec(emit_color)
-        
         self.writeVecArray(tex_coord)
         self.writeVecArray(normals_coord)
         
@@ -133,6 +157,10 @@ def export(filepath):
     ex = ConradExporter(filepath)
     
     totalSize = 0
+    
+    for material in bpy.data.materials:
+        totalSize += ex.writeMaterial(material)
+    
     for mesh in bpy.data.meshes:
         if mesh.users == 0: # Deleted object
             continue
@@ -140,6 +168,6 @@ def export(filepath):
     
     ex.close()
     
-    print("Done exporting", totalSize/1000, "kb.")
+    print("Done exporting", totalSize/1000, "kB.")
 
-export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.txt")
+export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene")
