@@ -16,11 +16,11 @@ class InputManager
         bool isKeyPressed(int scancode);
         bool isMousePressed(int code);
 
-        int getMouseX();
-        int getMouseY();
+        inline int getMouseX();
+        inline int getMouseY();
 
-        int getMouseXrel();
-        int getMouseYrel();
+        inline int getMouseXrel();
+        inline int getMouseYrel();
 
     protected:
 

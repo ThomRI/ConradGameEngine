@@ -1,0 +1,26 @@
+#ifndef SCENEFORMATPARSER_H
+#define SCENEFORMATPARSER_H
+
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <AbstractMesh.h>
+#include <string>
+
+using namespace std;
+
+class SceneFormatParser
+{
+    public:
+        SceneFormatParser();
+        virtual ~SceneFormatParser();
+
+        bool load(string filepath);
+
+    protected:
+
+    private:
+
+};
+
+#endif // SCENEFORMATPARSER_H

@@ -680,7 +680,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1532306696 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
+1532310296 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
 	<SDL2/SDL.h>
 	<chrono>
 	<thread>
@@ -691,7 +691,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1534976429 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1534980029 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -703,10 +703,10 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1533588996 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
+1533592596 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmesh.cpp
 	"AbstractMesh.h"
 
-1553456732 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
+1553460332 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmesh.h
 	"scope.h"
 	<iostream>
 	<algorithm>
@@ -719,7 +719,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1534775322 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
+1534778922 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scope.h
 
 1526978384 c:\libs\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -1249,7 +1249,7 @@
 1525699384 c:\libs\glm\gtc\type_ptr.inl
 	<cstring>
 
-1534771097 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
+1534774697 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
 	<vector>
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
@@ -1259,7 +1259,7 @@
 	"AbstractCamera.h"
 	"AbstractLight.h"
 
-1533370523 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
+1533374123 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\shader.h
 	"scope.h"
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
@@ -1270,28 +1270,28 @@
 	<iostream>
 	<string>
 
-1531797771 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testcube.h
+1531801371 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testcube.h
 	"StaticMesh.h"
 	<iostream>
 	<algorithm>
 
-1532125200 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
+1532128800 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\staticmesh.h
 	"AbstractMesh.h"
 	<iostream>
 
-1533370548 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
+1533374148 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\shader.cpp
 	"Shader.h"
 
-1532125942 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
+1532129542 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\staticmesh.cpp
 	"StaticMesh.h"
 
-1532034728 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
+1532038328 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testcube.cpp
 	"TestCube.h"
 
-1534887622 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
+1534891222 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\renderer.cpp
 	"Renderer.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -1318,12 +1318,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_main.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_stdinc.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -1350,27 +1350,27 @@
 	<stdlib.h>
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_config.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_config.h
 	"SDL_platform.h"
 	<stdarg.h>
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_platform.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_platform.h
 	"AvailabilityMacros.h"
 	"TargetConditionals.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\begin_code.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\begin_code.h
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\close_code.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\close_code.h
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_assert.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_assert.h
 	"SDL_config.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_atomic.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
@@ -1378,7 +1378,7 @@
 	<libkern/OSAtomic.h>
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_audio.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -1388,24 +1388,24 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_error.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_endian.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
 	<endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_mutex.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_thread.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_mutex.h"
@@ -1413,18 +1413,18 @@
 	<process.h>
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_rwops.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_clipboard.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_cpuinfo.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
@@ -1436,7 +1436,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_events.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -1449,7 +1449,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_video.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -1457,11 +1457,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_pixels.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_pixels.h
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_rect.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -1469,7 +1469,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_surface.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -1478,11 +1478,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_blendmode.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_keyboard.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -1490,31 +1490,31 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_keycode.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_scancode.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_mouse.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_joystick.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_quit.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_gesture.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -1522,66 +1522,66 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_touch.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_hints.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_loadso.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_log.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_messagebox.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_power.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_render.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_system.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"SDL_keyboard.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_timer.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759713 c:\libs\sdl-2.0\include\sdl2\sdl_version.h
+1531763313 c:\libs\sdl-2.0\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1531759709 c:\libs\glew\include\gl\glew.h
+1531763309 c:\libs\glew\include\gl\glew.h
 	<stddef.h>
 	<inttypes.h>
 	<stdint.h>
@@ -1589,7 +1589,7 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1531759709 c:\libs\glm\include\glm\glm.hpp
+1531763309 c:\libs\glm\include\glm\glm.hpp
 	"core/_fixes.hpp"
 	<cmath>
 	<climits>
@@ -1611,10 +1611,10 @@
 	"./core/func_noise.hpp"
 	"./core/_swizzle.hpp"
 
-1531759710 c:\libs\glm\include\glm\core\_fixes.hpp
+1531763310 c:\libs\glm\include\glm\core\_fixes.hpp
 	<cmath>
 
-1531759709 c:\libs\glm\include\glm\core\setup.hpp
+1531763309 c:\libs\glm\include\glm\core\setup.hpp
 	<intrin.h>
 	<immintrin.h>
 	<immintrin.h>
@@ -1622,14 +1622,14 @@
 	<pmmintrin.h>
 	<emmintrin.h>
 
-1531759710 c:\libs\glm\include\glm\core\_detail.hpp
+1531763310 c:\libs\glm\include\glm\core\_detail.hpp
 	"setup.hpp"
 	<cassert>
 	<cstdint>
 
-1531759710 c:\libs\glm\include\glm\core\_vectorize.hpp
+1531763310 c:\libs\glm\include\glm\core\_vectorize.hpp
 
-1531759709 c:\libs\glm\include\glm\core\type.hpp
+1531763309 c:\libs\glm\include\glm\core\type.hpp
 	"type_half.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -1648,28 +1648,28 @@
 	"type_mat4x3.hpp"
 	"type_mat4x4.hpp"
 
-1531759709 c:\libs\glm\include\glm\core\type_half.hpp
+1531763309 c:\libs\glm\include\glm\core\type_half.hpp
 	<cstdlib>
 	"type_half.inl"
 
-1531759709 c:\libs\glm\include\glm\core\type_half.inl
+1531763309 c:\libs\glm\include\glm\core\type_half.inl
 	"_detail.hpp"
 
-1531759709 c:\libs\glm\include\glm\core\type_float.hpp
+1531763309 c:\libs\glm\include\glm\core\type_float.hpp
 	"type_half.hpp"
 	"setup.hpp"
 
-1531759709 c:\libs\glm\include\glm\core\type_int.hpp
+1531763309 c:\libs\glm\include\glm\core\type_int.hpp
 	"setup.hpp"
 	"_detail.hpp"
 
-1531759709 c:\libs\glm\include\glm\core\type_gentype.hpp
+1531763309 c:\libs\glm\include\glm\core\type_gentype.hpp
 	"type_size.hpp"
 
-1531759710 c:\libs\glm\include\glm\core\type_size.hpp
+1531763310 c:\libs\glm\include\glm\core\type_size.hpp
 	<cstdlib>
 
-1531759710 c:\libs\glm\include\glm\core\type_vec1.hpp
+1531763310 c:\libs\glm\include\glm\core\type_vec1.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -1677,17 +1677,17 @@
 	"_swizzle.hpp"
 	"type_vec1.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_vec.hpp
+1531763310 c:\libs\glm\include\glm\core\type_vec.hpp
 	"type_gentype.hpp"
 
-1531759710 c:\libs\glm\include\glm\core\_swizzle.hpp
+1531763310 c:\libs\glm\include\glm\core\_swizzle.hpp
 	"_swizzle_func.hpp"
 
-1531759710 c:\libs\glm\include\glm\core\_swizzle_func.hpp
+1531763310 c:\libs\glm\include\glm\core\_swizzle_func.hpp
 
-1531759710 c:\libs\glm\include\glm\core\type_vec1.inl
+1531763310 c:\libs\glm\include\glm\core\type_vec1.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_vec2.hpp
+1531763310 c:\libs\glm\include\glm\core\type_vec2.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -1695,9 +1695,9 @@
 	"_swizzle.hpp"
 	"type_vec2.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_vec2.inl
+1531763310 c:\libs\glm\include\glm\core\type_vec2.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_vec3.hpp
+1531763310 c:\libs\glm\include\glm\core\type_vec3.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -1705,9 +1705,9 @@
 	"_swizzle.hpp"
 	"type_vec3.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_vec3.inl
+1531763310 c:\libs\glm\include\glm\core\type_vec3.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_vec4.hpp
+1531763310 c:\libs\glm\include\glm\core\type_vec4.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -1715,158 +1715,158 @@
 	"_swizzle.hpp"
 	"type_vec4.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_vec4.inl
+1531763310 c:\libs\glm\include\glm\core\type_vec4.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat2x2.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat2x2.hpp
 	"type_mat.hpp"
 	"type_mat2x2.inl"
 
-1531759709 c:\libs\glm\include\glm\core\type_mat.hpp
+1531763309 c:\libs\glm\include\glm\core\type_mat.hpp
 	"type_gentype.hpp"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat2x2.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat2x2.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat2x3.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat2x3.hpp
 	"type_mat.hpp"
 	"type_mat2x3.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat2x3.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat2x3.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat2x4.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat2x4.hpp
 	"type_mat.hpp"
 	"type_mat2x4.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat2x4.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat2x4.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat3x2.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat3x2.hpp
 	"type_mat.hpp"
 	"type_mat3x2.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat3x2.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat3x2.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat3x3.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat3x3.hpp
 	"type_mat.hpp"
 	"type_mat3x3.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat3x3.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat3x3.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat3x4.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat3x4.hpp
 	"type_mat.hpp"
 	"type_mat3x4.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat3x4.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat3x4.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat4x2.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat4x2.hpp
 	"type_mat.hpp"
 	"type_mat4x2.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat4x2.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat4x2.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat4x3.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat4x3.hpp
 	"type_mat.hpp"
 	"type_mat4x3.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat4x3.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat4x3.inl
 
-1531759710 c:\libs\glm\include\glm\core\type_mat4x4.hpp
+1531763310 c:\libs\glm\include\glm\core\type_mat4x4.hpp
 	"type_mat.hpp"
 	"type_mat4x4.inl"
 
-1531759710 c:\libs\glm\include\glm\core\type_mat4x4.inl
+1531763310 c:\libs\glm\include\glm\core\type_mat4x4.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_trigonometric.hpp
+1531763309 c:\libs\glm\include\glm\core\func_trigonometric.hpp
 	"func_trigonometric.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_trigonometric.inl
+1531763309 c:\libs\glm\include\glm\core\func_trigonometric.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_exponential.hpp
+1531763309 c:\libs\glm\include\glm\core\func_exponential.hpp
 	"func_exponential.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_exponential.inl
+1531763309 c:\libs\glm\include\glm\core\func_exponential.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_common.hpp
+1531763309 c:\libs\glm\include\glm\core\func_common.hpp
 	"_fixes.hpp"
 	"func_common.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_common.inl
+1531763309 c:\libs\glm\include\glm\core\func_common.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_packing.hpp
+1531763309 c:\libs\glm\include\glm\core\func_packing.hpp
 	"func_packing.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_packing.inl
+1531763309 c:\libs\glm\include\glm\core\func_packing.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_geometric.hpp
+1531763309 c:\libs\glm\include\glm\core\func_geometric.hpp
 	"func_geometric.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_geometric.inl
+1531763309 c:\libs\glm\include\glm\core\func_geometric.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_matrix.hpp
+1531763309 c:\libs\glm\include\glm\core\func_matrix.hpp
 	"func_matrix.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_matrix.inl
+1531763309 c:\libs\glm\include\glm\core\func_matrix.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_vector_relational.hpp
+1531763309 c:\libs\glm\include\glm\core\func_vector_relational.hpp
 	"_detail.hpp"
 	"func_vector_relational.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_vector_relational.inl
+1531763309 c:\libs\glm\include\glm\core\func_vector_relational.inl
 
-1531759709 c:\libs\glm\include\glm\core\func_integer.hpp
+1531763309 c:\libs\glm\include\glm\core\func_integer.hpp
 	"func_integer.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_integer.inl
+1531763309 c:\libs\glm\include\glm\core\func_integer.inl
 	<intrin.h>
 
-1531759709 c:\libs\glm\include\glm\core\func_noise.hpp
+1531763309 c:\libs\glm\include\glm\core\func_noise.hpp
 	"func_noise.inl"
 
-1531759709 c:\libs\glm\include\glm\core\func_noise.inl
+1531763309 c:\libs\glm\include\glm\core\func_noise.inl
 
-1531759712 c:\libs\glm\include\glm\gtx\transform.hpp
+1531763312 c:\libs\glm\include\glm\gtx\transform.hpp
 	"../glm.hpp"
 	"../gtc/matrix_transform.hpp"
 	"transform.inl"
 
-1531759710 c:\libs\glm\include\glm\gtc\matrix_transform.hpp
+1531763310 c:\libs\glm\include\glm\gtc\matrix_transform.hpp
 	"../glm.hpp"
 	"matrix_transform.inl"
 
-1531759710 c:\libs\glm\include\glm\gtc\matrix_transform.inl
+1531763310 c:\libs\glm\include\glm\gtc\matrix_transform.inl
 
-1531759712 c:\libs\glm\include\glm\gtx\transform.inl
+1531763312 c:\libs\glm\include\glm\gtx\transform.inl
 
-1531759711 c:\libs\glm\include\glm\gtc\type_ptr.hpp
+1531763311 c:\libs\glm\include\glm\gtc\type_ptr.hpp
 	"../glm.hpp"
 	"../gtc/half_float.hpp"
 	"../gtc/quaternion.hpp"
 	<cstring>
 	"type_ptr.inl"
 
-1531759710 c:\libs\glm\include\glm\gtc\half_float.hpp
+1531763310 c:\libs\glm\include\glm\gtc\half_float.hpp
 	"../glm.hpp"
 	"half_float.inl"
 
-1531759710 c:\libs\glm\include\glm\gtc\half_float.inl
+1531763310 c:\libs\glm\include\glm\gtc\half_float.inl
 
-1531759710 c:\libs\glm\include\glm\gtc\quaternion.hpp
+1531763310 c:\libs\glm\include\glm\gtc\quaternion.hpp
 	"../glm.hpp"
 	"../gtc/half_float.hpp"
 	"../gtc/constants.hpp"
 	"quaternion.inl"
 
-1531759710 c:\libs\glm\include\glm\gtc\constants.hpp
+1531763310 c:\libs\glm\include\glm\gtc\constants.hpp
 	"../glm.hpp"
 	"../gtc/half_float.hpp"
 	"constants.inl"
 
-1531759710 c:\libs\glm\include\glm\gtc\constants.inl
+1531763310 c:\libs\glm\include\glm\gtc\constants.inl
 
-1531759710 c:\libs\glm\include\glm\gtc\quaternion.inl
+1531763310 c:\libs\glm\include\glm\gtc\quaternion.inl
 	<limits>
 
-1531759711 c:\libs\glm\include\glm\gtc\type_ptr.inl
+1531763311 c:\libs\glm\include\glm\gtc\type_ptr.inl
 
-1532122000 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstracttexture.h
+1532125600 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstracttexture.h
 	<GL/glew.h>
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
@@ -1882,23 +1882,23 @@
 	"begin_code.h"
 	"close_code.h"
 
-1531788688 c:\libs\sdl-2.0\include\sdl2\sdl_image.h
+1531792288 c:\libs\sdl-2.0\include\sdl2\sdl_image.h
 	"SDL.h"
 	"SDL_version.h"
 	"begin_code.h"
 	"close_code.h"
 
-1533588261 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
+1533591861 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
 	"AbstractTexture.h"
 
-1532110758 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
+1532114358 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
 	<SDL2/SDL.h>
 	<algorithm>
 
-1532110534 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
+1532114134 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
 
-1534360034 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
+1534363634 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
 	<string>
 	<iostream>
 	<fstream>
@@ -1909,17 +1909,17 @@
 	"StaticMesh.h"
 	"AbstractMaterial.h"
 
-1531855151 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testtriangle.h
+1531858751 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\testtriangle.h
 	"StaticMesh.h"
 
-1532122957 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testtriangle.cpp
+1532126557 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\testtriangle.cpp
 	"TestTriangle.h"
 
-1534770097 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmaterial.h
+1534773697 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractmaterial.h
 	"scope.h"
 	"AbstractTexture.h"
 
-1532122642 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmaterial.cpp
+1532126242 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractmaterial.cpp
 	"AbstractMaterial.h"
 
 1531763312 c:\libs\glm\include\glm\gtx\string_cast.hpp
@@ -1948,10 +1948,10 @@
 	<cstdarg>
 	<cstdio>
 
-1534887677 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractcamera.cpp
+1534891277 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractcamera.cpp
 	"AbstractCamera.h"
 
-1532468368 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractcamera.h
+1532471968 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractcamera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/gtc/type_ptr.hpp>
@@ -1959,20 +1959,20 @@
 	"scope.h"
 	<cmath>
 
-1543787107 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\freecamera.cpp
+1543790707 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\freecamera.cpp
 	"FreeCamera.h"
 
-1532111249 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\freecamera.h
+1532114849 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\freecamera.h
 	"key_mapping.h"
 	"InputManager.h"
 	"AbstractCamera.h"
 
-1532111218 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\key_mapping.h
+1532114818 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\key_mapping.h
 
-1534769526 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\obj_static_handler.cpp
+1534773126 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\obj_static_handler.cpp
 	"OBJ_Static_Handler.h"
 
-1534364050 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\obj_static_handler.h
+1534367650 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\obj_static_handler.h
 	<string>
 	<iostream>
 	<fstream>
@@ -1982,7 +1982,7 @@
 	"scope.h"
 	"utilities.hpp"
 
-1534969964 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractlight.h
+1534973564 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\abstractlight.h
 	<string>
 	<string.h>
 	<sstream>
@@ -1997,20 +1997,20 @@
 	<GL3/gl3.h>
 	"DepthBuffer.h"
 
-1534969988 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractlight.cpp
+1534973588 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstractlight.cpp
 	"AbstractLight.h"
 
-1534973013 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\pointlight.h
+1534976613 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\pointlight.h
 	"AbstractLight.h"
 	<glm/glm.hpp>
 	<GL/glew.h>
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1534973209 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\pointlight.cpp
+1534976809 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\pointlight.cpp
 	"PointLight.h"
 
-1534973008 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\spotlight.h
+1534976608 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\spotlight.h
 	"AbstractLight.h"
 	<iostream>
 	<glm/glm.hpp>
@@ -2018,13 +2018,13 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1534974976 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\spotlight.cpp
+1534978576 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\spotlight.cpp
 	"SpotLight.h"
 
-1532794137 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sunlight.cpp
+1532797737 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sunlight.cpp
 	"SunLight.h"
 
-1532794336 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sunlight.h
+1532797936 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sunlight.h
 	"AbstractLight.h"
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
@@ -2032,10 +2032,10 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1533368903 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\depthbuffer.cpp
+1533372503 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\depthbuffer.cpp
 	"DepthBuffer.h"
 
-1534775319 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\depthbuffer.h
+1534778919 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\depthbuffer.h
 	<iostream>
 	"scope.h"
 	<glm/glm.hpp>

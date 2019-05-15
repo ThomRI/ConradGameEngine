@@ -1,4 +1,4 @@
-A custom exporter for blender is written un python as conrad_export.py.
+A custom exporter for blender is written in python as conrad_export.py.
 It contains a class that exports a blender scene into a ConradEngine compatible format.
 
 The read sequence is as follow :
@@ -18,6 +18,7 @@ ObjectCode values definition :
 	255: Vector array [VEC_ARRAY_OBJECT]
 	254: Vector [VEC_OBJECT]
 	253: String [STR_OBJECT]
+	252: Void [VOID_OBJECT] # An array of zeroes. Used to avoid whole chunks of zeroes.
 
 ### Object dependant parsing methods ###
 

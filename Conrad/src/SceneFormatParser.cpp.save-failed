@@ -1,0 +1,71 @@
+#include "SceneFormatParser.h"
+
+SceneFormatParser::SceneFormatParser()
+{
+    //ctor
+}
+
+bool SceneFormatParser::load(string filepath)
+{
+    if(!m_file.open(filepath.c_str(), ios::in | ios::binary)) {
+        m_loaded = false;
+        return false;
+    }
+
+    /* Retrieving the size of the file */
+    m_file.seekg(0, m_file.end());
+    m_filesize = m_file.tellg();
+    m_file.seekg(0, m_file.begin());
+
+    m_loaded = true;
+    return true;
+}
+
+bool SceneFormatParser::parse()
+{
+    if(!m_loaded) {
+        return false;
+    }
+
+    bool eof = false;
+    while(!eof) {
+
+    }
+
+}
+
+bool SceneFormatParser::read_object(Object &object)
+{
+    char type; read(type);
+    int size; read(size);
+
+    char *data_pointer;
+    data_pointer = (char *) malloc(size);
+    m_file.read(data_pointer, size);
+    state = m_file.eof();
+
+    Object obj = {type, size, data_pointer};
+    return obj;
+}
+
+void SceneFormatParser::read(T &target)
+{
+    target = *reinterpret_cast<const T*>(m_iterator); // Gets the object pointed by the pointer m_iterator (casted as an T pointer type) that has the size of T.
+
+    m_iterator += sizeof(T); // Forwards the iterator
+}
+
+void SceneFormatParser::read_array(int count, vector<T> &target_array)
+{
+    target_array.reserve(count); // Faster than one push_back each
+
+    T *start_pointer = reinterpret_cast<const T*>(m_iterator);
+    copy(start_pointer, start_pointer + count, target_array.begin());
+
+    m_iterator += count*sizeof(T);
+}
+
+SceneFormatParser::~SceneFormatParser()
+{
+    //dtor
+}

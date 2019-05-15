@@ -6,6 +6,7 @@ import bpy
 import bmesh
 import os
 import struct
+import sys
 
 OBJTYPE_STATIC = 0
 OBJTYPE_DYNAMIC = 1
@@ -105,7 +106,12 @@ class ConradExporter:
         self.writeVec(emit_color)
         
         # Texture
-        img = material.node_tree.nodes['Image Texture'].image
+        try:
+            img = material.node_tree.nodes['Image Texture'].image
+        except KeyError:
+            print("ERROR : Please add a texture to '", material.name_full, "'")
+            return -1
+            
         self.writeImage(img)
         
         datasize = 1 + len(material.name_full) + (4*3)*4 + 1 + 6 + len(img.pixels) # Size used in bytes
@@ -159,15 +165,27 @@ def export(filepath):
     totalSize = 0
     
     for material in bpy.data.materials:
+        size = ex.writeMaterial(material)
+        if size < 0:
+            return (False, 0)
         totalSize += ex.writeMaterial(material)
     
     for mesh in bpy.data.meshes:
         if mesh.users == 0: # Deleted object
             continue
-        totalSize += ex.writeMesh(mesh)
+        
+        size = ex.writeMesh(mesh)
+        if size < 0:
+            return (False, 0)
+                
+        totalSize += size
     
     ex.close()
-    
-    print("Done exporting", totalSize/1000, "kB.")
+        
+    return (True, totalSize) # Success
 
-export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene")
+success, totalSize = export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene")
+if success:
+    print("Done exporting", totalSize/1000, "kB.")
+else:
+    print("An error occured. Exported file will be corrupted.")
