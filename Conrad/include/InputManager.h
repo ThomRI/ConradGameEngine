@@ -37,4 +37,24 @@ class InputManager
         bool m_close = false;
 };
 
+inline int InputManager::getMouseX()
+{
+    return m_x;
+}
+
+inline int InputManager::getMouseY()
+{
+    return m_y;
+}
+
+inline int InputManager::getMouseXrel()
+{
+    return m_xrel;
+}
+
+inline int InputManager::getMouseYrel()
+{
+    return m_yrel;
+}
+
 #endif // INPUTMANAGER_H

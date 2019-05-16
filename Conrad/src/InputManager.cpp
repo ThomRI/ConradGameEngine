@@ -64,26 +64,6 @@ bool InputManager::isMousePressed(int code)
     return m_mouse[code];
 }
 
-int InputManager::getMouseX()
-{
-    return m_x;
-}
-
-int InputManager::getMouseY()
-{
-    return m_y;
-}
-
-int InputManager::getMouseXrel()
-{
-    return m_xrel;
-}
-
-int InputManager::getMouseYrel()
-{
-    return m_yrel;
-}
-
 bool InputManager::close()
 {
     return m_close;

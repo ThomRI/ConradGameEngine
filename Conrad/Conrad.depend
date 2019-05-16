@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1554409000 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1558046765 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
 	"TestCube.h"
 	"TestTriangle.h"
-	"OBJ_Static_Handler.h"
+	"SceneFormatParser.h"
 	"scope.h"
 	"FreeCamera.h"
 	"PointLight.h"
@@ -1891,11 +1891,11 @@
 1533591861 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\abstracttexture.cpp
 	"AbstractTexture.h"
 
-1557924127 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
+1558038496 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\inputmanager.h
 	<SDL2/SDL.h>
 	<algorithm>
 
-1532114134 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
+1558038492 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\inputmanager.cpp
 	"InputManager.h"
 
 1534363634 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\utilities.hpp
@@ -2055,4 +2055,17 @@
 	"Scene.h"
 
 1554409144 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scene.h
+
+1558046718 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sceneformatparser.cpp
+	"SceneFormatParser.h"
+
+1558046485 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sceneformatparser.h
+	<fstream>
+	<algorithm>
+	<vector>
+	"StaticMesh.h"
+	"AbstractLight.h"
+	"AbstractMaterial.h"
+	<string>
+	<map>
 

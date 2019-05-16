@@ -3,7 +3,7 @@
 #include "Shader.h"
 #include "TestCube.h"
 #include "TestTriangle.h"
-#include "OBJ_Static_Handler.h"
+#include "SceneFormatParser.h"
 #include "scope.h"
 #include "FreeCamera.h"
 #include "PointLight.h"
@@ -31,28 +31,18 @@ int main(int argc, char **argv)
     app->getRenderer()->setShader(shader); // loads the shader
     app->getRenderer()->setDepthShader(depthShader);
 
-    OBJ_Static_Handler sceneHandler("objects/shadow_testscene.obj", "objects/shadow_testscene.mtl");
+
     Uint32 start = SDL_GetTicks();
-    sceneHandler.load(true, true, true);
+
+    SceneFormatParser parser("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene");
+
     cout << "Loaded in " << SDL_GetTicks() - start << " ms" << endl;
 
-    /*app->getRenderer()->addMesh(sceneHandler.getMesh("Ground"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Cube"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Cube1"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Cube2"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Spaceship"));
-
-    app->getRenderer()->addMesh(sceneHandler.getMesh("BaseTree"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Cylinder"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Tree"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Gun"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("tower"));
-    app->getRenderer()->addMesh(sceneHandler.getMesh("Ground"));*/
-
-    vector<StaticMesh *> meshes = sceneHandler.getAllMeshes();
-    for(int i = 0;i < meshes.size();i++) {
-        app->getRenderer()->addMesh(meshes.at(i));
+    vector<StaticMesh *> *meshes = parser.getMeshes();
+    for(int i = 0;i < meshes->size();i++) {
+        app->getRenderer()->addMesh(meshes->at(i));
     }
+
 
     //PointLight *light = new PointLight(glm::vec3(1.0, 0.0, 2.0), glm::vec3(1.0), 1.0, 0.005, true);
     SpotLight *spot = new SpotLight(glm::vec3(-5.0, 0.0, 4.13254), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 0.0, -1.0), 25.0, 60.0, 10.0, true, 0.08, 0.08, 100.0);

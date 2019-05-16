@@ -1,5 +1,7 @@
 #include "SceneFormatParser.h"
 
+using namespace std;
+
 SceneFormatParser::SceneFormatParser()
 {
     //ctor
@@ -7,6 +9,7 @@ SceneFormatParser::SceneFormatParser()
 
 SceneFormatParser::SceneFormatParser(string filepath)
 {
+    cout << "Will parse " << filepath << endl;
     load(filepath);
     parse();
 }
@@ -34,19 +37,25 @@ bool SceneFormatParser::parse()
         return false;
     }
 
+    cout << "Starting parsing" << endl;
+
     Object object_buffer;
     while(read_object(object_buffer)) {
         switch(object_buffer.type) {
             case MESH_OBJECT_CODE:
             {
-                m_meshes->push_back(parseMesh(object_buffer));
+                StaticMesh *mesh = parseMesh(object_buffer);
+                cout << "Found mesh." << endl;
+                m_meshes.push_back(mesh);
                 break;
             }
 
             case MATERIAL_OBJECT_CODE:
             {
                 AbstractMaterial *material = parseMaterial(object_buffer);
-                m_materials->at(material->getName()) = material;
+
+                m_materials[material->getName()] = material;
+                cout << "Found material " << material->getName() << endl;
                 break;
             }
 
@@ -85,6 +94,8 @@ bool SceneFormatParser::parse()
         free(object_buffer.data_pointer);
     }
 
+    m_file.close();
+
 }
 
 bool SceneFormatParser::read_object(Object &object)
@@ -92,7 +103,9 @@ bool SceneFormatParser::read_object(Object &object)
     char type; m_file.get(type);
     if(m_file.eof()) return false;
 
-    int size; m_file >> size;
+    char *buffer = new char[4];
+    m_file.read(buffer, 4);
+    size_t size = *reinterpret_cast<unsigned int*>(buffer);
     if(m_file.eof()) return false;
 
     char *data_pointer;
@@ -107,36 +120,7 @@ bool SceneFormatParser::read_object(Object &object)
     return true;
 }
 
-// Note that we could have used a &*data_pointer to directly modify the pointer instead of returning it, but returning it allows for more flexibility
-template<typename T>
-char *SceneFormatParser::extract(char *data_pointer, T &target)
-{
-    target = *reinterpret_cast<T*>(data_pointer); // Treats data_pointer as a pointing at a T type value
-    return data_pointer + sizeof(T);
-}
 
-char *SceneFormatParser::extractVectorArray(char *data_pointer, int &count, int &dimension, float *&target_pointer)
-{
-    data_pointer = extract(data_pointer, count);
-    data_pointer = extract(data_pointer, dimension);
-    target_pointer = reinterpret_cast<float*>(data_pointer);
-
-    return data_pointer + sizeof(float) * count * dimension;
-}
-
-char *SceneFormatParser::extractVector(char *data_pointer, int &dimension, float *&target_pointer)
-{
-    data_pointer = extract(data_pointer, dimension);
-    target_pointer = reinterpret_cast<float*>(target_pointer);
-
-    return data_pointer + sizeof(float) * dimension;
-}
-
-char *SceneFormatParser::extractString(char *data_pointer, string &target)
-{
-    target = string(data_pointer); // .scene format includes the end of sequence '\0' character so this should work fine.
-    return data_pointer + target.length() + 1; // +1 to count the null terminator '\0'
-}
 
 AbstractMaterial *SceneFormatParser::parseMaterial(Object materialObject)
 {
@@ -180,7 +164,7 @@ AbstractMaterial *SceneFormatParser::parseMaterial(Object materialObject)
     return material;
 }
 
-AbstractMesh *SceneFormatParser::parseMesh(Object meshObject)
+StaticMesh *SceneFormatParser::parseMesh(Object meshObject)
 {
     char mesh_type;
     meshObject.data_pointer = extract(meshObject.data_pointer, mesh_type);
@@ -231,8 +215,9 @@ AbstractMesh *SceneFormatParser::parseMesh(Object meshObject)
     float *colors = (float *) malloc(verticesCount * 3 * sizeof(float));
     fill_n(colors, verticesCount * 3, 1.0);
 
-    AbstractMesh *mesh = new AbstractMesh(verticesCount, vertices, verticesCount, colors, texCount, texCoords, vertexNormals, meshType);
-    mesh->setMaterial(m_materials->at(material_name));
+    StaticMesh *mesh = new StaticMesh(verticesCount, vertices, colors, texCoords, vertexNormals);
+    mesh->setMaterial(m_materials.at(material_name));
+    mesh->load(); // <<-- LOADS IT FOR NOW
 
     return mesh;
 }
@@ -244,19 +229,19 @@ AbstractLight *SceneFromParser::parseLight(Object lightObject)
 }
 */
 
-vector<AbstractMesh *> *SceneFormatParser::getMeshes()
+vector<StaticMesh *> *SceneFormatParser::getMeshes()
 {
-    return m_meshes;
+    return &m_meshes;
 }
 
 map<string, AbstractMaterial *> *SceneFormatParser::getMaterials()
 {
-    return m_materials;
+    return &m_materials;
 }
 
 vector<AbstractLight *> *SceneFormatParser::getLights()
 {
-    return m_lights;
+    return &m_lights;
 }
 
 SceneFormatParser::~SceneFormatParser()
