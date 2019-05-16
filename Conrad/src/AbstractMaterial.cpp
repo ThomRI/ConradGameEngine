@@ -5,8 +5,8 @@ AbstractMaterial::AbstractMaterial()
     //ctor
 }
 
-AbstractMaterial::AbstractMaterial(RGB ambientColor, RGB diffuseColor, RGB specularColor, RGB emitColor, float specularExponent, float alpha, float ambientStrength, float diffuseStrength, float specularStrength, float emitStrength) :
-    m_ambientColor(ambientColor), m_diffuseColor(diffuseColor), m_specularColor(specularColor), m_emitColor(emitColor), m_specularExponent(specularExponent), m_alpha(alpha), m_ambientStrength(ambientStrength), m_diffuseStrength(diffuseStrength), m_specularStrength(specularStrength), m_emitStrength(emitStrength)
+AbstractMaterial::AbstractMaterial(RGB ambientColor, RGB diffuseColor, RGB specularColor, RGB emitColor, float specularExponent, float alpha, float ambientStrength, float diffuseStrength, float specularStrength, float emitStrength, std::string name) :
+    m_ambientColor(ambientColor), m_diffuseColor(diffuseColor), m_specularColor(specularColor), m_emitColor(emitColor), m_specularExponent(specularExponent), m_alpha(alpha), m_ambientStrength(ambientStrength), m_diffuseStrength(diffuseStrength), m_specularStrength(specularStrength), m_emitStrength(emitStrength), m_name(name)
 {
 
 }
@@ -71,6 +71,11 @@ AbstractTexture *AbstractMaterial::getDiffuseTexture()
 AbstractTexture *AbstractMaterial::getSpecularTexture()
 {
     return m_specularTexture;
+}
+
+std::string AbstractMaterial::getName()
+{
+    return m_name;
 }
 
 bool AbstractMaterial::isDiffuseTextured()

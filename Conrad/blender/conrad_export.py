@@ -45,13 +45,19 @@ class ConradExporter:
         l = list(struct.unpack('4B', struct.pack('f', value)))
         l.reverse()
         self.file.write(bytes(l))
-    
+        
+    def writeChar(self, c):
+        try:
+            self.file.write(bytes(chr(c), 'utf-8'))
+        except TypeError:
+            self.file.write(bytes(c, 'utf-8'))        
+
+        
     def writeString(self, string): # 4 bytes of meta
         self.writeInt(len(string)) # Size
         self.file.write(bytes(string, 'utf-8'))
-        
-    def writeChar(self, c):
-        self.file.write(bytes([c]))
+        self.writeChar('\0')
+                    
         
     def writeVec(self, vec): # 5 bytes of meta
         if len(vec) == 0:
@@ -70,7 +76,7 @@ class ConradExporter:
         
         self.writeChar(VEC_ARRAY_OBJECT_CODE)
         
-        self.writeInt(len(vec_array)) # Count
+        self.writeInt(len(vec_array)) # Count (number of sub vectors)
         self.writeChar(len(vec_array[0])) # Dimension
         
         for vec in vec_array:
@@ -80,12 +86,16 @@ class ConradExporter:
     def writeImage(self, image): # 9 bytes of meta
         self.writeChar(IMG_OBJECT_CODE)
         
+        ''' WRITING THE ACTUAL IMAGE PIXELS : NOT SUPPORTED YET
         sizeX = image.size[0]
         sizeY = image.size[1]
         self.writeInt(sizeX) # x size
         self.writeInt(sizeY) # y size
         
         self.file.write(bytes([int(p*255) for p in image.pixels]))
+        '''
+        
+        self.writeString(image.filepath_from_user()) # Writing the path instead for now
     
     def writeMaterial(self, material): # 1 byte of meta
         print("Writing material:", material.name_full)
@@ -112,9 +122,11 @@ class ConradExporter:
             print("ERROR : Please add a texture to '", material.name_full, "'")
             return -1
             
-        self.writeImage(img)
+        #self.writeImage(img)
+        filepath = img.filepath_from_user()
+        self.writeString(filepath) # For now
         
-        datasize = 1 + len(material.name_full) + (4*3)*4 + 1 + 6 + len(img.pixels) # Size used in bytes
+        datasize = 1 + len(material.name_full) + (4*3)*4 + 1 + 6 + len(filepath) + 1 # Size used in bytes
         print("\t Material data size :", datasize / 1000, "kB")
         return datasize
         
@@ -149,10 +161,15 @@ class ConradExporter:
         self.writeString(name)
         
         self.writeVecArray(points_coord)
+        
+        self.writeString(material_name)
         self.writeVecArray(tex_coord)
         self.writeVecArray(normals_coord)
         
         return datasize # size written
+    
+    def writeLight(self, light):
+        self.writeChar(LIGHT_OBJECT_CODE)
             
     def close(self):
         self.file.close()
@@ -164,12 +181,15 @@ def export(filepath):
     
     totalSize = 0
     
+    
+    # Writing materials (must be done before meshes)
     for material in bpy.data.materials:
         size = ex.writeMaterial(material)
         if size < 0:
             return (False, 0)
-        totalSize += ex.writeMaterial(material)
+        totalSize += size
     
+    # Writing meshes
     for mesh in bpy.data.meshes:
         if mesh.users == 0: # Deleted object
             continue
@@ -180,9 +200,23 @@ def export(filepath):
                 
         totalSize += size
     
+    # Writing lights
+    '''
+    for light in bpy.data.lights:
+        if light.users == 0: # Deleted light
+            continue
+        
+        size = ex.writeLight(light)
+        if size < 0:
+            return (False, 0)
+        
+        totalSize += size
+    '''
+    
     ex.close()
         
     return (True, totalSize) # Success
+
 
 success, totalSize = export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene")
 if success:

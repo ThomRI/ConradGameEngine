@@ -12,7 +12,8 @@ Data sizes are in bytes.
 ObjectCode values definition :
 -> Engine related objects
 	0: mesh [MESH_OBJECT_CODE]
-	1: light [LIGHT_OBJECT_CODE]
+	1: material [MATERIAL_OBJECT_CODE]
+	2: light [LIGHT_OBJECT_CODE]
 	2: camera (not used for now, except for default camera values like starting point, eye, and speeds)
 -> Type objects
 	255: Vector array [VEC_ARRAY_OBJECT]
@@ -21,6 +22,10 @@ ObjectCode values definition :
 	252: Void [VOID_OBJECT] # An array of zeroes. Used to avoid whole chunks of zeroes.
 
 ### Object dependant parsing methods ###
+
+-> Vector
+	int: dimension
+	[dimension floats]
 
 -> Vector arrays
 	int: count
@@ -31,15 +36,11 @@ ObjectCode values definition :
 	int: size (number of characters)
 	[size chars without interruption] : the actual string, a char array
 
--> Meshes
-	[ObjectCode = MESH_OBJECT_CODE][Data size] 
-	(Total mesh datas :) {
-		char: mesh type (0 : STATIC, 1 : DYNAMIC, 2 : STREAM)
-		string: mesh name
+-> Materials
+	[ObjectCode = MATERIAL_OBJECT_CODE][Data size]
+	(Total material datas :) {
+		string: material name
 
-		[VEC_ARRAY_OBJECT] (dimension 3) : points coordinates
-		
-		// Material
 		[VEC_OBJECT] (dimension 3) : ambient color
 		[VEC_OBJECT] (dimension 3) : diffuse color
 
@@ -48,6 +49,19 @@ ObjectCode values definition :
 
 		[VEC_OBJECT] (dimension 3) : emit color
 
+		string: texture absolute path // For now, TODO : include texture pixels (already done in python)
+	}
+
+-> Meshes
+	[ObjectCode = MESH_OBJECT_CODE][Data size] 
+	(Total mesh datas :) {
+		char: mesh type (0 : STATIC, 1 : DYNAMIC, 2 : STREAM)
+		string: mesh name
+
+		[VEC_ARRAY_OBJECT] (dimension 3) : points coordinates
+
+		string: material name
+		
 		[VEC_ARRAY_OBJECT] (dimension 2) : textures coordinates
 		[VEC_ARRAY_OBJECT] (dimension 3) : normals coordinates. Those are VERTEX normals not face normals !!
 
@@ -55,3 +69,6 @@ ObjectCode values definition :
 			-> Add starting translation/rotation/scaling support
 			-> Add animation support
 	}
+
+-> Lights
+	
