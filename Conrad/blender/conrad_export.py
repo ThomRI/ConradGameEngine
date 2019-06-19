@@ -150,38 +150,39 @@ class ConradExporter:
         self.file.seek(0, 2) # File end
         return totalSize
         
-    def writeMesh(self, mesh, type = OBJTYPE_STATIC):
+    def writeObject(self, object, type = OBJTYPE_STATIC):
         totalSize = 0
         
         self.writeChar(MESH_OBJECT_CODE)        
         self.writeInt(0) # Reserving 4 bytes for the total size
         
         # Extracting datas
-        name = mesh.name
+        name = object.name
         print("Writing mesh:", name)
         
         # Geometry
         points_coord = []
         normals_coord = []
-        triangulate_mesh(mesh) # Triangulating the mesh
+        triangulate_mesh(object.data) # Triangulating the mesh
 
         # Writing geometry
         vert_indices = []
-        for face in mesh.polygons:
+        for face in object.data.polygons:
             vert_indices.append(face.vertices[0])
             vert_indices.append(face.vertices[1])
             vert_indices.append(face.vertices[2])
             
         for index in vert_indices:
-            v = mesh.vertices[index]
+            v = object.data.vertices[index]
+            transformed_v = object.matrix_local @ v.co # Vertices are normalized between [0;1]. We must thus multiply each by the transformation matrix
             normals_coord.append([c for c in v.normal])
-            points_coord.append([component for component in v.co])
+            points_coord.append([component for component in transformed_v])
     
         # Material
-        material_name = mesh.materials[0].name_full
+        material_name = object.data.materials[0].name_full
 
         # Texture
-        tex_coord = [[vertex_uv.uv[i] for i in range(2)] for vertex_uv in mesh.uv_layers['UVMap'].data] # UV Map
+        tex_coord = [[vertex_uv.uv[i] for i in range(2)] for vertex_uv in object.data.uv_layers['UVMap'].data] # UV Map
         
         # Writing into file
         
@@ -228,11 +229,11 @@ def export(filepath):
         totalSize += size
     
     # Writing meshes
-    for mesh in bpy.data.meshes:
-        if mesh.users == 0: # Deleted object
+    for object in bpy.data.objects:
+        if object.users == 0: # Deleted object
             continue
         
-        size = ex.writeMesh(mesh)
+        size = ex.writeObject(object)
         if size < 0:
             return (False, 0)
                 
