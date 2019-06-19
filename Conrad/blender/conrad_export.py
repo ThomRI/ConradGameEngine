@@ -164,7 +164,16 @@ class ConradExporter:
         points_coord = []
         normals_coord = []
         triangulate_mesh(mesh) # Triangulating the mesh
-        for v in mesh.vertices:
+
+        # Writing geometry
+        vert_indices = []
+        for face in mesh.polygons:
+            vert_indices.append(face.vertices[0])
+            vert_indices.append(face.vertices[1])
+            vert_indices.append(face.vertices[2])
+            
+        for index in vert_indices:
+            v = mesh.vertices[index]
             normals_coord.append([c for c in v.normal])
             points_coord.append([component for component in v.co])
     
