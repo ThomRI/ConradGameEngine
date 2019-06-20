@@ -118,17 +118,21 @@ class ConradExporter:
         
         totalSize += self.writeString(material.name_full)
         
+        node = material.node_tree.nodes.get("Principled BSDF")
+        
         ambient_color = [1.0, 1.0, 1.0] # Not supported for now
         diffuse_color = [material.diffuse_color[i] for i in range(3)]
-        specular_intensity = material.specular_intensity
+        specular_intensity = node.inputs[5].default_value # Cycle node value instead of material value (actually changes with the menu)
         specular_color = [material.specular_color[i] for i in range(3)]
         emit_color = [0.0, 0.0, 0.0] # Not supported for now
+        roughness = node.inputs[7].default_value
         
         totalSize += self.writeVec(ambient_color)
         totalSize += self.writeVec(diffuse_color)
         totalSize += self.writeFloat(specular_intensity)
         totalSize += self.writeVec(specular_color)
         totalSize += self.writeVec(emit_color)
+        totalSize += self.writeFloat(pow(2, 8*roughness))
         
         # Texture
         try:

@@ -49,6 +49,8 @@ ObjectCode values definition :
 
 		[VEC_OBJECT] (dimension 3) : emit color
 
+		int: specular exponent # NOTE : CONTROLLED BY THE ROUGHNESS PARAMETER IN BLENDER. ROUGHNESS = 1 => specExp = 256 and roughness = 0 => specExp = 1. In fact, specExp = int(pow(2, 8*roughness))
+
 		string: texture absolute path // For now, TODO : include texture pixels (already done in python)
 	}
 

@@ -142,12 +142,15 @@ vec3 computeLight(Light light, vec3 normal)
 
 	/* Diffuse */
 	vec3 diffuse = diffuseStrength * max(0.0, dot(normal, lightDir)) * diffuseColor;
+	//diffuse = vec3(0.0);
 
 	/* Specular */
 	vec3 cameraDir = normalize(cameraPos - frag_FragmentPos); // Object -> Camera
 	vec3 reflected_lightDir = reflect(-lightDir, normal);
 
 	vec3 specular = specularStrength * pow(max(0.0, dot(cameraDir, reflected_lightDir)), specularExponent) * specularColor;	
+
+	//specular = vec3(0.0);
 
 	return attenuationFactor * light.intensity * (diffuse + specular) * light.color;
 }

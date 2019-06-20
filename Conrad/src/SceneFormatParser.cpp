@@ -150,11 +150,14 @@ AbstractMaterial *SceneFormatParser::parseMaterial(Object materialObject)
     materialObject.data_pointer = extractVector(materialObject.data_pointer, dimension, color_pointer);
     RGB emitColor(color_pointer[0], color_pointer[1], color_pointer[2]);
 
+    int specularExponent;
+    materialObject.data_pointer = extract(materialObject.data_pointer, specularExponent);
+
     // Texture path
     string texture_path;
     materialObject.data_pointer = extractString(materialObject.data_pointer, texture_path);
 
-    AbstractMaterial *material = new AbstractMaterial(ambientColor, diffuseColor, specularColor, emitColor, specularIntensity, 1.0, 0.01, 1.0, 1.0, 1.0, material_name);
+    AbstractMaterial *material = new AbstractMaterial(ambientColor, diffuseColor, specularColor, emitColor, specularExponent, 1.0, 0.01, 1.0, specularIntensity, 1.0, material_name);
 
     AbstractTexture *texture = new AbstractTexture(texture_path);
     texture->load();

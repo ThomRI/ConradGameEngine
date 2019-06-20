@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     //app->getRenderer()->addLight(spot);
     //app->getRenderer()->generateShadowMap(spot);
 
-    SunLight *sun = new SunLight(glm::vec3(4.71196, 2.68324, 3.91369), glm::vec3(0.0, 0.0, -1.0), glm::vec3(1.0, 0.8, 0.4), 1.0, false);
+    SunLight *sun = new SunLight(glm::vec3(4.71196, 2.68324, 3.91369), glm::vec3(-1.0, 0.0, -1.0), glm::vec3(1.0, 0.8, 0.4), 1.0, false);
     app->getRenderer()->addLight(sun);
     app->getRenderer()->generateShadowMap(sun);
 
