@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1561064542 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
+1561144025 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\main.cpp
 	<iostream>
 	"Application.h"
 	"Shader.h"
@@ -680,7 +680,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1532310296 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
+1561143063 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\application.h
 	<SDL2/SDL.h>
 	<chrono>
 	<thread>
@@ -691,7 +691,7 @@
 	<OpenGL/gl3.h>
 	<GL3/gl3.h>
 
-1534980029 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
+1561143061 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\application.cpp
 	"Application.h"
 
 1531594353 c:\libs\glew-2.1.0\include\gl\glew.h
@@ -1249,7 +1249,7 @@
 1525699384 c:\libs\glm\gtc\type_ptr.inl
 	<cstring>
 
-1534774697 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
+1561143020 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\renderer.h
 	<vector>
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
@@ -2056,16 +2056,21 @@
 
 1554409144 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\scene.h
 
-1561067647 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sceneformatparser.cpp
+1561144197 source:c:\users\thom\documents\projets\c++\conradgameengine\conrad\src\sceneformatparser.cpp
 	"SceneFormatParser.h"
 
-1558046485 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sceneformatparser.h
+1561142253 c:\users\thom\documents\projets\c++\conradgameengine\conrad\include\sceneformatparser.h
 	<fstream>
 	<algorithm>
 	<vector>
 	"StaticMesh.h"
-	"AbstractLight.h"
+	"PointLight.h"
+	"SunLight.h"
+	"SpotLight.h"
 	"AbstractMaterial.h"
 	<string>
 	<map>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
 

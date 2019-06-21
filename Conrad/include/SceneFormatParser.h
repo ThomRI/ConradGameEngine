@@ -5,16 +5,31 @@
 #include <algorithm>
 #include <vector>
 #include "StaticMesh.h"
-#include "AbstractLight.h"
+
+#include "PointLight.h"
+#include "SunLight.h"
+#include "SpotLight.h"
+
+
 #include "AbstractMaterial.h"
 #include <string>
 #include <map>
 //#include "scope.h"
 
+ /* GLM */
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 /* Object codes */
 #define MESH_OBJECT_CODE    0
 #define MATERIAL_OBJECT_CODE 1
+
 #define LIGHT_OBJECT_CODE   2
+    #define LIGHT_POINT_CODE 0
+    #define LIGHT_SUN_CODE 1
+    #define LIGHT_SPOT_CODE 2
+
 #define CAMERA_OBJECT_CODE  3
 
 #define VEC_ARRAY_OBJECT_CODE   255
@@ -65,7 +80,7 @@ class SceneFormatParser
 
         StaticMesh *parseMesh(Object meshObject); /* IMPORTANT : MUST COPY THE DATA FROM THE DATA_POINTER (NOT JUST FORWARD THE POINTER), IT WILL BE DELETED RIGHT AFTER !!! */
         AbstractMaterial *parseMaterial(Object materialObject); /* SAME */
-        //AbstractLight *parseLight(Object lightObject); /* SAME */
+        AbstractLight *parseLight(Object lightObject); /* SAME */
 
     private:
         std::ifstream m_file;

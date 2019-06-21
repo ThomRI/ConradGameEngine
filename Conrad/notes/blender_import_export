@@ -14,7 +14,7 @@ ObjectCode values definition :
 	0: mesh [MESH_OBJECT_CODE]
 	1: material [MATERIAL_OBJECT_CODE]
 	2: light [LIGHT_OBJECT_CODE]
-	2: camera (not used for now, except for default camera values like starting point, eye, and speeds)
+	3: camera (not used for now, except for default camera values like starting point, eye, and speeds)
 -> Type objects
 	255: Vector array [VEC_ARRAY_OBJECT]
 	254: Vector [VEC_OBJECT]
@@ -73,4 +73,16 @@ ObjectCode values definition :
 	}
 
 -> Lights
-	
+	[ObjectCode = LIGHT_OBJECT_CODE][Data size]
+	(Total mesh datas :) {
+		char: light type (0: point ; 1: sun ; 2: spot)
+		Note that for now, types are differentiated from each others by the name of the scene object !
+		If it contains "Sun", "Spot", or "Point", which does by default from blender.
+
+		[VEC_OBJECT] (dimension 3) Position (even for suns, won't be processed)
+		[VEC_OBJECT] (dimension 4) Color (dimension 4 for alpha)
+		[VEC_OBJECT] (dimension 3) Direction
+		float: intensity
+
+		bool: cast shadow
+	}

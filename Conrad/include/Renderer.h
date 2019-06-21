@@ -49,6 +49,8 @@ class Renderer
 
         Shader *getShader();
 
+        void clear();
+
     protected:
 
     private:

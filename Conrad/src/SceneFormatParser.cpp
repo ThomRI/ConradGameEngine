@@ -1,6 +1,7 @@
 #include "SceneFormatParser.h"
 
 using namespace std;
+using namespace glm;
 
 SceneFormatParser::SceneFormatParser()
 {
@@ -61,7 +62,8 @@ bool SceneFormatParser::parse()
 
             case LIGHT_OBJECT_CODE:
             {
-                //m_lights->push_back(parseLight(object_buffer));
+                m_lights.push_back(parseLight(object_buffer));
+                cout << "Found light" << endl;
                 break;
             }
 
@@ -225,12 +227,68 @@ StaticMesh *SceneFormatParser::parseMesh(Object meshObject)
     return mesh;
 }
 
-/*
-AbstractLight *SceneFromParser::parseLight(Object lightObject)
+AbstractLight *SceneFormatParser::parseLight(Object lightObject)
 {
+    char light_type;
+    lightObject.data_pointer = extract(lightObject.data_pointer, light_type);
 
+    float *vec3_buffer;
+    int dimension;
+
+    /* Position */
+    lightObject.data_pointer = extractVector(lightObject.data_pointer, dimension, vec3_buffer);
+    vec3 position(vec3_buffer[0], vec3_buffer[1], vec3_buffer[2]);
+    cout << vec3_buffer[0] << " " << vec3_buffer[1] << " " << vec3_buffer[2] << endl;
+
+    /* Color */
+    lightObject.data_pointer = extractVector(lightObject.data_pointer, dimension, vec3_buffer);
+    vec3 color(vec3_buffer[0], vec3_buffer[1], vec3_buffer[2]);
+
+    /* Direction */
+    lightObject.data_pointer = extractVector(lightObject.data_pointer, dimension, vec3_buffer);
+    vec3 direction(vec3_buffer[0], vec3_buffer[1], vec3_buffer[2]);
+    cout << vec3_buffer[0] << " " << vec3_buffer[1] << " " << vec3_buffer[2] << endl;
+
+    /* Maximum angle */
+    float intensity;
+    lightObject.data_pointer = extract(lightObject.data_pointer, intensity);
+
+    /* Cast Shadow */
+    bool castShadow;
+    lightObject.data_pointer = extract(lightObject.data_pointer, castShadow);
+    cout << "Cast shadow : " << castShadow << endl;
+
+    switch(light_type)
+    {
+        case LIGHT_POINT_CODE:
+        {
+            cout << "Type : point" << endl;
+            PointLight *light = new PointLight(position, color, intensity, castShadow);
+            return light;
+
+            break;
+        }
+
+        case LIGHT_SUN_CODE:
+        {
+            cout << "Type : sun" << endl;
+            SunLight *light = new SunLight(position, direction, color, intensity, castShadow);
+            return light;
+
+            break;
+        }
+
+        case LIGHT_SPOT_CODE:
+        {
+            cout << "Type : spot" << endl;
+            SpotLight *light = new SpotLight(position, color, direction, 45, 60, intensity, castShadow, 0.08, 0.08, 100.0);
+            return light;
+
+            break;
+        }
+
+    }
 }
-*/
 
 vector<StaticMesh *> *SceneFormatParser::getMeshes()
 {

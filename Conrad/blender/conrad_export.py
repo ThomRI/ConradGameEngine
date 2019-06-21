@@ -7,6 +7,7 @@ import bmesh
 import os
 import struct
 import sys
+from mathutils import Vector
 
 OBJTYPE_STATIC = 0
 OBJTYPE_DYNAMIC = 1
@@ -14,7 +15,12 @@ OBJTYPE_STREAM = 2
 
 MESH_OBJECT_CODE = 0
 MATERIAL_OBJECT_CODE = 1
+
 LIGHT_OBJECT_CODE = 2
+LIGHT_POINT_CODE = 0
+LIGHT_SUN_CODE = 1
+LIGHT_SPOT_CODE = 2
+
 CAMERA_OBJECT_CODE = 3
 
 VEC_ARRAY_OBJECT_CODE = 255
@@ -35,6 +41,11 @@ class ConradExporter:
     def __init__(self, filetarget):
         self.filetarget = filetarget
         self.file = open(filetarget, 'wb') # write in bytes
+        
+    def writeBool(self, value):
+        self.file.write(bytes([value]))
+        
+        return 1
 
     def writeInt(self, value): # 4 bytes written left to right
         l = list(struct.unpack('4B', struct.pack('I', value)))
@@ -108,6 +119,43 @@ class ConradExporter:
         
         return self.writeString(image.filepath_from_user()) # Writing the path instead for now
     
+    def writeLight(self, light):
+        print("Writing light", light.name_full)
+        totalSize = 0
+        
+        node = light.data.node_tree.nodes['Emission']    
+        
+        self.writeChar(LIGHT_OBJECT_CODE)
+        self.writeInt(0) # Total size
+        
+        if("Sun" in light.name_full):
+            totalSize += self.writeChar(LIGHT_SUN_CODE)        
+        elif("Point" in light.name_full):
+            totalSize += self.writeChar(LIGHT_POINT_CODE)
+        elif("Spot" in light.name_full):
+            totalSize += self.writeChar(LIGHT_SPOT_CODE)
+        
+        totalSize += self.writeVec(light.location)
+        totalSize += self.writeVec([node.inputs['Color'].default_value[i] for i in range(3)])
+
+        up = Vector((0.0, 0.0, -1.0, 0.0))
+        direction = (light.matrix_local @ up)
+        direction.normalize()
+        
+        totalSize += self.writeVec([direction[i] for i in range(3)])
+        
+        intensity = node.inputs['Strength'].default_value
+        totalSize += self.writeFloat(intensity)
+        
+        castShadow = 0 #For now
+        totalSize += self.writeBool(castShadow)
+        
+        # Writing data size
+        self.file.seek(-(totalSize+4), 1)
+        self.writeInt(totalSize)
+        self.file.seek(0, 2) # File end
+        return totalSize
+    
     def writeMaterial(self, material): # 1 byte of meta
         print("Writing material:", material.name_full)
         
@@ -132,7 +180,7 @@ class ConradExporter:
         totalSize += self.writeFloat(specular_intensity)
         totalSize += self.writeVec(specular_color)
         totalSize += self.writeVec(emit_color)
-        totalSize += self.writeFloat(pow(2, 8*roughness))
+        totalSize += self.writeInt(int(pow(2, 8*roughness)))
         
         # Texture
         try:
@@ -154,7 +202,7 @@ class ConradExporter:
         self.file.seek(0, 2) # File end
         return totalSize
         
-    def writeObject(self, object, type = OBJTYPE_STATIC):
+    def writeMesh(self, object, type = OBJTYPE_STATIC):
         totalSize = 0
         
         self.writeChar(MESH_OBJECT_CODE)        
@@ -206,9 +254,6 @@ class ConradExporter:
         
         print("Total size for mesh :", totalSize)
         return totalSize
-    
-    def writeLight(self, light):
-        self.writeChar(LIGHT_OBJECT_CODE)
             
     def close(self):
         self.file.close()
@@ -237,24 +282,16 @@ def export(filepath):
         if object.users == 0: # Deleted object
             continue
         
-        size = ex.writeObject(object)
+        if object.type == 'MESH':
+            size = ex.writeMesh(object)
+        
+        elif object.type == 'LIGHT':
+            size = ex.writeLight(object)
+        
         if size < 0:
             return (False, 0)
                 
         totalSize += size
-    
-    # Writing lights
-    '''
-    for light in bpy.data.lights:
-        if light.users == 0: # Deleted light
-            continue
-        
-        size = ex.writeLight(light)
-        if size < 0:
-            return (False, 0)
-        
-        totalSize += size
-    '''
     
     ex.close()
         
