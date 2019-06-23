@@ -272,6 +272,9 @@ def export(filepath):
 
     # Writing materials (must be done before meshes)
     for material in bpy.data.materials:
+        if material.users == 0:
+            continue
+        
         size = ex.writeMaterial(material)
         if size < 0:
             return (False, 0)

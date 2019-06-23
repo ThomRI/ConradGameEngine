@@ -58,6 +58,7 @@ class AbstractCamera
         glm::vec3 getUpVector();
         glm::mat4 &get_lookat();
         glm::vec3 getPos();
+        glm::vec3 getOrientation();
 
     protected:
         void update(); // updates the lookAt matrix

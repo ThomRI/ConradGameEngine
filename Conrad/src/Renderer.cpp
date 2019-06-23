@@ -7,7 +7,7 @@ Renderer::Renderer(float viewport_width, float viewport_height) :
     m_viewport_width(viewport_width), m_viewport_height(viewport_height)
 {
     m_perspective   = perspective(70.0, 16.0/9, 0.001, 100.0);
-    m_ortho         = ortho(-30.0, 30.0, -30.0, 30.0, 0.1, 100.0);
+    m_ortho         = ortho(-50.0, 50.0, -50.0, 50.0, 0.0, 50.0);
 
     m_camera = new AbstractCamera;
     // Z UP Y FORWARD
@@ -59,6 +59,12 @@ void Renderer::setDepthShader(Shader shader)
 
 void Renderer::render()
 {
+    /* Updating shadow maps */
+    for(int i = 0;i < m_lights.size();i++) {
+        m_lights[i]->setDirection(m_lights[i]->getDirection() + vec3(-0.001, 0.0001, 0.0));
+        generateShadowMap(m_lights[i]);
+    }
+
     m_shader.bind();
 
     /* Camera */
@@ -116,7 +122,7 @@ void Renderer::generateShadowMap(AbstractLight *source)
     source->set_world(source_world);
 
     /* Rendering */
-    glCullFace(GL_FRONT);
+    //glCullFace(GL_FRONT);
     m_depthShader.bind();
     glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "world"), 1, GL_FALSE, value_ptr(source_world));
 

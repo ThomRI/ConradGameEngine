@@ -40,7 +40,7 @@ class SunLight : public AbstractLight
     protected:
 
     private:
-        glm::vec3 m_direction;
+
 };
 
 #endif // SUNLIGHT_H

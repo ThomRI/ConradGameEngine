@@ -3,7 +3,7 @@
 using namespace glm;
 
 PointLight::PointLight(vec3 position, vec3 color, float intensity, bool castShadow, float linearAttenuation, float minIntensity, float maxDistance) :
-    AbstractLight(position, color, intensity, castShadow, linearAttenuation, (intensity / (minIntensity * maxDistance * maxDistance)))
+    AbstractLight(position, color, vec3(0.0), intensity, castShadow, linearAttenuation, (intensity / (minIntensity * maxDistance * maxDistance)))
 {
     //ctor
 }

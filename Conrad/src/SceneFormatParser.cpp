@@ -252,6 +252,7 @@ AbstractLight *SceneFormatParser::parseLight(Object lightObject)
     /* Maximum angle */
     float intensity;
     lightObject.data_pointer = extract(lightObject.data_pointer, intensity);
+    cout << "Intensity : " << intensity << endl;
 
     /* Cast Shadow */
     bool castShadow;
@@ -281,7 +282,7 @@ AbstractLight *SceneFormatParser::parseLight(Object lightObject)
         case LIGHT_SPOT_CODE:
         {
             cout << "Type : spot" << endl;
-            SpotLight *light = new SpotLight(position, color, direction, 45, 60, intensity, castShadow, 0.08, 0.08, 100.0);
+            SpotLight *light = new SpotLight(position, color, direction, 45, 60, intensity, castShadow, 0.08, 0.08, 1000.0);
             return light;
 
             break;

@@ -33,7 +33,6 @@ class SpotLight : public AbstractLight
 
     private:
         /* Cone */
-        glm::vec3 m_direction;
         float m_coneAngle, m_spotExponent;
 };
 

@@ -3,9 +3,9 @@
 using namespace glm;
 
 SpotLight::SpotLight(vec3 position, vec3 color, vec3 direction, float coneAngle, float spotExponent, float intensity, bool castShadow, float linearAttenuation, float minIntensity, float maxDistance) :
-    AbstractLight(position, color, intensity, castShadow, linearAttenuation, (intensity / (minIntensity * maxDistance * maxDistance))), m_direction(direction), m_coneAngle(coneAngle), m_spotExponent(spotExponent)
+    AbstractLight(position, color, direction, intensity, castShadow, linearAttenuation, (intensity / (minIntensity * maxDistance * maxDistance))), m_coneAngle(coneAngle), m_spotExponent(spotExponent)
 {
-    //ctor
+
 }
 
 void SpotLight::sendUniforms(const Shader &shader, size_t index)

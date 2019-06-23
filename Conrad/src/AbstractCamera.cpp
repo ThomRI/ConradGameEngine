@@ -128,6 +128,11 @@ vec3 AbstractCamera::getPos()
     return m_position;
 }
 
+vec3 AbstractCamera::getOrientation()
+{
+    return m_orientation;
+}
+
 AbstractCamera::~AbstractCamera()
 {
     //dtor

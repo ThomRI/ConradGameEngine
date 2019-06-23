@@ -47,6 +47,8 @@ bool Application::init()
     /* OpenGL settings */
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
     /* Textures (enables alpha channel) */
     glEnable(GL_BLEND);

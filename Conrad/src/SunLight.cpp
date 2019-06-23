@@ -3,9 +3,9 @@
 using namespace glm;
 
 SunLight::SunLight(vec3 position, vec3 direction, vec3 color, float intensity, bool castShadow) :
-    AbstractLight(position, color, intensity, castShadow), m_direction(direction)
+    AbstractLight(position, color, direction, intensity, castShadow)
 {
-    //ctor
+
 }
 
 void SunLight::sendUniforms(const Shader &shader, size_t index)

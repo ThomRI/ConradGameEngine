@@ -51,7 +51,7 @@ typedef unsigned int light_type;
 class AbstractLight
 {
     public:
-        AbstractLight(glm::vec3 position, glm::vec3 color, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 0.1, float quadraticAttenuation = 0.0);
+        AbstractLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction, float intensity = 1.0, bool castShadow = false, float linearAttenuation = 0.1, float quadraticAttenuation = 0.0);
         virtual ~AbstractLight();
 
         virtual void sendUniforms(const Shader &shader, size_t index) = 0; // Virtual pure
@@ -59,9 +59,12 @@ class AbstractLight
 
         /* Setters */
         void set_world(glm::mat4 world);
+        void setPosition(glm::vec3 position);
+        void setDirection(glm::vec3 direction);
 
         /* Getters */
         glm::vec3 getPosition();
+        glm::vec3 getDirection();
         DepthBuffer &getDepthBuffer();
 
         glm::mat4 get_lookat();
@@ -76,6 +79,7 @@ class AbstractLight
         float m_intensity;
 
         glm::vec3 m_position;
+        glm::vec3 m_direction;
         glm::mat4 m_lookAt = glm::mat4(1.0);
         glm::mat4 m_world = glm::mat4(1.0);
 

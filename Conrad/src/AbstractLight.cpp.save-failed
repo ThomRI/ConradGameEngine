@@ -3,8 +3,8 @@
 using namespace glm;
 using namespace std;
 
-AbstractLight::AbstractLight(vec3 position, vec3 color, float intensity, bool castShadow, float linearAttenuation, float quadraticAttenuation) :
-    m_position(position), m_intensity(intensity), m_castShadow(castShadow), m_linearAttenuation(linearAttenuation), m_quadraticAttenuation(quadraticAttenuation)
+AbstractLight::AbstractLight(vec3 position, vec3 direction, vec3 color, float intensity, bool castShadow, float linearAttenuation, float quadraticAttenuation) :
+    m_position(position), m_direction(direction), m_intensity(intensity), m_castShadow(castShadow), m_linearAttenuation(linearAttenuation), m_quadraticAttenuation(quadraticAttenuation)
 {
     m_color.r = color[0];
     m_color.g = color[1];
@@ -54,6 +54,11 @@ vec3 AbstractLight::getPosition()
     return m_position;
 }
 
+vec3 AbstractLight::getDirection()
+{
+    return m_direction;
+}
+
 DepthBuffer &AbstractLight::getDepthBuffer()
 {
     return m_depthBuffer;
@@ -62,6 +67,16 @@ DepthBuffer &AbstractLight::getDepthBuffer()
 mat4 AbstractLight::get_lookat()
 {
     return m_lookAt;
+}
+
+void AbstractLight::setPosition(vec3 position)
+{
+    m_position = position;
+}
+
+void AbstractLight::setDirection(vec3 direction)
+{
+    m_direction = direction;
 }
 
 mat4 &AbstractLight::get_world()
