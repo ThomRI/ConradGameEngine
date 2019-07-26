@@ -56,21 +56,23 @@
 			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 			<Add option="-DWIN32" />
+			<Add option="-DGLEW_STATIC" />
 			<Add directory="$(#sdl2.INCLUDE)" />
 			<Add directory="$(#glm.INCLUDE)" />
 			<Add directory="$(#glew.INCLUDE)" />
 		</Compiler>
 		<Linker>
+			<Add library="libglew32" />
 			<Add library="mingw32" />
 			<Add library="SDL2main" />
 			<Add library="SDL2" />
 			<Add library="SDL2_image" />
 			<Add library="opengl32" />
-			<Add library="glew32" />
 			<Add directory="$(#sdl2.LIB)" />
 			<Add directory="$(#glew.LIB)" />
 		</Linker>
 		<Unit filename="include/AbstractCamera.h" />
+		<Unit filename="include/AbstractGUIObject.h" />
 		<Unit filename="include/AbstractLight.h" />
 		<Unit filename="include/AbstractMaterial.h" />
 		<Unit filename="include/AbstractMesh.h" />
@@ -78,6 +80,7 @@
 		<Unit filename="include/Application.h" />
 		<Unit filename="include/DepthBuffer.h" />
 		<Unit filename="include/FreeCamera.h" />
+		<Unit filename="include/GUIRenderer.h" />
 		<Unit filename="include/InputManager.h" />
 		<Unit filename="include/OBJ_Static_Handler.h" />
 		<Unit filename="include/PointLight.h" />
@@ -95,6 +98,7 @@
 		<Unit filename="include/utilities.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/AbstractCamera.cpp" />
+		<Unit filename="src/AbstractGUIObject.cpp" />
 		<Unit filename="src/AbstractLight.cpp" />
 		<Unit filename="src/AbstractMaterial.cpp" />
 		<Unit filename="src/AbstractMesh.cpp" />
@@ -102,6 +106,7 @@
 		<Unit filename="src/Application.cpp" />
 		<Unit filename="src/DepthBuffer.cpp" />
 		<Unit filename="src/FreeCamera.cpp" />
+		<Unit filename="src/GUIRenderer.cpp" />
 		<Unit filename="src/InputManager.cpp" />
 		<Unit filename="src/OBJ_Static_Handler.cpp" />
 		<Unit filename="src/PointLight.cpp" />

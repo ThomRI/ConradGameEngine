@@ -128,13 +128,13 @@ void AbstractMesh::load()
         /* Setting up VAO */
        glBindVertexArray(m_vaoID);
 
-        /* GPU sided code from here (stored in the VAO) */
+        /* Binding VBO with the VAO */
             glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
                 glVertexAttribPointer(VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));                                                   // VERTICES
-                glEnableVertexAttribArray(VERTEX_BUFFER); // First enabled is VERTEX_BUFFER for the shader
+                glEnableVertexAttribArray(VERTEX_BUFFER); // Binding vertices (stored in the VBO) with the VAO. VERTEX_BUFFER = 0 : first accessed vec3 are vertices in the shader.
 
                 glVertexAttribPointer(COLOR_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize));                                       // COLORS
-                glEnableVertexAttribArray(COLOR_BUFFER); // Second enabled is COLOR_BUFFER for the shader
+                glEnableVertexAttribArray(COLOR_BUFFER); // Second accessed is COLOR_BUFFER in the shader, etc...
 
                 glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize));                          // TEXTURE COORDS
                 glEnableVertexAttribArray(TEX_BUFFER);
@@ -142,7 +142,6 @@ void AbstractMesh::load()
                 glVertexAttribPointer(VERTEX_NORMAL_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(m_verticesSize + m_colorsSize + m_texSize));    // NORMAL OF EACH VERTEX
                 glEnableVertexAttribArray(VERTEX_NORMAL_BUFFER);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
-        /* End of GPU sided code */
 
         glBindVertexArray(0);
 

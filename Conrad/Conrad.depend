@@ -2078,3 +2078,840 @@
 	<glm/gtx/transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
+1563031615 source:d:\github\conradgameengine\conrad\main.cpp
+	<iostream>
+	"Application.h"
+	"Shader.h"
+	"TestCube.h"
+	"TestTriangle.h"
+	"SceneFormatParser.h"
+	"scope.h"
+	"FreeCamera.h"
+	"PointLight.h"
+	"SpotLight.h"
+	"SunLight.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\application.h
+	<SDL2/SDL.h>
+	<chrono>
+	<thread>
+	"Renderer.h"
+	"InputManager.h"
+	"key_mapping.h"
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\begin_code.h
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\close_code.h
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<intrin.h>
+	<libkern/OSAtomic.h>
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_pixels.h
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028764 d:\libs\sdl-2.0\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028765 d:\libs\sdl-2.0\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\renderer.h
+	<vector>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	"utilities.hpp"
+	"Shader.h"
+	"AbstractMesh.h"
+	"AbstractCamera.h"
+	"AbstractLight.h"
+
+1563028753 d:\libs\glm\include\glm\glm.hpp
+	"core/_fixes.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cstdio>
+	"core/setup.hpp"
+	"./core/_detail.hpp"
+	"./core/_vectorize.hpp"
+	"./core/type.hpp"
+	"./core/func_trigonometric.hpp"
+	"./core/func_exponential.hpp"
+	"./core/func_common.hpp"
+	"./core/func_packing.hpp"
+	"./core/func_geometric.hpp"
+	"./core/func_matrix.hpp"
+	"./core/func_vector_relational.hpp"
+	"./core/func_integer.hpp"
+	"./core/func_noise.hpp"
+	"./core/_swizzle.hpp"
+
+1563028755 d:\libs\glm\include\glm\core\_fixes.hpp
+	<cmath>
+
+1563028755 d:\libs\glm\include\glm\core\setup.hpp
+	<intrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<smmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1563028756 d:\libs\glm\include\glm\core\_detail.hpp
+	"setup.hpp"
+	<cassert>
+	<cstdint>
+
+1563028754 d:\libs\glm\include\glm\core\_vectorize.hpp
+
+1563028757 d:\libs\glm\include\glm\core\type.hpp
+	"type_half.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_gentype.hpp"
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat2x2.hpp"
+	"type_mat2x3.hpp"
+	"type_mat2x4.hpp"
+	"type_mat3x2.hpp"
+	"type_mat3x3.hpp"
+	"type_mat3x4.hpp"
+	"type_mat4x2.hpp"
+	"type_mat4x3.hpp"
+	"type_mat4x4.hpp"
+
+1563028756 d:\libs\glm\include\glm\core\type_half.hpp
+	<cstdlib>
+	"type_half.inl"
+
+1563028754 d:\libs\glm\include\glm\core\type_half.inl
+	"_detail.hpp"
+
+1563028755 d:\libs\glm\include\glm\core\type_float.hpp
+	"type_half.hpp"
+	"setup.hpp"
+
+1563028756 d:\libs\glm\include\glm\core\type_int.hpp
+	"setup.hpp"
+	"_detail.hpp"
+
+1563028756 d:\libs\glm\include\glm\core\type_gentype.hpp
+	"type_size.hpp"
+
+1563028754 d:\libs\glm\include\glm\core\type_size.hpp
+	<cstdlib>
+
+1563028754 d:\libs\glm\include\glm\core\type_vec1.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec1.inl"
+
+1563028757 d:\libs\glm\include\glm\core\type_vec.hpp
+	"type_gentype.hpp"
+
+1563028754 d:\libs\glm\include\glm\core\_swizzle.hpp
+	"_swizzle_func.hpp"
+
+1563028755 d:\libs\glm\include\glm\core\_swizzle_func.hpp
+
+1563028754 d:\libs\glm\include\glm\core\type_vec1.inl
+
+1563028755 d:\libs\glm\include\glm\core\type_vec2.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec2.inl"
+
+1563028756 d:\libs\glm\include\glm\core\type_vec2.inl
+
+1563028757 d:\libs\glm\include\glm\core\type_vec3.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec3.inl"
+
+1563028754 d:\libs\glm\include\glm\core\type_vec3.inl
+
+1563028754 d:\libs\glm\include\glm\core\type_vec4.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec4.inl"
+
+1563028755 d:\libs\glm\include\glm\core\type_vec4.inl
+
+1563028756 d:\libs\glm\include\glm\core\type_mat2x2.hpp
+	"type_mat.hpp"
+	"type_mat2x2.inl"
+
+1563028756 d:\libs\glm\include\glm\core\type_mat.hpp
+	"type_gentype.hpp"
+
+1563028754 d:\libs\glm\include\glm\core\type_mat2x2.inl
+
+1563028756 d:\libs\glm\include\glm\core\type_mat2x3.hpp
+	"type_mat.hpp"
+	"type_mat2x3.inl"
+
+1563028757 d:\libs\glm\include\glm\core\type_mat2x3.inl
+
+1563028754 d:\libs\glm\include\glm\core\type_mat2x4.hpp
+	"type_mat.hpp"
+	"type_mat2x4.inl"
+
+1563028756 d:\libs\glm\include\glm\core\type_mat2x4.inl
+
+1563028757 d:\libs\glm\include\glm\core\type_mat3x2.hpp
+	"type_mat.hpp"
+	"type_mat3x2.inl"
+
+1563028756 d:\libs\glm\include\glm\core\type_mat3x2.inl
+
+1563028757 d:\libs\glm\include\glm\core\type_mat3x3.hpp
+	"type_mat.hpp"
+	"type_mat3x3.inl"
+
+1563028755 d:\libs\glm\include\glm\core\type_mat3x3.inl
+
+1563028754 d:\libs\glm\include\glm\core\type_mat3x4.hpp
+	"type_mat.hpp"
+	"type_mat3x4.inl"
+
+1563028757 d:\libs\glm\include\glm\core\type_mat3x4.inl
+
+1563028756 d:\libs\glm\include\glm\core\type_mat4x2.hpp
+	"type_mat.hpp"
+	"type_mat4x2.inl"
+
+1563028756 d:\libs\glm\include\glm\core\type_mat4x2.inl
+
+1563028756 d:\libs\glm\include\glm\core\type_mat4x3.hpp
+	"type_mat.hpp"
+	"type_mat4x3.inl"
+
+1563028756 d:\libs\glm\include\glm\core\type_mat4x3.inl
+
+1563028754 d:\libs\glm\include\glm\core\type_mat4x4.hpp
+	"type_mat.hpp"
+	"type_mat4x4.inl"
+
+1563028755 d:\libs\glm\include\glm\core\type_mat4x4.inl
+
+1563028756 d:\libs\glm\include\glm\core\func_trigonometric.hpp
+	"func_trigonometric.inl"
+
+1563028754 d:\libs\glm\include\glm\core\func_trigonometric.inl
+
+1563028757 d:\libs\glm\include\glm\core\func_exponential.hpp
+	"func_exponential.inl"
+
+1563028755 d:\libs\glm\include\glm\core\func_exponential.inl
+
+1563028755 d:\libs\glm\include\glm\core\func_common.hpp
+	"_fixes.hpp"
+	"func_common.inl"
+
+1563028756 d:\libs\glm\include\glm\core\func_common.inl
+
+1563028757 d:\libs\glm\include\glm\core\func_packing.hpp
+	"func_packing.inl"
+
+1563028756 d:\libs\glm\include\glm\core\func_packing.inl
+
+1563028757 d:\libs\glm\include\glm\core\func_geometric.hpp
+	"func_geometric.inl"
+
+1563028754 d:\libs\glm\include\glm\core\func_geometric.inl
+
+1563028754 d:\libs\glm\include\glm\core\func_matrix.hpp
+	"func_matrix.inl"
+
+1563028754 d:\libs\glm\include\glm\core\func_matrix.inl
+
+1563028754 d:\libs\glm\include\glm\core\func_vector_relational.hpp
+	"_detail.hpp"
+	"func_vector_relational.inl"
+
+1563028755 d:\libs\glm\include\glm\core\func_vector_relational.inl
+
+1563028755 d:\libs\glm\include\glm\core\func_integer.hpp
+	"func_integer.inl"
+
+1563028755 d:\libs\glm\include\glm\core\func_integer.inl
+	<intrin.h>
+
+1563028754 d:\libs\glm\include\glm\core\func_noise.hpp
+	"func_noise.inl"
+
+1563028755 d:\libs\glm\include\glm\core\func_noise.inl
+
+1563028760 d:\libs\glm\include\glm\gtx\transform.hpp
+	"../glm.hpp"
+	"../gtc/matrix_transform.hpp"
+	"transform.inl"
+
+1563028753 d:\libs\glm\include\glm\gtc\matrix_transform.hpp
+	"../glm.hpp"
+	"matrix_transform.inl"
+
+1563028753 d:\libs\glm\include\glm\gtc\matrix_transform.inl
+
+1563028761 d:\libs\glm\include\glm\gtx\transform.inl
+
+1563028753 d:\libs\glm\include\glm\gtc\type_ptr.hpp
+	"../glm.hpp"
+	"../gtc/half_float.hpp"
+	"../gtc/quaternion.hpp"
+	<cstring>
+	"type_ptr.inl"
+
+1563028753 d:\libs\glm\include\glm\gtc\half_float.hpp
+	"../glm.hpp"
+	"half_float.inl"
+
+1563028753 d:\libs\glm\include\glm\gtc\half_float.inl
+
+1563028753 d:\libs\glm\include\glm\gtc\quaternion.hpp
+	"../glm.hpp"
+	"../gtc/half_float.hpp"
+	"../gtc/constants.hpp"
+	"quaternion.inl"
+
+1563028753 d:\libs\glm\include\glm\gtc\constants.hpp
+	"../glm.hpp"
+	"../gtc/half_float.hpp"
+	"constants.inl"
+
+1563028753 d:\libs\glm\include\glm\gtc\constants.inl
+
+1563028753 d:\libs\glm\include\glm\gtc\quaternion.inl
+	<limits>
+
+1563028753 d:\libs\glm\include\glm\gtc\type_ptr.inl
+
+1563028314 d:\github\conradgameengine\conrad\include\utilities.hpp
+	<string>
+	<iostream>
+	<fstream>
+	<sstream>
+	<map>
+	<vector>
+	<tuple>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	"StaticMesh.h"
+	"AbstractMaterial.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\staticmesh.h
+	"AbstractMesh.h"
+	<iostream>
+
+1563028314 d:\github\conradgameengine\conrad\include\abstractmesh.h
+	"scope.h"
+	<iostream>
+	<algorithm>
+	"AbstractTexture.h"
+	"AbstractMaterial.h"
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1563028314 d:\github\conradgameengine\conrad\include\scope.h
+
+1563028314 d:\github\conradgameengine\conrad\include\abstracttexture.h
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+	"scope.h"
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<iostream>
+	<string>
+
+1563028918 d:\libs\glew-2.1.0\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<Availability.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1563028763 d:\libs\sdl-2.0\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\abstractmaterial.h
+	"scope.h"
+	"AbstractTexture.h"
+	<string>
+
+1563029871 d:\github\conradgameengine\conrad\include\shader.h
+	"scope.h"
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+	<fstream>
+	<iostream>
+	<string>
+
+1563028314 d:\github\conradgameengine\conrad\include\abstractcamera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<iostream>
+	"scope.h"
+	<cmath>
+
+1563028314 d:\github\conradgameengine\conrad\include\abstractlight.h
+	<string>
+	<string.h>
+	<sstream>
+	"scope.h"
+	"Shader.h"
+	<iostream>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+	"DepthBuffer.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\depthbuffer.h
+	<iostream>
+	"scope.h"
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1563028314 d:\github\conradgameengine\conrad\include\inputmanager.h
+	<SDL2/SDL.h>
+	<algorithm>
+
+1563028314 d:\github\conradgameengine\conrad\include\key_mapping.h
+
+1563028314 d:\github\conradgameengine\conrad\include\testcube.h
+	"StaticMesh.h"
+	<iostream>
+	<algorithm>
+
+1563028314 d:\github\conradgameengine\conrad\include\testtriangle.h
+	"StaticMesh.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\sceneformatparser.h
+	<fstream>
+	<algorithm>
+	<vector>
+	"StaticMesh.h"
+	"PointLight.h"
+	"SunLight.h"
+	"SpotLight.h"
+	"AbstractMaterial.h"
+	<string>
+	<map>
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1563028314 d:\github\conradgameengine\conrad\include\pointlight.h
+	"AbstractLight.h"
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1563028314 d:\github\conradgameengine\conrad\include\sunlight.h
+	"AbstractLight.h"
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1563028314 d:\github\conradgameengine\conrad\include\spotlight.h
+	"AbstractLight.h"
+	<iostream>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<OpenGL/gl3.h>
+	<GL3/gl3.h>
+
+1563028314 d:\github\conradgameengine\conrad\include\freecamera.h
+	"key_mapping.h"
+	"InputManager.h"
+	"AbstractCamera.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\abstractcamera.cpp
+	"AbstractCamera.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\abstractlight.cpp
+	"AbstractLight.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\abstractmaterial.cpp
+	"AbstractMaterial.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\abstractmesh.cpp
+	"AbstractMesh.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\abstracttexture.cpp
+	"AbstractTexture.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\application.cpp
+	"Application.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\depthbuffer.cpp
+	"DepthBuffer.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\freecamera.cpp
+	"FreeCamera.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\inputmanager.cpp
+	"InputManager.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\obj_static_handler.cpp
+	"OBJ_Static_Handler.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\obj_static_handler.h
+	<string>
+	<iostream>
+	<fstream>
+	<sstream>
+	<map>
+	<vector>
+	"scope.h"
+	"utilities.hpp"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\pointlight.cpp
+	"PointLight.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\renderer.cpp
+	"Renderer.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\scene.cpp
+	"Scene.h"
+
+1563028314 d:\github\conradgameengine\conrad\include\scene.h
+
+1563028314 source:d:\github\conradgameengine\conrad\src\sceneformatparser.cpp
+	"SceneFormatParser.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\shader.cpp
+	"Shader.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\spotlight.cpp
+	"SpotLight.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\staticmesh.cpp
+	"StaticMesh.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\sunlight.cpp
+	"SunLight.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\testcube.cpp
+	"TestCube.h"
+
+1563028314 source:d:\github\conradgameengine\conrad\src\testtriangle.cpp
+	"TestTriangle.h"
+

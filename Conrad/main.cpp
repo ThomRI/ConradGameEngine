@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
     Uint32 start = SDL_GetTicks();
 
-    SceneFormatParser parser("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene");
+    SceneFormatParser parser("D:/GitHub/ConradGameEngine/Conrad/blender/testfile.scene");
 
     cout << "Loaded in " << SDL_GetTicks() - start << " ms" << endl;
 

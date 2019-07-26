@@ -2,67 +2,82 @@
 
 using namespace std;
 
-AbstractTexture::AbstractTexture()
+AbstractTexture::AbstractTexture() :
+    m_filemode(false)
 {
-    //ctor
+
 }
 
 AbstractTexture::AbstractTexture(string filepath) :
-    m_filepath(filepath)
+    m_filepath(filepath), m_filemode(true)
 {
 
+}
+
+void AbstractTexture::setID(GLuint id)
+{
+    m_filemode = false; // Lost track of the file content link
+    m_id = id;
 }
 
 void AbstractTexture::setPath(string filepath)
 {
+    m_filemode = true;
     m_filepath = filepath;
 }
 
 bool AbstractTexture::load()
 {
-    SDL_Surface *source = IMG_Load(m_filepath.c_str());
-
-    if(source == 0) {
-        cout << "Error while loading texture (" << m_filepath << ") : " << SDL_GetError() << endl;
-        return false;
-    }
-    SDL_Surface *SDL_image = AbstractTexture::reverse_SDL_surface(source); // Need to reverse the image as OpenGL uses a different coords system for 2D textures.
-    SDL_FreeSurface(source);
+    GLvoid *data_ptr = 0; // Blank by default
 
     /* OpenGL texture generation */
     if(glIsTexture(m_id) == GL_TRUE) {
         glDeleteTextures(1, &m_id);
     } glGenTextures(1, &m_id); // Texture ID generation
 
-    /* Getting image format */
-        GLenum internalFormat(0), format(0);
-        if(SDL_image->format->BytesPerPixel == 3) {
-            internalFormat = GL_SRGB; // S for gamma correction canceling on the image (it's taken care of in the shader)
-            if(SDL_image->format->Rmask == 0xff) { // Red first in the mask
-                format = GL_RGB;
-            } else {
-                format = GL_BGR;
-            }
-        }
 
-        else if(SDL_image->format->BytesPerPixel == 4) {
-            internalFormat = GL_SRGB_ALPHA; // Not GL_RGBA for gamma correction canceling on the image (it's taken care of in the shader)
-            if(SDL_image->format->Rmask == 0xff) { // Red first
-                format = GL_RGBA;
-            } else {
-                format = GL_BGRA;
-            }
-        }
+    if(m_filemode) {
+        SDL_Surface *source = IMG_Load(m_filepath.c_str());
 
-        else { /* Format not recognized */
-            cout << "Error while loading texture (" << m_filepath << ") : format not recognized." << endl;
+        if(source == 0) {
+            cout << "Error while loading texture (" << m_filepath << ") : " << SDL_GetError() << endl;
             return false;
         }
+        SDL_Surface *SDL_image = AbstractTexture::reverse_SDL_surface(source); // Need to reverse the image as OpenGL uses a different coords system for 2D textures.
+        SDL_FreeSurface(source);
+
+        /* Getting image format */
+            GLenum internalFormat(0), format(0);
+            if(SDL_image->format->BytesPerPixel == 3) {
+                internalFormat = GL_SRGB; // S for gamma correction canceling on the image (it's taken care of in the shader)
+                if(SDL_image->format->Rmask == 0xff) { // Red first in the mask
+                    format = GL_RGB;
+                } else {
+                    format = GL_BGR;
+                }
+            }
+
+            else if(SDL_image->format->BytesPerPixel == 4) {
+                internalFormat = GL_SRGB_ALPHA; // Not GL_RGBA for gamma correction canceling on the image (it's taken care of in the shader)
+                if(SDL_image->format->Rmask == 0xff) { // Red first
+                    format = GL_RGBA;
+                } else {
+                    format = GL_BGRA;
+                }
+            }
+
+            else { /* Format not recognized */
+                cout << "Error while loading texture (" << m_filepath << ") : format not recognized." << endl;
+                return false;
+            }
+
+            data_ptr = (GLvoid *) SDL_image->pixels;
+    }
 
     /* Setting up texture */
     glBindTexture(GL_TEXTURE_2D, m_id);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, SDL_image->w, SDL_image->h, 0, format, GL_UNSIGNED_BYTE, SDL_image->pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, SDL_image->w, SDL_image->h, 0, format, GL_UNSIGNED_BYTE, data_ptr);
 
         // Filters
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -91,7 +106,7 @@ void AbstractTexture::bind()
     glBindTexture(GL_TEXTURE_2D, m_id);
 }
 
-void AbstractTexture::unbind() // Could be static
+void AbstractTexture::unbind() // Could be static (and inline)
 {
     glBindTexture(GL_TEXTURE_2D, 0);
 }

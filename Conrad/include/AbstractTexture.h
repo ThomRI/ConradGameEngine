@@ -29,12 +29,20 @@ class AbstractTexture
         virtual ~AbstractTexture();
 
         bool load();
+        inline void linkToFBO(GLuint fbo, int index = 0) {
+            /* index is the attachment index within the FBO */
+            glBindRenderbuffer(GL_RENDERBUFFER, fbo);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_id, 0);
+
+            // TODO : Unbind the FBO ? Warning, if used with a bind before, unbinding here could be unexpected
+        }
 
         /* OpenGL */
         void bind();
         void unbind();
 
         /* Setters */
+        void setID(GLuint id);
         void setPath(std::string filepath);
 
         /* Getters */
@@ -50,6 +58,7 @@ class AbstractTexture
         /* OpenGL */
         GLuint m_id = 0; // 0 is always unused
 
+        bool m_filemode = false;
         bool m_loaded = false;
 };
 
