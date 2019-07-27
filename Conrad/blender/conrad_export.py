@@ -230,7 +230,7 @@ class ConradExporter:
             normals_coord.append([c for c in v.normal])
             points_coord.append([component for component in transformed_v])
     
-        # Material
+        # Materialp
         material_name = object.data.materials[0].name_full
 
         # Texture
@@ -301,7 +301,7 @@ def export(filepath):
     return (True, totalSize) # Success
 
 
-success, totalSize = export("C:/Users/Thom/Documents/Projets/C++/ConradGameEngine/Conrad/blender/testfile.scene")
+success, totalSize = export("D:/GitHub/ConradGameEngine/Conrad/blender/testfile.scene")
 if success:
     print("Done exporting", totalSize/1000, "kB.")
 else:

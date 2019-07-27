@@ -38,6 +38,8 @@ void Shader::setGeometryPath(string geometryPath)
 
 bool Shader::load()
 {
+    cout << glIsShader(m_vertexID) << endl;
+    cout << "Loading shader" << endl;
     /* Deleting a potential former shader with same IDs */
     if(glIsShader(m_vertexID) == GL_TRUE) {
         glDeleteShader(m_vertexID);
@@ -71,6 +73,8 @@ bool Shader::load()
             return false;
         }
     }
+
+    cout << "Compiled correctly" << endl;
 
     /* Program Creation */
     m_programID = glCreateProgram();

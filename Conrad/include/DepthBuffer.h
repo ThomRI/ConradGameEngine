@@ -54,6 +54,7 @@ class DepthBuffer
         /* Getters */
         GLsizei getShadowMapWidth();
         GLsizei getShadowMapHeight();
+        GLuint getTextureID();
 
     protected:
 

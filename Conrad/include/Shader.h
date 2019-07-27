@@ -68,10 +68,10 @@ class Shader
         static bool compile(GLuint &id, GLenum type, std::string const path);
 
     private:
-        GLuint  m_vertexID,
-                m_fragmentID,
-                m_geometryID,
-                m_programID;
+        GLuint  m_vertexID      = 0,
+                m_fragmentID    = 0,
+                m_geometryID    = 0,
+                m_programID     = 0;
 
         std::string m_vertexPath,
                     m_fragmentPath,

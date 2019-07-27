@@ -26,16 +26,23 @@ void AbstractTexture::setPath(string filepath)
     m_filepath = filepath;
 }
 
+void AbstractTexture::setSize(GLsizei width, GLsizei height)
+{
+    m_width = width;
+    m_height = height;
+}
+
 bool AbstractTexture::load()
 {
     GLvoid *data_ptr = 0; // Blank by default
+    GLenum internalFormat(GL_SRGB_ALPHA), format(GL_RGBA);
 
     /* OpenGL texture generation */
     if(glIsTexture(m_id) == GL_TRUE) {
         glDeleteTextures(1, &m_id);
     } glGenTextures(1, &m_id); // Texture ID generation
 
-
+    SDL_Surface *SDL_image = 0; // Temporary pointer for freeing afterwards
     if(m_filemode) {
         SDL_Surface *source = IMG_Load(m_filepath.c_str());
 
@@ -43,11 +50,10 @@ bool AbstractTexture::load()
             cout << "Error while loading texture (" << m_filepath << ") : " << SDL_GetError() << endl;
             return false;
         }
-        SDL_Surface *SDL_image = AbstractTexture::reverse_SDL_surface(source); // Need to reverse the image as OpenGL uses a different coords system for 2D textures.
+        SDL_image = AbstractTexture::reverse_SDL_surface(source); // Need to reverse the image as OpenGL uses a different coords system for 2D textures.
         SDL_FreeSurface(source);
 
         /* Getting image format */
-            GLenum internalFormat(0), format(0);
             if(SDL_image->format->BytesPerPixel == 3) {
                 internalFormat = GL_SRGB; // S for gamma correction canceling on the image (it's taken care of in the shader)
                 if(SDL_image->format->Rmask == 0xff) { // Red first in the mask
@@ -71,13 +77,15 @@ bool AbstractTexture::load()
                 return false;
             }
 
+            m_width = SDL_image->w;
+            m_height = SDL_image->h;
             data_ptr = (GLvoid *) SDL_image->pixels;
     }
 
     /* Setting up texture */
     glBindTexture(GL_TEXTURE_2D, m_id);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, SDL_image->w, SDL_image->h, 0, format, GL_UNSIGNED_BYTE, data_ptr);
+        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, data_ptr);
 
         // Filters
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -85,7 +93,7 @@ bool AbstractTexture::load()
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    SDL_FreeSurface(SDL_image);
+    if(m_filemode) SDL_FreeSurface(SDL_image);
 
     m_loaded = true;
     return true;

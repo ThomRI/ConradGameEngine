@@ -5,6 +5,7 @@
 		<Option title="Conrad" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="GUI\;GUI\Sources\;GUI\Headers\;" />
 		<Option show_notes="0">
 			<notes>
 				<![CDATA[16/07/2018 15:54 | Implemented AbstractMesh yesterday. One VBO/VAO per mesh for now.
@@ -72,7 +73,9 @@
 			<Add directory="$(#glew.LIB)" />
 		</Linker>
 		<Unit filename="include/AbstractCamera.h" />
-		<Unit filename="include/AbstractGUIObject.h" />
+		<Unit filename="include/AbstractGUIObject.h">
+			<Option virtualFolder="GUI/Headers/" />
+		</Unit>
 		<Unit filename="include/AbstractLight.h" />
 		<Unit filename="include/AbstractMaterial.h" />
 		<Unit filename="include/AbstractMesh.h" />
@@ -80,7 +83,9 @@
 		<Unit filename="include/Application.h" />
 		<Unit filename="include/DepthBuffer.h" />
 		<Unit filename="include/FreeCamera.h" />
-		<Unit filename="include/GUIRenderer.h" />
+		<Unit filename="include/GUIRenderer.h">
+			<Option virtualFolder="GUI/Headers/" />
+		</Unit>
 		<Unit filename="include/InputManager.h" />
 		<Unit filename="include/OBJ_Static_Handler.h" />
 		<Unit filename="include/PointLight.h" />
@@ -88,6 +93,9 @@
 		<Unit filename="include/Scene.h" />
 		<Unit filename="include/SceneFormatParser.h" />
 		<Unit filename="include/Shader.h" />
+		<Unit filename="include/SimpleTextureGUI.h">
+			<Option virtualFolder="GUI/Headers/" />
+		</Unit>
 		<Unit filename="include/SpotLight.h" />
 		<Unit filename="include/StaticMesh.h" />
 		<Unit filename="include/SunLight.h" />
@@ -98,7 +106,9 @@
 		<Unit filename="include/utilities.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/AbstractCamera.cpp" />
-		<Unit filename="src/AbstractGUIObject.cpp" />
+		<Unit filename="src/AbstractGUIObject.cpp">
+			<Option virtualFolder="GUI/Sources/" />
+		</Unit>
 		<Unit filename="src/AbstractLight.cpp" />
 		<Unit filename="src/AbstractMaterial.cpp" />
 		<Unit filename="src/AbstractMesh.cpp" />
@@ -106,7 +116,9 @@
 		<Unit filename="src/Application.cpp" />
 		<Unit filename="src/DepthBuffer.cpp" />
 		<Unit filename="src/FreeCamera.cpp" />
-		<Unit filename="src/GUIRenderer.cpp" />
+		<Unit filename="src/GUIRenderer.cpp">
+			<Option virtualFolder="GUI/Sources/" />
+		</Unit>
 		<Unit filename="src/InputManager.cpp" />
 		<Unit filename="src/OBJ_Static_Handler.cpp" />
 		<Unit filename="src/PointLight.cpp" />
@@ -114,6 +126,9 @@
 		<Unit filename="src/Scene.cpp" />
 		<Unit filename="src/SceneFormatParser.cpp" />
 		<Unit filename="src/Shader.cpp" />
+		<Unit filename="src/SimpleTextureGUI.cpp">
+			<Option virtualFolder="GUI/Sources/" />
+		</Unit>
 		<Unit filename="src/SpotLight.cpp" />
 		<Unit filename="src/StaticMesh.cpp" />
 		<Unit filename="src/SunLight.cpp" />

@@ -9,14 +9,17 @@
 class AbstractGUIObject
 {
     public:
+        AbstractGUIObject();
         AbstractGUIObject(float *vertices, float *texCoords, int coordsCount); // coordsCount is the number of 2D coordinates (not component!)
         virtual ~AbstractGUIObject();
 
-        virtual void draw();
+        virtual void draw() = 0; // Virtual pure
+
+        void setData(float *vertices, float *texCoors, int coordsCount);
 
         void setPosition(float x, float y);
         void setPosition(glm::vec2 position);
-        glm:vec2 getPosition();
+        glm::vec2 getPosition();
 
         float *getVertices();
         float *getTexCoords();

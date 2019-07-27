@@ -94,6 +94,11 @@ GLsizei DepthBuffer::getShadowMapHeight()
     return m_shadowMapHeight;
 }
 
+GLuint DepthBuffer::getTextureID()
+{
+    return m_depthMapTextureID;
+}
+
 DepthBuffer::~DepthBuffer()
 {
     //dtor

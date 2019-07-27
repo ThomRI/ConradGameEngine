@@ -1,5 +1,7 @@
 #include "GUIRenderer.h"
 
+using namespace std;
+
 GUIRenderer::GUIRenderer()
 {
     //ctor
@@ -51,6 +53,7 @@ void GUIRenderer::addGUIObject(AbstractGUIObject *object)
 
     // VERTEX1_X VERTEX1_Y TEX1_X TEX1_Y VERTEX2_X VERTEX2_Y TEX2_X TEX2_Y....
     for(int i = 0;i < object->getCoordsCount();i++) {
+        //cout << "DATA " << vertices[i] << " " << vertices[i+1] << " " << tex[i] << " " << tex[i+1] << endl;
         datas[4*i]      = vertices[i];
         datas[4*i + 1]  = vertices[i+1];
         datas[4*i + 2]  = tex[i];
@@ -59,24 +62,33 @@ void GUIRenderer::addGUIObject(AbstractGUIObject *object)
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
 
-        glBufferData(GL_ARRAY_BUFFER, 2*size);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, 2*size, datas);
+        glBufferData(GL_ARRAY_BUFFER, 2*size, datas, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     m_guiObjects.push_back(object);
 }
 
+void GUIRenderer::setShader(Shader shader)
+{
+    m_shader = shader;
+    if(!m_shader.load()) {
+        cout << "Error loading the GUI shader. App will most likely crash." << endl;
+    }
+}
+
 void GUIRenderer::render()
 {
+    m_shader.bind();
     glBindVertexArray(m_vaoID); // Using the VAO
     // Each draw call will bind the associated texture if necessary.
 
         for(auto it = m_guiObjects.begin();it != m_guiObjects.end();it++) {
-            it->draw();
+            (*it)->draw();
         }
 
     glBindVertexArray(0);
+    m_shader.unbind();
 }
 
 GUIRenderer::~GUIRenderer()

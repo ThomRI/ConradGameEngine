@@ -20,6 +20,8 @@
 #include "AbstractMesh.h"
 #include "AbstractCamera.h"
 #include "AbstractLight.h"
+#include "GUIRenderer.h"
+#include "SimpleTextureGUI.h"
 
 /*!
  * \class Renderer
@@ -34,6 +36,7 @@ class Renderer
 
         void setShader(Shader shader);
         void setDepthShader(Shader shader);
+        void setGUIShader(Shader shader);
 
         void render(); // Pushes next frame into buffer
         void toggleWireframe(); // Toggles wireframe rendering
@@ -89,6 +92,9 @@ class Renderer
 
         float   m_viewport_width,
                 m_viewport_height;
+
+        /* GUI */
+        GUIRenderer *m_guiRenderer;
 };
 
 #endif // RENDERER_H

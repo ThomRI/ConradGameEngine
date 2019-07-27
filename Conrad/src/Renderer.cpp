@@ -11,6 +11,8 @@ Renderer::Renderer(float viewport_width, float viewport_height) :
 
     m_camera = new AbstractCamera;
     // Z UP Y FORWARD
+
+    m_guiRenderer = new GUIRenderer;
 }
 
 Renderer::Renderer(AbstractCamera *camera) :
@@ -43,7 +45,7 @@ void Renderer::setShader(Shader shader)
     m_uniformLocations.specularStrength = m_shader.getUniformLocation("specularStrength");
     m_uniformLocations.specularExponent = m_shader.getUniformLocation("specularExponent");
 
-    // Diffuse texture
+    // Diffuse texture : always id 0. It is a constant uniform send that doesn't have to be executed every frame.
     m_shader.bind();
         m_shader.sendInt(m_shader.getUniformLocation("tex"), 0); // ID 0 for diffuse textures
     m_shader.unbind();
@@ -57,14 +59,13 @@ void Renderer::setDepthShader(Shader shader)
     }
 }
 
+void Renderer::setGUIShader(Shader shader)
+{
+    m_guiRenderer->setShader(shader);
+}
+
 void Renderer::render()
 {
-    /* Updating shadow maps */
-    for(int i = 0;i < m_lights.size();i++) {
-        m_lights[i]->setDirection(m_lights[i]->getDirection() + vec3(-0.001, 0.0001, 0.0));
-        generateShadowMap(m_lights[i]);
-    }
-
     m_shader.bind();
 
     /* Camera */
@@ -112,6 +113,8 @@ void Renderer::render()
 
 
     m_shader.unbind();
+
+    //m_guiRenderer->render();
 }
 
 void Renderer::generateShadowMap(AbstractLight *source)
@@ -128,7 +131,8 @@ void Renderer::generateShadowMap(AbstractLight *source)
 
     glViewport(0, 0, source->getDepthBuffer().getShadowMapWidth(), source->getDepthBuffer().getShadowMapHeight());
     source->getDepthBuffer().bind();
-    glClear(GL_DEPTH_BUFFER_BIT);
+
+        glClear(GL_DEPTH_BUFFER_BIT);
 
         for(vector<AbstractMesh*>::iterator mesh = m_meshes.begin();mesh != m_meshes.end();mesh++) { // Iterating over meshes
             glUniformMatrix4fv(glGetUniformLocation(m_depthShader.getProgramID(), "modelview"), 1, GL_FALSE, value_ptr((*mesh)->get_modelview())); // modelview of the mesh
@@ -140,6 +144,13 @@ void Renderer::generateShadowMap(AbstractLight *source)
 
     glCullFace(GL_BACK);
     glViewport(0, 0, m_viewport_width, m_viewport_height);
+
+
+    /*AbstractTexture *tex = new AbstractTexture("D:/GitHub/ConradGameEngine/Conrad/textures/veg010.jpg");
+    tex->load();
+    //tex->setID(source->getDepthBuffer().getTextureID());
+    SimpleTextureGUI *guiObj = new SimpleTextureGUI(tex);
+    m_guiRenderer->addGUIObject(guiObj);*/
 }
 
 void Renderer::toggleWireframe()
@@ -172,7 +183,7 @@ AbstractMesh *Renderer::getMesh(int meshID)
 int Renderer::addLight(AbstractLight *light)
 {
     m_lights.push_back(light);
-    return m_lights.size() - 1;
+    return m_lights.size() - 1; // index
 }
 
 AbstractLight *Renderer::getLight(int lightID)

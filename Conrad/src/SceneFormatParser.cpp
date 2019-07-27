@@ -42,6 +42,7 @@ bool SceneFormatParser::parse()
 
     Object object_buffer;
     while(read_object(object_buffer)) {
+        cout << object_buffer.datasize << endl;
         switch(object_buffer.type) {
             case MESH_OBJECT_CODE:
             {
@@ -69,7 +70,7 @@ bool SceneFormatParser::parse()
 
             case CAMERA_OBJECT_CODE:
             {
-
+                cout << "Found camera" << endl;
                 break;
             }
 

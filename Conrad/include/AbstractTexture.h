@@ -44,9 +44,12 @@ class AbstractTexture
         /* Setters */
         void setID(GLuint id);
         void setPath(std::string filepath);
+        void setSize(GLsizei width, GLsizei height);
 
         /* Getters */
         GLuint getID();
+        GLsizei getWidth();
+        GLsizei getHeight();
         bool isLoaded();
 
     protected:
@@ -54,6 +57,8 @@ class AbstractTexture
 
     private:
         std::string m_filepath;
+        GLsizei m_width     = 0,
+                m_height    = 0;
 
         /* OpenGL */
         GLuint m_id = 0; // 0 is always unused

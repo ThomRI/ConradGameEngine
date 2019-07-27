@@ -16,7 +16,6 @@ int main(int argc, char **argv)
 {
     cout << "Hello world!" << endl;
 
-
     Application *app = new Application("Conrad Engine", 1280, 720);
     if(!app->init()) {
         cout << "Error setting up SDL or context" << endl;
@@ -27,9 +26,11 @@ int main(int argc, char **argv)
 
     Shader shader("shaders/advanced/materials.vert", "shaders/advanced/materials.frag");
     Shader depthShader("shaders/advanced/depth.vert", "shaders/advanced/depth.frag");
+    Shader guiShader("shaders/advanced/gui.vert", "shaders/advanced/gui.frag");
 
     app->getRenderer()->setShader(shader); // loads the shader
     app->getRenderer()->setDepthShader(depthShader);
+    app->getRenderer()->setGUIShader(guiShader);
 
 
     Uint32 start = SDL_GetTicks();
@@ -43,11 +44,12 @@ int main(int argc, char **argv)
         app->getRenderer()->addMesh(meshes->at(i));
     }
 
-
     vector <AbstractLight *> *lights = parser.getLights();
     for(int i = 0;i < lights->size();i++) {
         app->getRenderer()->addLight(lights->at(i));
     }
+
+    app->getRenderer()->generateShadowMap(lights->at(0));
 
     //PointLight *light = new PointLight(glm::vec3(5.0, 0.0, 3.0), glm::vec3(1.0), 1.0, false);
     //app->getRenderer()->addLight(light);
