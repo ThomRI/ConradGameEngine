@@ -68,7 +68,7 @@ void GUIRenderer::addGUIObject(AbstractGUIObject *object)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    free(datas);
+    //free(datas);
 
     m_guiObjects.push_back(object);
 }
@@ -83,7 +83,10 @@ void GUIRenderer::setShader(Shader shader)
 
 void GUIRenderer::render()
 {
-    glCullFace(GL_FRONT); // GUIs are upside down
+    // NOTE (IMPORTANT) : GUI FACES MUST BE CORRECTLY ORIENTED SO THAT CULLING DON'T INTERFERE
+    // FOR NOW, CULLING IS JUST DISABLED DURING GUI RENDER TIME
+    glDisable(GL_CULL_FACE);
+
     m_shader.bind();
     glBindVertexArray(m_vaoID); // Using the VAO
     // Each draw call will bind the associated texture if necessary.
@@ -94,6 +97,8 @@ void GUIRenderer::render()
 
     glBindVertexArray(0);
     m_shader.unbind();
+
+    glEnable(GL_CULL_FACE);
 }
 
 GUIRenderer::~GUIRenderer()
