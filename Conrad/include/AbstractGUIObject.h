@@ -21,9 +21,19 @@ class AbstractGUIObject
         void setPosition(glm::vec2 position);
         glm::vec2 getPosition();
 
+        void translate(float x, float y);
+        void translate(glm::vec2 vector);
+
+        void scale(float x, float y);
+        void scale(float coefficient);
+
+        void rotate(float angle);
+
         float *getVertices();
         float *getTexCoords();
         int getCoordsCount();
+
+        glm::mat4 &getModelview();
 
     protected:
 

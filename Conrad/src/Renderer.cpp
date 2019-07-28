@@ -146,6 +146,13 @@ void Renderer::generateShadowMap(AbstractLight *source)
 
     glCullFace(GL_BACK);
     glViewport(0, 0, m_viewport_width, m_viewport_height);
+
+    AbstractTexture *tex = new AbstractTexture();
+    tex->setID(source->getDepthBuffer().getTextureID());
+    SimpleTextureGUI *guiObj = new SimpleTextureGUI(tex);
+    m_guiRenderer->addGUIObject(guiObj);
+
+    guiObj->scale(0.5);
 }
 
 void Renderer::toggleWireframe()

@@ -79,6 +79,8 @@ void GUIRenderer::setShader(Shader shader)
     if(!m_shader.load()) {
         cout << "Error loading the GUI shader. App will most likely crash." << endl;
     }
+
+    m_uniformLocations.modelview = m_shader.getUniformLocation("modelview");
 }
 
 void GUIRenderer::render()
@@ -92,6 +94,7 @@ void GUIRenderer::render()
     // Each draw call will bind the associated texture if necessary.
 
         for(auto it = m_guiObjects.begin();it != m_guiObjects.end();it++) {
+            m_shader.sendMatrix(m_uniformLocations.modelview, (*it)->getModelview());
             (*it)->draw();
         }
 

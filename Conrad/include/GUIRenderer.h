@@ -31,6 +31,9 @@ class GUIRenderer
             GLuint m_vaoID, m_vboID;
 
         Shader m_shader;
+        struct {
+            GLint   modelview;
+        } m_uniformLocations;
 
         std::vector<AbstractGUIObject *> m_guiObjects;
 };

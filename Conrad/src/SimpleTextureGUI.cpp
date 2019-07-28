@@ -5,11 +5,11 @@ using namespace std;
 SimpleTextureGUI::SimpleTextureGUI(AbstractTexture *texture) :
     AbstractGUIObject(), m_texture(texture)
 {
-    float vertices[12] = {   -1.0, 1.0,      1.0, -1.0,       1.0, 1.0,
-                            -1.0, 1.0,      -1.0, -1.0,     1.0, -1.0}; // 2 triangles
+    float vertices[12] = {   -1.0, 1.0,      1.0, -1.0,       1.0, 1.0, // top right
+                            -1.0, 1.0,      -1.0, -1.0,     1.0, -1.0}; // bottom left
 
-    float tex[12] = {0.0, 0.0,       1.0, 0.0,       1.0, 1.0,
-                    0.0, 0.0,       0.0, 1.0,       1.0, 1.0};
+    float tex[12] = {0.0, 1.0,       1.0, 0.0,       1.0, 1.0,
+                     0.0, 1.0,       0.0, 0.0,       1.0, 0.0};
 
     setData(vertices, tex, 6);
 }

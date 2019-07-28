@@ -34,6 +34,36 @@ void AbstractGUIObject::setPosition(float x, float y)
     m_modelview *= glm::translate(x, y, 0.0f);
 }
 
+void AbstractGUIObject::setPosition(vec2 position)
+{
+    setPosition(position.x, position.y);
+}
+
+void AbstractGUIObject::translate(float x, float y)
+{
+    m_modelview *= glm::translate(x, y, 0.0f);
+}
+
+void AbstractGUIObject::translate(vec2 vector)
+{
+    this->translate(vector.x, vector.y);
+}
+
+void AbstractGUIObject::rotate(float angle)
+{
+    m_modelview *= glm::rotate(angle, 0.0f, 0.0f, 1.0f);
+}
+
+void AbstractGUIObject::scale(float x, float y)
+{
+    m_modelview *= glm::scale(x, y, 0.0f);
+}
+
+void AbstractGUIObject::scale(float scale)
+{
+    m_modelview *= glm::scale(scale, scale, 0.0f);
+}
+
 float *AbstractGUIObject::getVertices()
 {
     return m_vertices;
@@ -47,6 +77,11 @@ float *AbstractGUIObject::getTexCoords()
 int AbstractGUIObject::getCoordsCount()
 {
     return m_coordsCount;
+}
+
+mat4 &AbstractGUIObject::getModelview()
+{
+    return m_modelview;
 }
 
 AbstractGUIObject::~AbstractGUIObject()

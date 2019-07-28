@@ -12,6 +12,7 @@ class SimpleTextureGUI : public AbstractGUIObject
 
         void draw();
 
+        AbstractTexture *getTexture();
     protected:
 
     private:
