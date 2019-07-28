@@ -7,5 +7,6 @@ out vec4 out_Color;
 
 void main()
 {
-	out_Color = texture(tex, frag_texCoord0) * vec4(1.0);
+	out_Color.xyz = texture(tex, frag_texCoord0);
+	out_Color.w = 1.0;
 }

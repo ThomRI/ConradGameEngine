@@ -62,10 +62,12 @@ void Renderer::setDepthShader(Shader shader)
 void Renderer::setGUIShader(Shader shader)
 {
     m_guiRenderer->setShader(shader);
+    m_guiRenderer->load();
 }
 
 void Renderer::render()
 {
+    glCullFace(GL_BACK);
     m_shader.bind();
 
     /* Camera */
@@ -114,7 +116,7 @@ void Renderer::render()
 
     m_shader.unbind();
 
-    //m_guiRenderer->render();
+    m_guiRenderer->render();
 }
 
 void Renderer::generateShadowMap(AbstractLight *source)
@@ -144,13 +146,6 @@ void Renderer::generateShadowMap(AbstractLight *source)
 
     glCullFace(GL_BACK);
     glViewport(0, 0, m_viewport_width, m_viewport_height);
-
-
-    /*AbstractTexture *tex = new AbstractTexture("D:/GitHub/ConradGameEngine/Conrad/textures/veg010.jpg");
-    tex->load();
-    //tex->setID(source->getDepthBuffer().getTextureID());
-    SimpleTextureGUI *guiObj = new SimpleTextureGUI(tex);
-    m_guiRenderer->addGUIObject(guiObj);*/
 }
 
 void Renderer::toggleWireframe()
@@ -208,6 +203,10 @@ AbstractCamera *Renderer::get_camera()
 Shader *Renderer::getShader()
 {
     return &m_shader;
+}
+GUIRenderer *Renderer::gui()
+{
+    return m_guiRenderer;
 }
 
 Renderer::~Renderer()

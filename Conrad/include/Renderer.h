@@ -53,6 +53,7 @@ class Renderer
         AbstractCamera *get_camera();
 
         Shader *getShader();
+        GUIRenderer *gui(); // Getter for the GUI Renderer
 
         void clear();
 

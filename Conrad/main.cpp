@@ -49,7 +49,13 @@ int main(int argc, char **argv)
         app->getRenderer()->addLight(lights->at(i));
     }
 
-    app->getRenderer()->generateShadowMap(lights->at(0));
+    //app->getRenderer()->generateShadowMap(lights->at(0));
+
+    AbstractTexture *tex = new AbstractTexture("D:/GitHub/ConradGameEngine/Conrad/textures/veg010.jpg");
+    tex->load();
+    //tex->setID(source->getDepthBuffer().getTextureID());
+    SimpleTextureGUI *guiObj = new SimpleTextureGUI(tex);
+    app->getRenderer()->gui()->addGUIObject(guiObj);
 
     //PointLight *light = new PointLight(glm::vec3(5.0, 0.0, 3.0), glm::vec3(1.0), 1.0, false);
     //app->getRenderer()->addLight(light);

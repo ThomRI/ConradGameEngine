@@ -28,12 +28,12 @@ void GUIRenderer::load()
     /* Linking VAO and VBO */
         glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
 
-        // VERTEX1_X VERTEX1_Y TEX1_X TEX1_Y VERTEX2_X VERTEX2_Y TEX2_X TEX2_Y....
+        // [stride start] VERTEX1_X VERTEX1_Y TEX1_X TEX1_Y [stride end] VERTEX2_X VERTEX2_Y TEX2_X TEX2_Y....
 
-            glVertexAttribPointer(VERTEX_BUFFER, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, BUFFER_OFFSET(0));
+            glVertexAttribPointer(VERTEX_BUFFER, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4, BUFFER_OFFSET(0));
             glEnableVertexAttribArray(VERTEX_BUFFER);
 
-            glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, BUFFER_OFFSET(sizeof(float) * 2)); // Begins after the two first vertices
+            glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4, BUFFER_OFFSET(sizeof(GLfloat) * 2)); // Begins after the two first vertices
             glEnableVertexAttribArray(TEX_BUFFER);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -53,18 +53,22 @@ void GUIRenderer::addGUIObject(AbstractGUIObject *object)
 
     // VERTEX1_X VERTEX1_Y TEX1_X TEX1_Y VERTEX2_X VERTEX2_Y TEX2_X TEX2_Y....
     for(int i = 0;i < object->getCoordsCount();i++) {
-        //cout << "DATA " << vertices[i] << " " << vertices[i+1] << " " << tex[i] << " " << tex[i+1] << endl;
-        datas[4*i]      = vertices[i];
-        datas[4*i + 1]  = vertices[i+1];
-        datas[4*i + 2]  = tex[i];
-        datas[4*i + 3]  = tex[i+1];
+        cout << "DATA (" << 4*i << ") " << vertices[2*i] << " " << vertices[2*i+1] << " " << tex[2*i] << " " << tex[2*i+1] << endl;
+        datas[4*i]      = vertices[2*i];
+        datas[4*i + 1]  = vertices[2*i+1];
+        datas[4*i + 2]  = tex[2*i];
+        datas[4*i + 3]  = tex[2*i+1];
     }
 
+    glBindVertexArray(m_vaoID);
     glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
 
         glBufferData(GL_ARRAY_BUFFER, 2*size, datas, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    free(datas);
 
     m_guiObjects.push_back(object);
 }
@@ -79,6 +83,7 @@ void GUIRenderer::setShader(Shader shader)
 
 void GUIRenderer::render()
 {
+    glCullFace(GL_FRONT); // GUIs are upside down
     m_shader.bind();
     glBindVertexArray(m_vaoID); // Using the VAO
     // Each draw call will bind the associated texture if necessary.

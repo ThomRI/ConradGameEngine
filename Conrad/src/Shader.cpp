@@ -82,7 +82,8 @@ bool Shader::load()
                                 glAttachShader(m_programID, m_fragmentID);
     if(m_usesGeometryShader)    glAttachShader(m_programID, m_geometryID);
 
-    /* VertexAttribPointer IDs (those are universal in the engine */
+    /* VertexAttribPointer IDs (those are universal in the engine) */
+    // Links "in" variable in the shader with the VertexAttribPointer IDs
     glBindAttribLocation(m_programID, VERTEX_BUFFER, "in_Vertex");
     glBindAttribLocation(m_programID, COLOR_BUFFER, "in_Color");
     glBindAttribLocation(m_programID, TEX_BUFFER, "in_TexCoord0"); // Multitexturing isn't supported for now
