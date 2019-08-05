@@ -61,6 +61,7 @@
 			<Add directory="$(#sdl2.INCLUDE)" />
 			<Add directory="$(#glm.INCLUDE)" />
 			<Add directory="$(#glew.INCLUDE)" />
+			<Add directory="$(#sdl2_ttf.INCLUDE)" />
 		</Compiler>
 		<Linker>
 			<Add library="libglew32" />
@@ -69,6 +70,7 @@
 			<Add library="SDL2" />
 			<Add library="SDL2_image" />
 			<Add library="opengl32" />
+			<Add library="libSDL2_ttf" />
 			<Add directory="$(#sdl2.LIB)" />
 			<Add directory="$(#glew.LIB)" />
 		</Linker>
@@ -103,6 +105,7 @@
 		<Unit filename="include/TestTriangle.h" />
 		<Unit filename="include/key_mapping.h" />
 		<Unit filename="include/scope.h" />
+		<Unit filename="include/text_utilities.hpp" />
 		<Unit filename="include/utilities.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/AbstractCamera.cpp" />

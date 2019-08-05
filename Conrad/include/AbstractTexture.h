@@ -21,6 +21,11 @@
 #include <iostream>
 #include <string>
 
+#define INVALID_MODE    0
+#define FILE_MODE       1
+#define SDL_MODE        2
+#define FBO_MODE        3
+
 class AbstractTexture
 {
     public:
@@ -29,6 +34,8 @@ class AbstractTexture
         virtual ~AbstractTexture();
 
         bool load();
+        bool loadFromSDL(SDL_Surface *surface, GLvoid* &data_ptr, GLenum &internalFormat, GLenum &format, bool reverse = true);
+
         inline void linkToFBO(GLuint fbo, int index = 0) {
             /* index is the attachment index within the FBO */
             glBindRenderbuffer(GL_RENDERBUFFER, fbo);
@@ -36,6 +43,9 @@ class AbstractTexture
 
             // TODO : Unbind the FBO ? Warning, if used with a bind before, unbinding here could be unexpected
         }
+
+        bool update(SDL_Surface *sdl_image, bool reverse = true); // reverse parameter is used to reverse the sdl_image in order to use the correct coordinates system
+        // The new sdl_image must have the same format than the current texture ! (For performance issue, we can't afford to recalculate everything)
 
         /* OpenGL */
         void bind();
@@ -59,11 +69,13 @@ class AbstractTexture
         std::string m_filepath;
         GLsizei m_width     = 0,
                 m_height    = 0;
+        GLenum  m_internalFormat,
+                m_format;
 
         /* OpenGL */
         GLuint m_id = 0; // 0 is always unused
 
-        bool m_filemode = false;
+        bool m_mode = INVALID_MODE;
         bool m_loaded = false;
 };
 

@@ -3,26 +3,26 @@
 using namespace std;
 
 AbstractTexture::AbstractTexture() :
-    m_filemode(false)
+    m_mode(INVALID_MODE)
 {
 
 }
 
 AbstractTexture::AbstractTexture(string filepath) :
-    m_filepath(filepath), m_filemode(true)
+    m_filepath(filepath), m_mode(FILE_MODE)
 {
 
 }
 
 void AbstractTexture::setID(GLuint id)
 {
-    m_filemode = false; // Lost track of the file content link
+    m_mode = FBO_MODE;
     m_id = id;
 }
 
 void AbstractTexture::setPath(string filepath)
 {
-    m_filemode = true;
+    m_mode = FILE_MODE;
     m_filepath = filepath;
 }
 
@@ -32,10 +32,72 @@ void AbstractTexture::setSize(GLsizei width, GLsizei height)
     m_height = height;
 }
 
+bool AbstractTexture::update(SDL_Surface *sdl_image, bool reverse)
+{
+    if(!m_loaded) {
+        return false;
+    }
+}
+
+bool AbstractTexture::loadFromSDL(SDL_Surface *surface, GLvoid* &data_ptr, GLenum &internalFormat, GLenum &format, bool reverse)
+{
+    m_mode = SDL_MODE;
+
+    if(surface == 0) {
+        cout << "Error while loading texture : " << SDL_GetError() << endl;
+        return false;
+    }
+
+    SDL_Surface *SDL_image = 0;
+    if(reverse) {
+        SDL_image = AbstractTexture::reverse_SDL_surface(surface); // Need to reverse the image as OpenGL uses a different coords system for 2D textures.
+        SDL_FreeSurface(surface);
+    } else {
+        SDL_image = surface;
+    }
+
+    /* Getting image format */
+        if(SDL_image->format->BytesPerPixel == 3) {
+            internalFormat = GL_SRGB; // S for gamma correction canceling on the image (it's taken care of in the shader)
+            if(SDL_image->format->Rmask == 0xff) { // Red first in the mask
+                format = GL_RGB;
+            } else {
+                format = GL_BGR;
+            }
+        }
+
+        else if(SDL_image->format->BytesPerPixel == 4) {
+            internalFormat = GL_SRGB_ALPHA; // Not GL_RGBA for gamma correction canceling on the image (it's taken care of in the shader)
+            if(SDL_image->format->Rmask == 0xff) { // Red first
+                format = GL_RGBA;
+            } else {
+                format = GL_BGRA;
+            }
+        }
+
+        else { /* Format not recognized */
+            cout << "Error while loading texture : format not recognized." << endl;
+            return false;
+        }
+
+    m_width = SDL_image->w;
+    m_height = SDL_image->h;
+    data_ptr = (GLvoid *) SDL_image->pixels;
+
+    SDL_FreeSurface(SDL_image);
+
+    return true;
+}
+
 bool AbstractTexture::load()
 {
+    if(m_mode == INVALID_MODE) {
+        return false;
+    }
+
     GLvoid *data_ptr = 0; // Blank by default
-    GLenum internalFormat(GL_SRGB_ALPHA), format(GL_RGBA);
+    m_internalFormat = GL_SRGB_ALPHA;
+    m_format = GL_RGBA;
 
     /* OpenGL texture generation */
     if(glIsTexture(m_id) == GL_TRUE) {
@@ -43,57 +105,23 @@ bool AbstractTexture::load()
     } glGenTextures(1, &m_id); // Texture ID generation
 
     SDL_Surface *SDL_image = 0; // Temporary pointer for freeing afterwards
-    if(m_filemode) {
+    if(m_mode == FILE_MODE) {
         SDL_Surface *source = IMG_Load(m_filepath.c_str());
-
-        if(source == 0) {
-            cout << "Error while loading texture (" << m_filepath << ") : " << SDL_GetError() << endl;
+        if(!loadFromSDL(source, data_ptr, m_internalFormat, m_format, true)) {
             return false;
         }
-        SDL_image = AbstractTexture::reverse_SDL_surface(source); // Need to reverse the image as OpenGL uses a different coords system for 2D textures.
-        SDL_FreeSurface(source);
-
-        /* Getting image format */
-            if(SDL_image->format->BytesPerPixel == 3) {
-                internalFormat = GL_SRGB; // S for gamma correction canceling on the image (it's taken care of in the shader)
-                if(SDL_image->format->Rmask == 0xff) { // Red first in the mask
-                    format = GL_RGB;
-                } else {
-                    format = GL_BGR;
-                }
-            }
-
-            else if(SDL_image->format->BytesPerPixel == 4) {
-                internalFormat = GL_SRGB_ALPHA; // Not GL_RGBA for gamma correction canceling on the image (it's taken care of in the shader)
-                if(SDL_image->format->Rmask == 0xff) { // Red first
-                    format = GL_RGBA;
-                } else {
-                    format = GL_BGRA;
-                }
-            }
-
-            else { /* Format not recognized */
-                cout << "Error while loading texture (" << m_filepath << ") : format not recognized." << endl;
-                return false;
-            }
-
-            m_width = SDL_image->w;
-            m_height = SDL_image->h;
-            data_ptr = (GLvoid *) SDL_image->pixels;
     }
 
     /* Setting up texture */
     glBindTexture(GL_TEXTURE_2D, m_id);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, data_ptr);
+        glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, m_width, m_height, 0, m_format, GL_UNSIGNED_BYTE, data_ptr);
 
         // Filters
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    if(m_filemode) SDL_FreeSurface(SDL_image);
 
     m_loaded = true;
     return true;
